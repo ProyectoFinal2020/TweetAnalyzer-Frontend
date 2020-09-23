@@ -1,0 +1,91 @@
+@import "helpers/_variables";
+
+@mixin initialLoadingConfig {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 2.8px solid transparent;
+    -webkit-border-radius: 99.9rem;
+    -moz-border-radius: 99.9rem;
+    border-radius: 99.9rem;
+}
+
+@mixin animationRotation($time) {
+    -webkit-animation: animation-rotate $time linear infinite;
+    -moz-animation: animation-rotate $time linear infinite;
+    -o-animation: animation-rotate $time linear infinite;
+    animation: animation-rotate $time linear infinite;
+}
+
+.loading_container {
+    height: calc(100vh - 200px);
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading {
+    position: absolute;
+    height: 6rem;
+    width: 6rem;
+}
+
+.loading_animation {
+    @include initialLoadingConfig();
+    margin: -2.5rem 0 0 -2.5rem;
+    height: 5rem;
+    width: 5rem;
+    @include animationRotation(2500ms);
+    border-left-color: $primary;
+    border-right-color: $primary;
+
+    &::before,
+    &::after {
+        @include initialLoadingConfig();
+    }
+
+    &::before {
+        content: "";
+        margin: -2rem 0 0 -2rem;
+        height: 4rem;
+        width: 4rem;
+        @include animationRotation(2500ms);
+        border-right-color: $light;
+        border-left-color: $light;
+    }
+
+    &::after {
+        content: "";
+        margin: -3rem 0 0 -3rem;
+        height: 6rem;
+        width: 6rem;
+        @include animationRotation(3000ms);
+        border-right-color: $dark;
+        border-left-color: $dark;
+    }
+}
+
+@-webkit-keyframes animation-rotate {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes animation-rotate {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes animation-rotate {
+    100% {
+        -o-transform: rotate(360deg);
+    }
+}
+
+@keyframes animation-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}

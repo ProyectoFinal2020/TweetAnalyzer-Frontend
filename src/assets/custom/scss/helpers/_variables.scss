@@ -1,0 +1,64 @@
+/* Color font
+___________________________________ */
+
+$primary: #4c8abd !default;
+$secondary: #92648c !default;
+$success: #4ba471 !default;
+$info: #172b32 !default;
+$warning: #ff8400 !default;
+$danger: #f44336 !default;
+$light: #9fadbd !default;
+$dark: #011b31 !default;
+$grey: #999999 !default;
+$lightShade: #F6F3F6;
+
+/* Secondary Colors
+___________________________________ */
+
+$main-grey: #666;
+$dark-grey: #979797;
+$grey: #f1f1f1;
+$light-grey: #ececec;
+$white: #fff;
+$black: #000;
+
+/* Extra Colors
+___________________________________ */
+$light-orange: #F4845F;
+$orange: #EC5D32;
+$dark-orange:#E94615;
+
+$light-green: #18B495;
+$green: #16A286;
+$dark-green: #138d75;
+
+$light-purple: #CA99C3;
+$purple: #AE7EA7;
+$dark-purple: #92648C;
+
+$light-red: #f44336;
+$red: #D0191D;
+$dark-red: #AC0002;
+
+$light-blue: #00B2D6;
+$blue: #0088A3;
+$dark-blue: #0099B8;
+
+/* Font
+___________________________________ */
+
+$font-family: "Roboto",
+"Helvetica",
+"Arial",
+sans-serif;
+$spacing: 8px;
+
+/* Screen size
+___________________________________ */
+
+$breakpoints: (xs: 0px,
+  sm: 600px,
+  md: 960px,
+  lg: 1280px,
+  xl: 1920px,
+);

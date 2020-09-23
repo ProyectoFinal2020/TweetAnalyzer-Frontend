@@ -1,0 +1,55 @@
+.MuiTypography-root {
+    &.MuiTypography-h1 {
+        font-size: 3rem;
+        font-weight: 300;
+        line-height: 1.5em;
+    }
+
+    &.MuiTypography-h2 {
+        font-size: 2.5rem;
+        font-weight: 300;
+        line-height: 1.5em;
+    }
+
+    &.MuiTypography-h3 {
+        font-size: 2rem;
+        font-weight: 400;
+        line-height: 1.5em;
+    }
+
+    &.MuiTypography-h4 {
+        font-size: 1.75rem;
+        font-weight: 400;
+        line-height: 1.5em;
+    }
+
+    &.MuiTypography-h5 {
+        font-size: 1.456rem;
+        font-weight: 400;
+        line-height: 1.5em;
+    }
+
+    &.MuiTypography-h6 {}
+
+    &.MuiTypography-subtitle1 {
+        font-size: 0.95rem;
+        font-weight: 450;
+    }
+
+    &.MuiTypography-subtitle2 {
+        font-size: 0.9rem;
+        font-weight: 400;
+    }
+
+    &.MuiTypography-body1 {}
+
+    &.MuiTypography-body2 {}
+}
+
+@media only screen and (max-width: map-get($breakpoints, sm)) {
+    &.MuiTypography-h1 {
+        font-size: 2.5rem !important;
+        font-weight: 300;
+        line-height: 1.5em;
+    }
+}

@@ -1,0 +1,179 @@
+@import "helpers/_variables";
+
+.login_container {
+    min-height: calc(100vh - 214px);
+    width: 100vw;
+    display: inherit;
+    position: relative;
+    margin: 0;
+    padding: 50px 0 0;
+    border: 0;
+    align-items: center;
+    background-image: url("/homeBackground.jpg");
+    background-size: cover;
+    background-position: top center;
+
+    &:before {
+        background: rgba(0, 0, 0, 0.2),
+    }
+
+    &:before,
+    &:after {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        display: block;
+        left: 0;
+        top: 0;
+        content: "";
+    }
+
+    & footer li a,
+    & footer li a:hover,
+    & footer li a:active {
+        color: #FFFFFF;
+    }
+
+    & footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .makeStyles-card-54 {
+        margin-bottom: 0;
+    }
+
+    .login_card_container {
+        z-index: 2;
+        position: relative;
+        padding: 50px 30px;
+        color: white;
+        animation: fadeInAnimation ease 700ms;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+
+        & .MuiGrid-root {
+            max-width: 420px;
+
+            .makeStyles-cardBody-64 {
+                padding: 0.9375rem 2.5rem;
+            }
+        }
+
+        .card_header {
+            width: auto;
+            min-height: 100px;
+            text-align: center;
+            margin: -40px 20px 20px;
+            padding: 20px;
+            box-shadow: 0 12px 20px -10px rgba($primary, 0.28), 0 4px 20px 0px rgba(black, 0.12), 0 7px 8px -5px rgba($primary, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .social_line {
+                margin-top: 1rem;
+
+                button {
+                    max-width: 64px;
+                    padding: $spacing 0;
+                    margin: 0px;
+
+                    i {
+                        font-size: 1.2rem;
+                        line-height: 1.333333;
+                        border-radius: 0.2rem;
+                    }
+                }
+            }
+        }
+
+        .login_form {
+            margin: 0;
+        }
+
+        .Mui-error .input_icons_color {
+            color: $danger;
+        }
+
+        .input_icons_color {
+            color: #495057,
+        }
+
+        .card_footer {
+            padding-top: 0rem;
+            border: 0;
+            border-radius: 6px;
+            justify-content: center !important;
+        }
+
+        .login_other {
+            margin: 0 0 20px;
+            font-size: 0.75rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 400;
+            line-height: 1.66;
+            letter-spacing: 0.03333em;
+            text-transform: none;
+
+            div {
+                margin: auto;
+                width: fit-content;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width : map-get($breakpoints, sm)) {
+    .card_header {
+        padding: 20px 10px !important;
+
+        .social_line button {
+            min-width: 50px;
+        }
+    }
+}
+
+
+/* SIGN-UP */
+.form_control_file {
+    width: 100%;
+    margin-top: 20px;
+
+    .MuiInput-underline:before {
+        border-color: lighten($dark-grey, 25%);
+        border-width: 1px !important;
+    }
+
+    &[aria-invalid="true"] {
+
+        .MuiInput-underline::before,
+        .MuiInput-underline::after {
+            border-color: red;
+            border-width: 2px;
+        }
+
+        label,
+        input,
+        svg {
+            color: red !important;
+        }
+    }
+
+    .file_input_label {
+        top: -15px;
+        @include typography_label();
+
+        &:focus-within,
+        &:focus {
+            color: $primary;
+        }
+
+        &.MuiInputLabel-shrink {
+            top: 10px;
+            transform: unset;
+            transform-origin: unset;
+        }
+    }
+}

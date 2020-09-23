@@ -1,0 +1,36 @@
+@import "helpers/_mixins";
+
+.pie_chart {
+  min-width: 200px;
+  max-width: 300px;
+  min-height: 200px;
+  max-height: 300px;
+  transition: stroke .1s;
+
+}
+
+.color_description_container {
+  font-size: small;
+  padding: 15px 0 0;
+
+  .color_description_item {
+    padding: 0;
+    min-width: 105px;
+
+    svg {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+
+    p {
+      margin: 1px 0 1px 0;
+    }
+  }
+}
+
+.chart_container {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  align-items: flex-end;
+  display: flex;
+}

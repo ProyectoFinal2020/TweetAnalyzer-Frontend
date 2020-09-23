@@ -1,0 +1,64 @@
+.deleteable_chips {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: $spacing/2;
+  margin: 0;
+
+  .chip {
+    margin: $spacing/2;
+    font-weight: 400;
+    color: white;
+    font-size: 0.95rem;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    background-color: $secondary;
+
+    svg {
+      color: rgba(white, 0.5);
+    }
+  }
+}
+
+.tweet_fetcher_container {
+
+  &,
+  .MuiGrid-item {
+    padding: 5px;
+  }
+
+  .MuiTextField-root {
+    width: 100%;
+  }
+
+  .date_picker_container {
+    .MuiGrid-item {
+      padding-left: 10px;
+    }
+  }
+
+  #add_tag_button {
+    height: 56px;
+    margin-top: 16px;
+
+    svg {
+      width: 50px;
+    }
+  }
+}
+
+.tweet_fetcher_data_box {
+  border-radius: 5px;
+  border-color: transparent;
+  padding: 5px 15px;
+  background-color: $primary;
+  width: fit-content;
+  float: right;
+  margin: 0 10px;
+
+  p {
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+}

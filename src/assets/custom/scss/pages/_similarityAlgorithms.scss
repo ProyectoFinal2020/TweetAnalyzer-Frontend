@@ -1,0 +1,63 @@
+@import "helpers/_variables";
+
+.similarity_algorithms_container {
+  button {
+    padding: 7px 23px;
+    margin: 10px;
+  }
+
+  .MuiGrid-item {
+    padding: 8px;
+  }
+
+  .similarity-algorithms-title {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+
+  .similarity-algorithms-execute {
+    max-width: 1600px;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .similarity-algorithms-form-control {
+      margin-bottom: $spacing;
+      width: 100%;
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        word-wrap: break-word;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: map-get($breakpoints, md)) {
+  .similarity_algorithms_container {
+    margin: auto;
+    max-width: 950px;
+    padding: 0 3%;
+
+    button {
+      float: right;
+      margin: 0;
+    }
+  }
+
+  .similarity_algorithms_action_btn_group {
+    max-width: 100%;
+  }
+}
+
+.rotate {
+  transform: rotate(180deg);
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.inverseRotate {
+  transform: rotate(0deg);
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}

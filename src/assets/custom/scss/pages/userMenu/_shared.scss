@@ -1,0 +1,70 @@
+@import "./helpers/variables";
+
+/* BOTONES PANTALLA XS Y SM */
+.user_menu_add_delete_btn_box {
+    max-width: 665px;
+    width: 100%;
+    margin: 15px auto;
+}
+
+.user_menu_tabs {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .MuiTabs-root {
+        width: 100%;
+        max-height: 400px;
+        max-width: 650px;
+
+        .Mui-selected {
+            background-color: rgba($light, 0.15) !important;
+        }
+
+        /* BOTON CORRESPONDIENTE AL TITULO */
+        button:first-child {
+            position: sticky !important;
+            top: 0;
+            color: rgba($primary, 1) !important;
+            opacity: 1 !important;
+            background-color: rgba(white, 100%) !important;
+            padding: 0;
+            z-index: 2;
+
+            .user_menu_delete_topics_button {
+                pointer-events: all !important;
+                cursor: pointer;
+                padding-right: 28%;
+                width: 40px;
+            }
+        }
+    }
+
+    button {
+        max-width: 100%;
+        border: 0 !important;
+
+        &:focus,
+        &:active {
+            outline: 0;
+            border-radius: 5px;
+            background-color: rgba($light, 0.15) !important;
+        }
+    }
+}
+
+@media only screen and (max-width : map-get($breakpoints, sm)) {
+    .user_menu_tabs {
+        margin-bottom: 0px;
+    }
+}
+
+@media only screen and (max-width : map-get($breakpoints, xs)) {
+    .user_menu_tabs {
+        .MuiTabs-root {
+            max-height: 250px !important;
+        }
+    }
+}

@@ -1,0 +1,306 @@
+@import "helpers/_variables";
+@import "helpers/_mixins";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100vh;
+  background-color: lighten($light-grey, 3%);
+  overflow-x: hidden;
+}
+
+header {
+  padding: 0 !important;
+
+  .MuiToolbar-root {
+    width: calc(100vw - 8px) !important;
+  }
+}
+
+body {
+  overflow-y: auto;
+  width: 100vw;
+  padding: 0 8px 0 0 !important;
+  @include add_scrollbar(8px);
+  font-family: $font-family;
+  color: $primary;
+  background-color: lighten($light-grey, 3%);
+  display: flex;
+  flex-direction: column;
+  animation: loading 0.2s ease-out 1;
+
+  .body_margin {
+    margin-top: 50px;
+    min-height: calc(100vh - 50px);
+  }
+
+  div,
+  p,
+  pre {
+    @include add_scrollbar(5px);
+  }
+
+  textarea {
+    width: 100%;
+    padding-right: 12px;
+    padding-left: 12px;
+    text-align: justify;
+    border-radius: 5px;
+    border-color: white;
+    border-width: 9px;
+    color: rgba(0, 0, 0, 0.9);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+    @include add_scrollbar(5px);
+  }
+
+  .title {
+    margin-bottom: 15px;
+  }
+
+  ::-moz-selection {
+    background-color: rgba($light, 0.5);
+  }
+
+  ::selection {
+    background-color: rgba($light, 0.5);
+  }
+}
+
+@media only screen and (max-width: map-get($breakpoints, md)) {
+  body {
+    @include add_scrollbar(5px);
+
+    div,
+    p,
+    pre,
+    textarea,
+    tbody {
+      @include add_scrollbar(3px);
+    }
+
+    .body_margin {
+      margin: 50px 2% 0 2%;
+      padding: 25px 2% 130px 2%;
+      background-color: white;
+    }
+  }
+}
+
+// ESTILOS PARA: MDB, MatUI
+.MuiGrid-item {
+  display: inline-block;
+}
+
+@media (max-width: 580px) {
+  html {
+    height: 100vh;
+    overflow-x: hidden;
+    font-size: 90%;
+  }
+
+  .col-xs-10,
+  .col-sm-10 {
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+  }
+
+  .col-xs-2,
+  .col-xs-2 {
+    flex: 0 0 16.6666667%;
+    max-width: 16.6666667%;
+  }
+}
+
+/* NAVBAR */
+.MuiAppBar-positionFixed {
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+.navbar_logo {
+  p {
+    color: white;
+    font-family: Roboto Slab, Times New Roman, serif;
+    text-transform: capitalize;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+}
+
+/* PROGRESS BAR */
+.progress_bar {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 100%;
+}
+
+/* TABLAS QUE MUESTRAN INFORMACION */
+table {
+  thead {
+    border-radius: 5px 5px 5px 5px;
+    display: table;
+    width: 100%;
+
+    th {
+      vertical-align: middle;
+    }
+  }
+
+  tbody {
+    @include add_scrollbar(5px);
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+
+    tr {
+      display: table;
+      width: 100%;
+    }
+
+    div {
+      overflow-x: none;
+      overflow-y: auto;
+      text-align: justify;
+      padding-right: 5px;
+    }
+  }
+}
+
+/* COMPONENTE CALENDARIO */
+.date_picker {
+  margin-bottom: 0;
+
+  &[aria-invalid="true"] {
+
+    .MuiInput-underline::before,
+    .MuiInput-underline::after {
+      border-color: red;
+    }
+
+    label,
+    input {
+      color: red;
+    }
+  }
+}
+
+/* COMPONENTE TEXT FIELD EN FORM */
+.MuiTextField-root {
+  fieldset {
+    border: 1px solid #c3c3c3;
+  }
+
+  &[aria-invalid="true"] {
+
+    fieldset,
+    fieldset:hover,
+    fieldset:focus,
+    fieldset:focus-within {
+      border-color: red !important;
+    }
+
+    label,
+    input {
+      color: red;
+    }
+  }
+}
+
+/* SEARCH BAR */
+.search_bar {
+  padding: 5px;
+
+  .MuiFormControl-root {
+    width: 100%;
+
+    .MuiFilledInput-root {
+      border-radius: 4px;
+      background-color: lighten($light-grey, 4%);
+
+      &::before,
+      &::after,
+      &:hover,
+      &:focus-within {
+        border: none !important;
+      }
+
+      &:hover {
+        background-color: lighten($light-grey, 2%);
+      }
+
+      &:focus-within {
+        background-color: lighten($light-grey, 3%);
+      }
+    }
+
+    .MuiFilledInput-input {
+      padding: 10px 12px;
+    }
+
+    .MuiInputAdornment-root {
+      height: auto;
+      margin-top: 0 !important;
+    }
+  }
+}
+
+/* MULTIPLE SELECTOR */
+.multiple_selector {
+  padding: 5px;
+
+  .MuiFormControl-root {
+    width: 100%;
+    background-color: lighten($light-grey, 4%);
+    border-radius: 4px;
+    padding: 3.5px 5px;
+
+    &:hover {
+      background-color: lighten($light-grey, 2%);
+    }
+
+    &:focus-within,
+    .MuiSelect-root:focus {
+      background-color: $light-grey;
+    }
+
+    .MuiSelect-root {
+      color: $dark-grey;
+      padding-left: 12px;
+    }
+
+    .MuiInput-underline {
+
+      &::after,
+      &::before {
+        border: none !important;
+        border-bottom: none !important;
+      }
+    }
+  }
+}
+
+.multiple_selector_selected {
+  background-color: transparent !important;
+
+  &:hover {
+    background-color: lighten($light-grey, 4%) !important;
+  }
+}
+
+/* MODAL/DIALOG */
+.modal_text {
+  @include add_enters();
+}
+
+.all_width {
+  width: 100%;
+}

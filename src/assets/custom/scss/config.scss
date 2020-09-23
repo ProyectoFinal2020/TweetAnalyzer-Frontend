@@ -1,0 +1,58 @@
+@import "helpers/_variables";
+
+:export {
+    /* COLORES DE LA APLICACION */
+    primaryColor: $primary;
+    roseColor: $secondary;
+    warningColor: $warning;
+    dangerColor: $danger;
+    successColor: $success;
+    infoColor: $info;
+    darkColor: darken($color: $dark, $amount: 2%);
+    lightColor: $light;
+
+    grayColor: $grey;
+    lightGrayColor: $light-grey;
+    darkGrayColor: $dark-grey;
+
+    spacing: $spacing;
+
+    /* COLORES PARA EL ANALISIS DE SENTIMIENTOS */
+    anger: #f44336;
+    anticipation: #1abc9c;
+    disgust: #138d75;
+    fear: #cd6155;
+    joy: #a569bd;
+    sadness: #5dade2;
+    surprise: #ec7818;
+    trust: #6f8850;
+
+    none: #999999;
+
+    /* COLORES PARA LOS CHIPS DE ALGORITMOS DE SIMILITUD */
+    lightOrange: $light-orange;
+    orange: $orange;
+    darkOrange: $dark-orange;
+
+    lightGreen: $light-green;
+    green: $green;
+    darkGreen: $dark-green;
+
+    lightPurple: $light-purple;
+    purple: $purple;
+    darkPurple: $dark-purple;
+
+    lightRed: $light-red;
+    red: $red;
+    darkRed: $dark-red;
+
+    lightBlue: $light-blue;
+    blue: $blue;
+    darkBlue: $dark-blue;
+
+    /* TAMANOS VALIDOS */
+    xs: map-get($breakpoints, xs);
+    sm: map-get($breakpoints, sm);
+    md: map-get($breakpoints, md);
+    lg: map-get($breakpoints, lg);
+}

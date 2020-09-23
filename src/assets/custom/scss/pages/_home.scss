@@ -1,0 +1,99 @@
+.home_container {
+
+  .title_box {
+    background-image: url("/homeBackground.jpg");
+    background-size: cover;
+    background-position-y: bottom;
+    background-color: $dark;
+    padding: 80px 25%;
+
+    h2 {
+      font-weight: 700;
+    }
+
+    h5 {
+      font-family: Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      font-size: 1.0625rem;
+      line-height: 1.55em;
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+
+    h2,
+    h5 {
+      color: white;
+      font-family: Roboto Slab, Times New Roman, serif;
+    }
+
+    .home_begin_btn {
+      margin: 10px 0;
+      justify-self: center;
+      justify-content: center;
+      display: flex;
+
+      button {
+        margin: 10px 15px 0;
+        border-radius: 20px;
+        padding-right: 25px;
+        padding-left: 25px;
+      }
+    }
+  }
+}
+
+.home_cards_container {
+  padding: 40px 10%;
+  background-color: white;
+
+  .MuiGrid-item {
+    padding: 0 15px;
+
+
+    .MuiCard-root {
+      overflow: visible;
+      height: calc(100% - 30px);
+      max-width: 410px;
+      margin: 15px auto;
+      padding: 0 6px 10px;
+
+      .section {
+        top: -28px;
+        position: relative;
+        height: 5px;
+        text-transform: uppercase;
+        font-weight: 500;
+        background-color: white;
+        padding: 0 15px;
+      }
+
+      .MuiCardContent-root {
+        height: calc(100% - 50px);
+      }
+
+      .MuiCardActions-root {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: map-get($breakpoints, xl)) {
+  .home_cards_container {
+    padding: 50px 15%;
+  }
+
+  .home_container .title_box {
+    padding: 80px 30%;
+  }
+}
+
+@media only screen and (max-width: map-get($breakpoints, md)) {
+  .home_cards_container {
+    padding: 50px 3%;
+  }
+
+  .home_container .title_box {
+    padding: 80px 10%;
+  }
+}

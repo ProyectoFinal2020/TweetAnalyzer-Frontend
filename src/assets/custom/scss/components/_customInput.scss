@@ -1,0 +1,106 @@
+.formControl {
+
+    margin: 0;
+    padding-top: 15px;
+    position: relative;
+
+    & svg,
+    & .fab,
+    & .far,
+    & .fal,
+    & .fas,
+    & .material-icons {
+        color: darken($dark-grey, 30%);
+    }
+
+    .disabled {
+        &:before {
+            border-color: transparent !important;
+        }
+    }
+
+    .underline {
+
+        .MuiInput-underline:before,
+        &:hover:not(.disabled):before,
+        &:before {
+            border-color: lighten($dark-grey, 25%);
+            border-width: 1px !important;
+        }
+
+        &:after {
+            border-color: $primary;
+        }
+    }
+
+    .underlineSuccess {
+        &:after {
+            border-color: $success;
+        }
+    }
+
+    label {
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        color: $dark-grey;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.42857;
+        letter-spacing: unset;
+    }
+
+    .labelRoot {
+        top: 16px;
+    }
+
+    .labelRootSuccess {
+        color: $success !important;
+    }
+
+
+    input {
+        color: darken($dark-grey, 30%);
+        height: unset;
+
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0 50px white inset;
+            -webkit-text-fill-color: darken($dark-grey, 30%);
+        }
+
+        &,
+        &::placeholder {
+            font-size: 14px;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 400;
+            line-height: 1.42857;
+            opacity: 1;
+        }
+
+        &::placeholder {
+            color: lighten($dark-grey, 20%);
+        }
+    }
+
+    .errorLabel {
+        height: 22px;
+        margin-top: 2px;
+    }
+
+    &[aria-invalid="true"] {
+
+        .MuiInput-underline::before,
+        .MuiInput-underline::after {
+            border-color: red !important;
+        }
+
+        input &:focus,
+        input &:hover,
+        label,
+        span,
+        input,
+        svg {
+            color: red !important;
+        }
+    }
+}

@@ -1,0 +1,67 @@
+@import "helpers/_variables";
+
+//  <svg>
+//   <use
+//     href={errorIcon + "#ShapeTwitter"}
+//     className="icon shape-twitter-2"
+//   ></use>
+// </svg> 
+
+// .icon {
+//     width: 75px;
+//     height: 75px;
+// }
+
+// .shape-twitter-2 {
+//     fill: #55ACEE
+// }
+
+.no_content_box {
+    height: calc(100vh - 264px);
+}
+
+.no_content {
+    margin-top: 50px;
+    height: 100%;
+    align-items: center;
+    display: flex;
+
+    svg {
+        width: auto;
+        height: auto;
+    }
+
+    .no_content_use {
+        width: 100%;
+        height: 100%;
+        all: inherit;
+        fill: $primary;
+        stroke: $primary;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-opacity: 0.8;
+    }
+
+    .buttons_container {
+        margin-top: 10px;
+        margin-bottom: 60px;
+
+        button {
+            border-radius: 20px;
+            padding-right: 30px;
+            padding-left: 30px;
+            margin: 10px 5px 10px 5px;
+        }
+    }
+}
+
+@media only screen and (max-width : map-get($breakpoints, sm)) {
+    .no_content_container {
+        .buttons_container {
+            button {
+                display: flex;
+                margin: 10px auto 10px auto;
+            }
+        }
+    }
+}
