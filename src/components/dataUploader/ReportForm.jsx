@@ -121,7 +121,7 @@ export const ReportForm = (props) => {
       editedReport.title.trim();
       return editedReport;
     });
-    post("/reports", { reports: editedReports }).then((response) => {
+    post("/reports", editedReports).then((response) => {
       if (response.data.length > 0) {
         let errors = "";
         response.data.forEach((error) => (errors += error + " "));

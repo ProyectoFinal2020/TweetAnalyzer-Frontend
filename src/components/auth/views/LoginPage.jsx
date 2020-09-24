@@ -89,7 +89,7 @@ export const LoginPage = () => {
     searchParams.set("url", window.location.href);
     window.location.href =
       process.env.REACT_APP_ENDPOINT +
-      "/api/account/login/" +
+      "/account/login/" +
       provider +
       "?" +
       searchParams.toString();
