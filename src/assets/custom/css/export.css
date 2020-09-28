@@ -1,0 +1,2545 @@
+/* Color font
+___________________________________ */
+/* Secondary Colors
+___________________________________ */
+/* Extra Colors
+___________________________________ */
+/* Font
+___________________________________ */
+/* Screen size
+___________________________________ */
+.MuiTypography-root.MuiTypography-h1 {
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.5em;
+}
+
+.MuiTypography-root.MuiTypography-h2 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.5em;
+}
+
+.MuiTypography-root.MuiTypography-h3 {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.5em;
+}
+
+.MuiTypography-root.MuiTypography-h4 {
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1.5em;
+}
+
+.MuiTypography-root.MuiTypography-h5 {
+  font-size: 1.456rem;
+  font-weight: 400;
+  line-height: 1.5em;
+}
+
+.MuiTypography-root.MuiTypography-subtitle1 {
+  font-size: 0.95rem;
+  font-weight: 450;
+}
+
+.MuiTypography-root.MuiTypography-subtitle2 {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+@media only screen and (max-width: 600px) {
+  .MuiTypography-h1 {
+    font-size: 2.5rem !important;
+    font-weight: 300;
+    line-height: 1.5em;
+  }
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Color font
+___________________________________ */
+/* Secondary Colors
+___________________________________ */
+/* Extra Colors
+___________________________________ */
+/* Font
+___________________________________ */
+/* Screen size
+___________________________________ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100vh;
+  background-color: #f4f4f4;
+  overflow-x: hidden;
+}
+
+header {
+  padding: 0 !important;
+}
+
+header .MuiToolbar-root {
+  width: calc(100vw - 8px) !important;
+}
+
+body {
+  overflow-y: auto;
+  width: 100vw;
+  padding: 0 8px 0 0 !important;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: #4c8abd;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  animation: loading 0.2s ease-out 1;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0 rgba(255, 255, 255, 0);
+  background-color: #fff;
+}
+
+body::-webkit-scrollbar {
+  height: 5px;
+  width: 8px;
+  background-color: #fff;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #979797;
+  border: 0;
+}
+
+body .body_margin {
+  margin-top: 50px;
+  min-height: calc(100vh - 50px);
+}
+
+body div::-webkit-scrollbar-track,
+body p::-webkit-scrollbar-track,
+body pre::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0 rgba(255, 255, 255, 0);
+  background-color: #fff;
+}
+
+body div::-webkit-scrollbar,
+body p::-webkit-scrollbar,
+body pre::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+  background-color: #fff;
+}
+
+body div::-webkit-scrollbar-thumb,
+body p::-webkit-scrollbar-thumb,
+body pre::-webkit-scrollbar-thumb {
+  background-color: #979797;
+  border: 0;
+}
+
+body textarea {
+  width: 100%;
+  padding-right: 12px;
+  padding-left: 12px;
+  text-align: justify;
+  border-radius: 5px;
+  border-color: white;
+  border-width: 9px;
+  color: rgba(0, 0, 0, 0.9);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+}
+
+body textarea::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0 rgba(255, 255, 255, 0);
+  background-color: #fff;
+}
+
+body textarea::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+  background-color: #fff;
+}
+
+body textarea::-webkit-scrollbar-thumb {
+  background-color: #979797;
+  border: 0;
+}
+
+body .title {
+  margin-bottom: 15px;
+}
+
+body ::selection {
+  background-color: rgba(159, 173, 189, 0.5);
+}
+
+@media only screen and (max-width: 960px) {
+  body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 0 rgba(255, 255, 255, 0);
+    background-color: #fff;
+  }
+  body::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+    background-color: #fff;
+  }
+  body::-webkit-scrollbar-thumb {
+    background-color: #979797;
+    border: 0;
+  }
+  body div::-webkit-scrollbar-track,
+  body p::-webkit-scrollbar-track,
+  body pre::-webkit-scrollbar-track,
+  body textarea::-webkit-scrollbar-track,
+  body tbody::-webkit-scrollbar-track,
+  body .data_selection_tweets_by_topic tbody::-webkit-scrollbar-track,
+  .data_selection_tweets_by_topic body tbody::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 0 rgba(255, 255, 255, 0);
+    background-color: #fff;
+  }
+  body div::-webkit-scrollbar,
+  body p::-webkit-scrollbar,
+  body pre::-webkit-scrollbar,
+  body textarea::-webkit-scrollbar,
+  body tbody::-webkit-scrollbar,
+  body .data_selection_tweets_by_topic tbody::-webkit-scrollbar,
+  .data_selection_tweets_by_topic body tbody::-webkit-scrollbar {
+    height: 5px;
+    width: 3px;
+    background-color: #fff;
+  }
+  body div::-webkit-scrollbar-thumb,
+  body p::-webkit-scrollbar-thumb,
+  body pre::-webkit-scrollbar-thumb,
+  body textarea::-webkit-scrollbar-thumb,
+  body tbody::-webkit-scrollbar-thumb,
+  body .data_selection_tweets_by_topic tbody::-webkit-scrollbar-thumb,
+  .data_selection_tweets_by_topic body tbody::-webkit-scrollbar-thumb {
+    background-color: #979797;
+    border: 0;
+  }
+  body .body_margin {
+    margin: 50px 2% 0 2%;
+    padding: 25px 2% 130px 2%;
+    background-color: white;
+  }
+}
+
+.MuiGrid-item {
+  display: inline-block;
+}
+
+@media (max-width: 580px) {
+  html {
+    height: 100vh;
+    overflow-x: hidden;
+    font-size: 90%;
+  }
+  .col-xs-10,
+  .col-sm-10 {
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+  }
+  .col-xs-2,
+  .col-xs-2 {
+    flex: 0 0 16.6666667%;
+    max-width: 16.6666667%;
+  }
+}
+
+/* NAVBAR */
+.MuiAppBar-positionFixed {
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+.navbar_logo p {
+  color: white;
+  font-family: Roboto Slab, Times New Roman, serif;
+  text-transform: capitalize;
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+/* PROGRESS BAR */
+.progress_bar {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 100%;
+}
+
+/* TABLAS QUE MUESTRAN INFORMACION */
+table thead {
+  border-radius: 5px 5px 5px 5px;
+  display: table;
+  width: 100%;
+}
+
+table thead th {
+  vertical-align: middle;
+}
+
+table tbody, table .data_selection_tweets_by_topic tbody, .data_selection_tweets_by_topic table tbody {
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+table tbody::-webkit-scrollbar-track, table .data_selection_tweets_by_topic tbody::-webkit-scrollbar-track, .data_selection_tweets_by_topic table tbody::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0 rgba(255, 255, 255, 0);
+  background-color: #fff;
+}
+
+table tbody::-webkit-scrollbar, table .data_selection_tweets_by_topic tbody::-webkit-scrollbar, .data_selection_tweets_by_topic table tbody::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+  background-color: #fff;
+}
+
+table tbody::-webkit-scrollbar-thumb, table .data_selection_tweets_by_topic tbody::-webkit-scrollbar-thumb, .data_selection_tweets_by_topic table tbody::-webkit-scrollbar-thumb {
+  background-color: #979797;
+  border: 0;
+}
+
+table tbody tr, table .data_selection_tweets_by_topic tbody tr, .data_selection_tweets_by_topic table tbody tr {
+  display: table;
+  width: 100%;
+}
+
+table tbody div, table .data_selection_tweets_by_topic tbody div, .data_selection_tweets_by_topic table tbody div {
+  overflow-x: none;
+  overflow-y: auto;
+  text-align: justify;
+  padding-right: 5px;
+}
+
+/* COMPONENTE CALENDARIO */
+.date_picker {
+  margin-bottom: 0;
+}
+
+.date_picker[aria-invalid="true"] .MuiInput-underline::before,
+.date_picker[aria-invalid="true"] .MuiInput-underline::after {
+  border-color: red;
+}
+
+.date_picker[aria-invalid="true"] label,
+.date_picker[aria-invalid="true"] input {
+  color: red;
+}
+
+/* COMPONENTE TEXT FIELD EN FORM */
+.MuiTextField-root fieldset {
+  border: 1px solid #c3c3c3;
+}
+
+.MuiTextField-root[aria-invalid="true"] fieldset,
+.MuiTextField-root[aria-invalid="true"] fieldset:hover,
+.MuiTextField-root[aria-invalid="true"] fieldset:focus,
+.MuiTextField-root[aria-invalid="true"] fieldset:focus-within {
+  border-color: red !important;
+}
+
+.MuiTextField-root[aria-invalid="true"] label,
+.MuiTextField-root[aria-invalid="true"] input {
+  color: red;
+}
+
+/* SEARCH BAR */
+.search_bar {
+  padding: 5px;
+}
+
+.search_bar .MuiFormControl-root {
+  width: 100%;
+}
+
+.search_bar .MuiFormControl-root .MuiFilledInput-root {
+  border-radius: 4px;
+  background-color: #f6f6f6;
+}
+
+.search_bar .MuiFormControl-root .MuiFilledInput-root::before, .search_bar .MuiFormControl-root .MuiFilledInput-root::after, .search_bar .MuiFormControl-root .MuiFilledInput-root:hover, .search_bar .MuiFormControl-root .MuiFilledInput-root:focus-within {
+  border: none !important;
+}
+
+.search_bar .MuiFormControl-root .MuiFilledInput-root:hover {
+  background-color: #f1f1f1;
+}
+
+.search_bar .MuiFormControl-root .MuiFilledInput-root:focus-within {
+  background-color: #f4f4f4;
+}
+
+.search_bar .MuiFormControl-root .MuiFilledInput-input {
+  padding: 10px 12px;
+}
+
+.search_bar .MuiFormControl-root .MuiInputAdornment-root {
+  height: auto;
+  margin-top: 0 !important;
+}
+
+/* MULTIPLE SELECTOR */
+.multiple_selector {
+  padding: 5px;
+}
+
+.multiple_selector .MuiFormControl-root {
+  width: 100%;
+  background-color: #f6f6f6;
+  border-radius: 4px;
+  padding: 3.5px 5px;
+}
+
+.multiple_selector .MuiFormControl-root:hover {
+  background-color: #f1f1f1;
+}
+
+.multiple_selector .MuiFormControl-root:focus-within,
+.multiple_selector .MuiFormControl-root .MuiSelect-root:focus {
+  background-color: #ececec;
+}
+
+.multiple_selector .MuiFormControl-root .MuiSelect-root {
+  color: #979797;
+  padding-left: 12px;
+}
+
+.multiple_selector .MuiFormControl-root .MuiInput-underline::after, .multiple_selector .MuiFormControl-root .MuiInput-underline::before {
+  border: none !important;
+  border-bottom: none !important;
+}
+
+.multiple_selector_selected {
+  background-color: transparent !important;
+}
+
+.multiple_selector_selected:hover {
+  background-color: #f6f6f6 !important;
+}
+
+/* MODAL/DIALOG */
+.modal_text {
+  word-wrap: break-word !important;
+  white-space: pre;
+  /* IE>=6 */
+  white-space: -moz-pre-wrap;
+  /* For Fx<=2 */
+  white-space: pre-wrap;
+  /* Fx>3, Opera>8, Safari>3*/
+}
+
+.all_width {
+  width: 100%;
+}
+
+/* BOTON QUE APARECE AL SUBIR UN ARCHIVO */
+input[type="file"] {
+  height: 37px;
+  font-size: 0.8rem;
+  color: #979797 !important;
+}
+
+::-webkit-file-upload-button {
+  height: 37px;
+  width: 8rem;
+  font-weight: 500;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  text-transform: uppercase;
+  background-color: #4c8abd;
+  color: #ffffff;
+  border-radius: 2px;
+  margin: 0.4rem 1px;
+  touch-action: manipulation;
+  cursor: pointer;
+  border: none;
+}
+
+::-webkit-file-upload-button:focus, ::-webkit-file-upload-button:hover {
+  border: none;
+  outline: none;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  background-color: #356084;
+}
+
+/* BOTONES EN GENERAL */
+button:hover, button:active, button:focus {
+  outline: 0;
+}
+
+button.primary {
+  background-color: #4c8abd !important;
+  color: white;
+}
+
+button.secondary {
+  background-color: #92648c !important;
+  color: white;
+}
+
+button.success {
+  background-color: #4ba471 !important;
+  color: white;
+}
+
+button.danger {
+  background-color: #f44336 !important;
+  color: white;
+}
+
+button.primary:disabled, button.secondary:disabled, button.success:disabled, button.danger:disabled {
+  color: rgba(0, 0, 0, 0.26) !important;
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* BOTONES FLOTANTES */
+.btn-group_fab {
+  flex-flow: column;
+  position: fixed;
+  bottom: 1em;
+  right: 1.5em;
+  z-index: 10;
+  max-width: 60px;
+}
+
+.btn-group_fab button {
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 0.9em;
+}
+
+/* BOTON ELIMINAR/AGREGAR/EDITAR */
+.action_btn_group {
+  margin-top: 6px;
+}
+
+.action_btn_group button {
+  float: right;
+  display: block;
+  margin: 0 0 5px 10px !important;
+  padding: 6px 15px !important;
+}
+
+.action_btn_group button svg {
+  font-size: medium;
+}
+
+/* BOTON: TOP */
+.back_to_top_button {
+  display: none;
+  position: fixed;
+  height: 50px;
+  width: 50px;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: rgba(128, 128, 128, 0.25);
+  color: black;
+  cursor: pointer;
+}
+
+.custom_footer {
+  background-color: #011b31;
+  width: 100vw;
+}
+
+.custom_footer .footer_description {
+  padding: 20px 40px;
+}
+
+.custom_footer .footer_col {
+  padding: 40px 20px;
+  width: 155px;
+}
+
+.custom_footer .footer_col hr {
+  background-color: #4c8abd;
+  width: 45px;
+  height: 2px;
+  margin: 0 auto 5px;
+}
+
+.custom_footer .footer_col a:hover {
+  color: #b1b1b1;
+}
+
+@media only screen and (max-width: 960px) {
+  .custom_footer .footer_description {
+    text-align: center;
+  }
+  .custom_footer .footer_col {
+    padding: 30px 0px;
+    width: 130px;
+  }
+  .custom_footer .footer_col p {
+    line-height: 2.2em;
+  }
+}
+
+.sidebar_button, .mobile_sidebar ul .MuiListItem-button, .sidebar ul .MuiListItem-button {
+  display: block;
+  width: 100%;
+  margin-right: 1em;
+  margin-bottom: 2px;
+  padding: 0.5rem 1rem 0.5rem 1.3rem;
+  border-radius: 10px;
+  transition: all 0.25s;
+}
+
+.sidebar_button svg, .mobile_sidebar ul .MuiListItem-button svg, .sidebar ul .MuiListItem-button svg {
+  color: #4c8abd;
+}
+
+.sidebar_button:hover, .mobile_sidebar ul .MuiListItem-button:hover, .sidebar ul .MuiListItem-button:hover, .sidebar_button:focus, .mobile_sidebar ul .MuiListItem-button:focus, .sidebar ul .MuiListItem-button:focus, .sidebar_button:active, .mobile_sidebar ul .MuiListItem-button:active, .sidebar ul .MuiListItem-button:active {
+  background-color: rgba(159, 173, 189, 0.25);
+}
+
+.sidebar_button.nav-selected, .mobile_sidebar ul .nav-selected.MuiListItem-button, .sidebar ul .nav-selected.MuiListItem-button {
+  color: #fff;
+  background: #4c8abd;
+}
+
+.mobile_sidebar {
+  padding: 10px 5px;
+}
+
+.mobile_sidebar ul {
+  padding: 0;
+}
+
+.mobile_sidebar ul p {
+  font-size: 14px;
+  font-size: calculaterem(14px);
+  color: black;
+  padding-left: 20px;
+  line-height: 15px;
+}
+
+.mobile_sidebar ul img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+
+.sidebar {
+  min-width: 280px;
+  float: left;
+  position: fixed;
+  height: calc(100vh - 50px);
+  padding: 5px;
+}
+
+.sidebar .sidebar_list_container {
+  height: calc(100vh - 50px);
+}
+
+.sidebar .sidebar_list_container .MuiListItem-root.Mui-disabled {
+  opacity: 1;
+}
+
+.sidebar .sidebar_list_container .MuiListItem-root.Mui-disabled p,
+.sidebar .sidebar_list_container .MuiListItem-root.Mui-disabled svg {
+  opacity: 0.5;
+}
+
+.sidebar .sidebar_list_container img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+
+.sidebar ul {
+  padding: 0;
+}
+
+.sidebar ul p {
+  color: black;
+  padding-left: 20px;
+  line-height: 25px;
+}
+
+.sidebar_content {
+  padding: 18px 30px 130px 30px;
+  width: auto;
+  min-height: calc(100vh - 50px);
+  margin-left: 290px;
+  background-color: white;
+}
+
+/* Color font
+___________________________________ */
+/* Secondary Colors
+___________________________________ */
+/* Extra Colors
+___________________________________ */
+/* Font
+___________________________________ */
+/* Screen size
+___________________________________ */
+.paginator_form_control {
+  float: right;
+  margin-top: 20px;
+  margin-right: 0;
+}
+
+.paginator_form_control .MuiSelect-select {
+  min-height: 15px;
+  min-width: 110px;
+  padding: 10px 10px !important;
+}
+
+.pagination_numbers {
+  margin-top: 24px;
+  width: 100%;
+}
+
+.paginator_container {
+  justify-content: "space-between";
+  height: 70px;
+}
+
+@media only screen and (max-width: 0px) {
+  .pagination_numbers {
+    margin-top: 24px;
+    width: 100%;
+  }
+  .pagination_numbers ul {
+    padding: 0;
+    display: table;
+    width: 100%;
+  }
+  .pagination_numbers li {
+    display: table-cell;
+  }
+}
+
+.formControl {
+  margin: 0;
+  padding-top: 15px;
+  position: relative;
+}
+
+.formControl svg,
+.formControl .fab,
+.formControl .far,
+.formControl .fal,
+.formControl .fas,
+.formControl .material-icons {
+  color: #4b4b4b;
+}
+
+.formControl .disabled:before {
+  border-color: transparent !important;
+}
+
+.formControl .underline .MuiInput-underline:before, .formControl .underline:hover:not(.disabled):before, .formControl .underline:before {
+  border-color: #d7d7d7;
+  border-width: 1px !important;
+}
+
+.formControl .underline:after {
+  border-color: #4c8abd;
+}
+
+.formControl .underlineSuccess:after {
+  border-color: #4ba471;
+}
+
+.formControl label {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: #979797;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.42857;
+  letter-spacing: unset;
+}
+
+.formControl .labelRoot {
+  top: 16px;
+}
+
+.formControl .labelRootSuccess {
+  color: #4ba471 !important;
+}
+
+.formControl input {
+  color: #4b4b4b;
+  height: unset;
+}
+
+.formControl input:-webkit-autofill, .formControl input:-webkit-autofill:hover, .formControl input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 50px white inset;
+  -webkit-text-fill-color: #4b4b4b;
+}
+
+.formControl input, .formControl input::placeholder {
+  font-size: 14px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.42857;
+  opacity: 1;
+}
+
+.formControl input::placeholder {
+  color: #cacaca;
+}
+
+.formControl .errorLabel {
+  height: 22px;
+  margin-top: 2px;
+}
+
+.formControl[aria-invalid="true"] .MuiInput-underline::before,
+.formControl[aria-invalid="true"] .MuiInput-underline::after {
+  border-color: red !important;
+}
+
+input .formControl[aria-invalid="true"]:focus,
+input .formControl[aria-invalid="true"]:hover,
+.formControl[aria-invalid="true"] label,
+.formControl[aria-invalid="true"] span,
+.formControl[aria-invalid="true"] input,
+.formControl[aria-invalid="true"] svg {
+  color: red !important;
+}
+
+._1hGWX {
+  max-width: 100%;
+  width: 100%;
+  margin: auto;
+  border: none;
+}
+
+._3GZyb,
+._2A8IL {
+  display: none !important;
+}
+
+._1WY8K {
+  font-weight: 500;
+  color: black !important;
+  font-size: 15px !important;
+  height: 49px;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+._3-erg {
+  font-size: 14px;
+  font-weight: 350;
+  width: 100%;
+  overflow-y: auto;
+}
+
+._3-erg img {
+  font-size: inherit;
+  height: 2ex;
+  width: 2.1ex;
+  min-height: 20px;
+  min-width: 20px;
+  display: inline-block;
+  margin: -.2ex .15em .2ex;
+  line-height: normal;
+  vertical-align: middle;
+  max-width: 100%;
+  top: 0;
+}
+
+._YL_F0 {
+  border: none;
+}
+
+._YL_F0,
+._71S8l,
+._17Sii,
+._3Obwh,
+._lZKCa {
+  font-size: 14px !important;
+  pointer-events: none;
+  cursor: default;
+}
+
+._25hNR {
+  background-image: url("/twitterLogo.png");
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+}
+
+._25hNR svg {
+  display: none !important;
+}
+
+/* Color font
+___________________________________ */
+/* Secondary Colors
+___________________________________ */
+/* Extra Colors
+___________________________________ */
+/* Font
+___________________________________ */
+/* Screen size
+___________________________________ */
+.loading_container {
+  height: calc(100vh - 200px);
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  position: absolute;
+  height: 6rem;
+  width: 6rem;
+}
+
+.loading_animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 2.8px solid transparent;
+  border-radius: 99.9rem;
+  margin: -2.5rem 0 0 -2.5rem;
+  height: 5rem;
+  width: 5rem;
+  animation: animation-rotate 2500ms linear infinite;
+  border-left-color: #4c8abd;
+  border-right-color: #4c8abd;
+}
+
+.loading_animation::before, .loading_animation::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 2.8px solid transparent;
+  border-radius: 99.9rem;
+}
+
+.loading_animation::before {
+  content: "";
+  margin: -2rem 0 0 -2rem;
+  height: 4rem;
+  width: 4rem;
+  animation: animation-rotate 2500ms linear infinite;
+  border-right-color: #9fadbd;
+  border-left-color: #9fadbd;
+}
+
+.loading_animation::after {
+  content: "";
+  margin: -3rem 0 0 -3rem;
+  height: 6rem;
+  width: 6rem;
+  animation: animation-rotate 3000ms linear infinite;
+  border-right-color: #011b31;
+  border-left-color: #011b31;
+}
+
+@keyframes animation-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.tweets_by_topic tbody td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.tweets_by_topic tbody td img {
+  border-radius: 36px;
+  width: 50px;
+  height: 50px;
+}
+
+.tweets_by_topic tbody td.tweets_table_user_img {
+  width: 12%;
+}
+
+.tweets_by_topic tbody td.tweets_table_username {
+  width: 18%;
+  word-break: break-word;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tweets_by_topic tbody td.tweets_table_text_30 {
+  width: 30%;
+  text-align: justify !important;
+}
+
+.tweets_by_topic tbody td.tweets_table_text_40 {
+  width: 40%;
+  text-align: justify !important;
+}
+
+.tweets_by_topic tbody td.tweets_table_rts, .tweets_by_topic tbody td.tweets_table_favs, .tweets_by_topic tbody td.tweets_table_delete, .tweets_by_topic tbody td.tweets_table_link {
+  width: 10%;
+}
+
+.tweets_by_topic thead th {
+  text-align: center;
+  margin-right: 5px;
+}
+
+.tweets_by_topic thead th.tweets_table_user_img {
+  width: 12% !important;
+}
+
+.tweets_by_topic thead th.tweets_table_username {
+  width: 18% !important;
+}
+
+.tweets_by_topic thead th.tweets_table_text_30 {
+  width: 30%;
+}
+
+.tweets_by_topic thead th.tweets_table_text_40 {
+  width: 40%;
+}
+
+.tweets_by_topic thead th.tweets_table_rts, .tweets_by_topic thead th.tweets_table_favs, .tweets_by_topic thead th.tweets_table_delete, .tweets_by_topic thead th.tweets_table_link {
+  width: 10% !important;
+}
+
+.tweets_by_topic thead th.tweets_table_rts button, .tweets_by_topic thead th.tweets_table_favs button, .tweets_by_topic thead th.tweets_table_delete button, .tweets_by_topic thead th.tweets_table_link button {
+  margin: 0;
+  padding: 5px;
+  color: white;
+}
+
+/* CONTENEDOR DE 'FAKE TWEETS' */
+.fake_tweets_container {
+  width: 100%;
+}
+
+.fake_tweets_container thead tr th.tweets_col {
+  width: 83.5%;
+}
+
+.fake_tweets_container thead tr th.delete_tweets {
+  width: 16.5%;
+  min-width: 70px;
+  margin: auto;
+}
+
+.fake_tweets_container thead tr th.delete_tweets button {
+  width: 100%;
+  margin: auto;
+  padding: 0;
+  color: white;
+}
+
+.fake_tweets_container tbody td {
+  padding: 5px 10px;
+}
+
+.fake_tweets_container tbody td.tweets_col {
+  width: 85% !important;
+}
+
+.fake_tweets_container tbody td.delete_tweets {
+  width: 15% !important;
+  vertical-align: middle;
+}
+
+.fake_tweets_container tbody .MuiCheckbox-root {
+  margin: auto;
+  width: 100%;
+}
+
+/* Color font
+___________________________________ */
+/* Secondary Colors
+___________________________________ */
+/* Extra Colors
+___________________________________ */
+/* Font
+___________________________________ */
+/* Screen size
+___________________________________ */
+.info_box {
+  border: 1px solid;
+  margin: auto auto auto auto;
+  border-radius: 5px;
+  border-color: rgba(159, 173, 189, 0.5);
+  box-shadow: 1px 1.5px #9fadbd;
+  padding: 10px;
+}
+
+.info_box_container,
+.info_box_container .center_box {
+  display: flex;
+  justify-content: center;
+}
+
+.info_box_info_margin {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+/* BOX EN MIS TWEETS */
+.space_available_box {
+  max-width: 380px;
+}
+
+@media only screen and (max-width: 600px) {
+  .space_available_box {
+    margin-bottom: 40px;
+  }
+}
+
+/* BOX EN ALGORITMOS DE SIMILITUD */
+.selected_data_container {
+  margin: auto;
+  float: right;
+}
+
+.selected_data_container td {
+  border-top: none;
+}
+
+.selected_data_container .selected_data_box {
+  width: 235px;
+  border: 1px;
+  border-radius: 5px;
+  border-color: transparent;
+  padding: 8px 5px;
+  color: white;
+  background-color: #9fadbd;
+}
+
+.selected_data_container .selected_data_box span,
+.selected_data_container .selected_data_box p {
+  word-wrap: break-word !important;
+  white-space: pre;
+  /* IE>=6 */
+  white-space: -moz-pre-wrap;
+  /* For Fx<=2 */
+  white-space: pre-wrap;
+  /* Fx>3, Opera>8, Safari>3*/
+}
+
+@media only screen and (max-width: 0px) {
+  .selected_data_box {
+    width: 265px;
+  }
+}
+
+/* Color font
+___________________________________ */
+/* Secondary Colors
+___________________________________ */
+/* Extra Colors
+___________________________________ */
+/* Font
+___________________________________ */
+/* Screen size
+___________________________________ */
+.no_content_box {
+  height: calc(100vh - 264px);
+}
+
+.no_content {
+  margin-top: 50px;
+  height: 100%;
+  align-items: center;
+  display: flex;
+}
+
+.no_content svg {
+  width: auto;
+  height: auto;
+}
+
+.no_content .no_content_use {
+  width: 100%;
+  height: 100%;
+  all: inherit;
+  fill: #4c8abd;
+  stroke: #4c8abd;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-opacity: 0.8;
+}
+
+.no_content .buttons_container {
+  margin-top: 10px;
+  margin-bottom: 60px;
+}
+
+.no_content .buttons_container button {
+  border-radius: 20px;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin: 10px 5px 10px 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .no_content_container .buttons_container button {
+    display: flex;
+    margin: 10px auto 10px auto;
+  }
+}
+
+.tweets_with_scores_container {
+  max-width: 1170px;
+  margin: auto;
+}
+
+.tweets_with_scores_table {
+  max-width: 1170px;
+  margin: 10px auto auto auto;
+}
+
+.tweets_with_scores_table thead th {
+  padding: 0 !important;
+  height: 3.5rem;
+}
+
+.tweets_with_scores_table thead th button {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  transition-property: color;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
+}
+
+.tweets_with_scores_table thead th button:hover {
+  background-color: #5f96c4;
+}
+
+.tweets_with_scores_table thead th {
+  text-align: center;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.tweets_with_scores_table thead th button {
+  padding: 5px 8px;
+}
+
+.tweets_with_scores_table tbody {
+  max-height: 450px;
+}
+
+.tweets_with_scores_table tbody td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.tweets_with_scores_table tbody td.tweets_column {
+  text-align: justify !important;
+}
+
+.fake_tweets_with_scores_container {
+  max-width: 950px;
+  padding: 0 3%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.fake_tweets_with_scores_container .tweet_with_scores_chips {
+  color: white;
+  font-weight: 400;
+  opacity: 70%;
+}
+
+.fake_tweets_with_scores_container .tweet_with_scores_chips .MuiChip-label {
+  padding: 0px 16px;
+}
+
+.fake_tweets_with_scores_container table thead th {
+  padding: 0 !important;
+  height: 3.5rem;
+}
+
+.fake_tweets_with_scores_container table thead th button {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  transition-property: color;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
+}
+
+.fake_tweets_with_scores_container table thead th button:hover {
+  background-color: #5f96c4;
+}
+
+@media only screen and (max-width: 960px) {
+  .tweets_with_scores_container {
+    max-width: 950px;
+    padding: 0 3%;
+  }
+}
+
+.language_buttons {
+  padding: 0 5px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.language_buttons .MuiGrid-item {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.language_buttons legend {
+  margin: 0;
+}
+
+.language_buttons .MuiTypography-body1 {
+  color: black !important;
+  background-color: transparent;
+}
+
+.language_buttons .MuiTypography-caption {
+  line-height: 1;
+}
+
+.language_buttons .MuiRadio-colorSecondary.Mui-checked {
+  color: #4c8abd;
+}
+
+.pie_chart {
+  min-width: 200px;
+  max-width: 300px;
+  min-height: 200px;
+  max-height: 300px;
+  transition: stroke .1s;
+}
+
+.color_description_container {
+  font-size: small;
+  padding: 15px 0 0;
+}
+
+.color_description_container .color_description_item {
+  padding: 0;
+  min-width: 105px;
+}
+
+.color_description_container .color_description_item svg {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.color_description_container .color_description_item p {
+  margin: 1px 0 1px 0;
+}
+
+.chart_container {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  align-items: flex-end;
+  display: flex;
+}
+
+.report_card {
+  height: calc(100% - 20px);
+  margin: 10px;
+  position: relative;
+}
+
+.report_card.focus_highlight {
+  border: 2px solid #4c8abd;
+}
+
+.report_card.focus_highlight .MuiChip-root {
+  color: #4c8abd;
+  border: 1px solid #4c8abd;
+}
+
+.report_card .MuiCardHeader-root {
+  padding: 10px 16px;
+}
+
+.report_card .MuiCardContent-root {
+  padding: 10px 16px;
+}
+
+.report_card .MuiCardContent-root p {
+  height: 350px;
+  overflow: hidden;
+}
+
+.report_card .MuiChip-root {
+  color: #979797;
+}
+
+.report_card .MuiCheckbox-root {
+  float: right;
+}
+
+.report_card .highlighted_text {
+  padding: 0.2em 0;
+  background-color: #dbe1e7;
+}
+
+.report_card span {
+  word-wrap: break-word !important;
+  white-space: pre;
+  /* IE>=6 */
+  white-space: -moz-pre-wrap;
+  /* For Fx<=2 */
+  white-space: pre-wrap;
+  /* Fx>3, Opera>8, Safari>3*/
+}
+
+.report_card .MuiCardActions-root {
+  background-color: inherit;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.report_card .MuiCardActions-root button {
+  padding: 5px 7px;
+  margin: 0 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .report_card .MuiCardContent-root {
+    padding-bottom: 55px;
+  }
+  .report_card .MuiCardContent-root p {
+    height: auto;
+    max-height: 350px;
+  }
+}
+
+/* PROPIOS DEL CAROUSEL */
+button.slick-arrow.slick-prev,
+button.slick-arrow.slick-next {
+  width: 65px;
+  opacity: 1;
+}
+
+button.slick-arrow.slick-prev::before,
+button.slick-arrow.slick-next::before {
+  opacity: 1;
+  color: #92648c;
+}
+
+.slick-slider {
+  margin-bottom: 60px;
+}
+
+.slick-list {
+  width: calc(100% - 50px);
+  margin: auto;
+}
+
+.slick-track {
+  height: 380px;
+}
+
+.slick-slide > div {
+  height: 100%;
+}
+
+.slick-cloned {
+  display: none;
+}
+
+.slick-dots {
+  bottom: -30px;
+}
+
+.slick-dots li.slick-active button:before,
+.slick-dots li button::before {
+  color: #92648c;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #92648c;
+  opacity: 1;
+}
+
+/* PANTALLA DE REPORTS */
+.reports_carousel_add_btn {
+  margin: 10px 5px;
+}
+
+.reports_carousel_add_btn button {
+  float: right;
+}
+
+.reports_carousel_info_box {
+  width: calc(100% - 50px);
+  margin: auto;
+}
+
+.reports_carousel_title {
+  width: calc(100% - 166px);
+  padding: 0 5px;
+}
+
+.reports_carousel_title h5 {
+  width: 100%;
+}
+
+.reports_carousel_selected_title {
+  margin: 10px 5px;
+  justify-content: flex-end;
+  align-items: center;
+  display: flex;
+}
+
+.reports_carousel_selected_title .MuiTypography-root {
+  padding: 5px 8px;
+}
+
+.reports_carousel_report_card .MuiCardContent-root p {
+  height: 200px !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .reports_carousel_title {
+    width: calc(100% - 60px);
+  }
+  .reports_carousel_title h5 {
+    width: 100%;
+  }
+  .reports_carousel_add_btn button {
+    padding: 6px 10px;
+    min-width: fit-content;
+  }
+}
+
+/* Color font
+___________________________________ */
+/* Secondary Colors
+___________________________________ */
+/* Extra Colors
+___________________________________ */
+/* Font
+___________________________________ */
+/* Screen size
+___________________________________ */
+.login_container {
+  min-height: calc(100vh - 214px);
+  width: 100vw;
+  display: inherit;
+  position: relative;
+  margin: 0;
+  padding: 50px 0 0;
+  border: 0;
+  align-items: center;
+  background-image: url("/homeBackground.jpg");
+  background-size: cover;
+  background-position: top center;
+}
+
+.login_container:before {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.login_container:before, .login_container:after {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  display: block;
+  left: 0;
+  top: 0;
+  content: "";
+}
+
+.login_container footer li a,
+.login_container footer li a:hover,
+.login_container footer li a:active {
+  color: #FFFFFF;
+}
+
+.login_container footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.login_container .makeStyles-card-54 {
+  margin-bottom: 0;
+}
+
+.login_container .login_card_container {
+  z-index: 2;
+  position: relative;
+  padding: 50px 30px;
+  color: white;
+  animation: fadeInAnimation ease 700ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.login_container .login_card_container .MuiGrid-root {
+  max-width: 420px;
+}
+
+.login_container .login_card_container .MuiGrid-root .makeStyles-cardBody-64 {
+  padding: 0.9375rem 2.5rem;
+}
+
+.login_container .login_card_container .card_header {
+  width: auto;
+  min-height: 100px;
+  text-align: center;
+  margin: -40px 20px 20px;
+  padding: 20px;
+  box-shadow: 0 12px 20px -10px rgba(76, 138, 189, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 138, 189, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login_container .login_card_container .card_header .social_line {
+  margin-top: 1rem;
+}
+
+.login_container .login_card_container .card_header .social_line button {
+  max-width: 64px;
+  padding: 8px 0;
+  margin: 0px;
+}
+
+.login_container .login_card_container .card_header .social_line button i {
+  font-size: 1.2rem;
+  line-height: 1.333333;
+  border-radius: 0.2rem;
+}
+
+.login_container .login_card_container .login_form {
+  margin: 0;
+}
+
+.login_container .login_card_container .Mui-error .input_icons_color {
+  color: #f44336;
+}
+
+.login_container .login_card_container .input_icons_color {
+  color: #495057;
+}
+
+.login_container .login_card_container .card_footer {
+  padding-top: 0rem;
+  border: 0;
+  border-radius: 6px;
+  justify-content: center !important;
+}
+
+.login_container .login_card_container .login_other {
+  margin: 0 0 20px;
+  font-size: 0.75rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
+  text-transform: none;
+}
+
+.login_container .login_card_container .login_other div {
+  margin: auto;
+  width: fit-content;
+}
+
+@media only screen and (max-width: 600px) {
+  .card_header {
+    padding: 20px 10px !important;
+  }
+  .card_header .social_line button {
+    min-width: 50px;
+  }
+}
+
+/* SIGN-UP */
+.form_control_file {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.form_control_file .MuiInput-underline:before {
+  border-color: #d7d7d7;
+  border-width: 1px !important;
+}
+
+.form_control_file[aria-invalid="true"] .MuiInput-underline::before,
+.form_control_file[aria-invalid="true"] .MuiInput-underline::after {
+  border-color: red;
+  border-width: 2px;
+}
+
+.form_control_file[aria-invalid="true"] label,
+.form_control_file[aria-invalid="true"] input,
+.form_control_file[aria-invalid="true"] svg {
+  color: red !important;
+}
+
+.form_control_file .file_input_label {
+  top: -15px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: #979797;
+  font-weight: 400;
+  font-size: 10.5px;
+  line-height: 1.42857;
+  letter-spacing: unset;
+}
+
+.form_control_file .file_input_label:focus-within, .form_control_file .file_input_label:focus {
+  color: #4c8abd;
+}
+
+.form_control_file .file_input_label.MuiInputLabel-shrink {
+  top: 10px;
+  transform: unset;
+  transform-origin: unset;
+}
+
+/* Color font
+___________________________________ */
+/* Secondary Colors
+___________________________________ */
+/* Extra Colors
+___________________________________ */
+/* Font
+___________________________________ */
+/* Screen size
+___________________________________ */
+.tweets_by_topic tbody td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.tweets_by_topic tbody td img {
+  border-radius: 36px;
+  width: 50px;
+  height: 50px;
+}
+
+.tweets_by_topic tbody td.tweets_table_user_img {
+  width: 12%;
+}
+
+.tweets_by_topic tbody td.tweets_table_username {
+  width: 18%;
+  word-break: break-word;
+  font-weight: 500;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tweets_by_topic tbody td.tweets_table_text_30 {
+  width: 30%;
+  text-align: justify !important;
+}
+
+.tweets_by_topic tbody td.tweets_table_text_40 {
+  width: 40%;
+  text-align: justify !important;
+}
+
+.tweets_by_topic tbody td.tweets_table_rts, .tweets_by_topic tbody td.tweets_table_favs, .tweets_by_topic tbody td.tweets_table_delete, .tweets_by_topic tbody td.tweets_table_link {
+  width: 10%;
+}
+
+.tweets_by_topic thead th {
+  text-align: center;
+  margin-right: 5px;
+}
+
+.tweets_by_topic thead th.tweets_table_user_img {
+  width: 12% !important;
+}
+
+.tweets_by_topic thead th.tweets_table_username {
+  width: 18% !important;
+}
+
+.tweets_by_topic thead th.tweets_table_text_30 {
+  width: 30%;
+}
+
+.tweets_by_topic thead th.tweets_table_text_40 {
+  width: 40%;
+}
+
+.tweets_by_topic thead th.tweets_table_rts, .tweets_by_topic thead th.tweets_table_favs, .tweets_by_topic thead th.tweets_table_delete, .tweets_by_topic thead th.tweets_table_link {
+  width: 10% !important;
+}
+
+.tweets_by_topic thead th.tweets_table_rts button, .tweets_by_topic thead th.tweets_table_favs button, .tweets_by_topic thead th.tweets_table_delete button, .tweets_by_topic thead th.tweets_table_link button {
+  margin: 0;
+  padding: 5px;
+  color: white;
+}
+
+/* CONTENEDOR DE 'FAKE TWEETS' */
+.fake_tweets_container {
+  width: 100%;
+}
+
+.fake_tweets_container thead tr th.tweets_col {
+  width: 83.5%;
+}
+
+.fake_tweets_container thead tr th.delete_tweets {
+  width: 16.5%;
+  min-width: 70px;
+  margin: auto;
+}
+
+.fake_tweets_container thead tr th.delete_tweets button {
+  width: 100%;
+  margin: auto;
+  padding: 0;
+  color: white;
+}
+
+.fake_tweets_container tbody td {
+  padding: 5px 10px;
+}
+
+.fake_tweets_container tbody td.tweets_col {
+  width: 85% !important;
+}
+
+.fake_tweets_container tbody td.delete_tweets {
+  width: 15% !important;
+  vertical-align: middle;
+}
+
+.fake_tweets_container tbody .MuiCheckbox-root {
+  margin: auto;
+  width: 100%;
+}
+
+.submit {
+  margin: 3px, 2px, 2px;
+}
+
+.report_input {
+  width: 100%;
+}
+
+.report_input .MuiMenu-list {
+  max-height: 100px;
+}
+
+.data_selection_dropbox {
+  width: 100%;
+  padding-right: 10px;
+  margin-bottom: 30px;
+}
+
+.data_selection_tweets_by_topic {
+  border: 0 !important;
+}
+
+.tweets_topics_title {
+  width: calc(100% - 155px);
+}
+
+.tweets_topics_title h5 {
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .tweets_topics_title {
+    width: calc(100% - 60px);
+  }
+  .tweets_topics_title h5 {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-device-width: 425px) {
+  .add_button_size {
+    width: 100%;
+    font-size: 30px;
+  }
+  .form_col_box {
+    margin: 0 0 0 0;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .add_button_size {
+    width: 100%;
+    font-size: 28px;
+  }
+  .form_col_box {
+    margin: 0;
+  }
+}
+
+/* SKELETON */
+.data_selection_skeleton_container .MuiGrid-item {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.data_selection_skeleton_container .data_selection_skeleton_button {
+  height: 60px;
+}
+
+.data_selection_skeleton_container .data_selection_skeleton_button .MuiSkeleton-root {
+  margin: 10px auto 10px auto;
+}
+
+.data_selection_skeleton_container .data_selection_skeleton_left .MuiGrid-item {
+  padding-right: 10px;
+  margin-bottom: 0;
+}
+
+.data_selection_skeleton_container .data_selection_skeleton_right .MuiGrid-item {
+  padding-left: 10px;
+  margin-bottom: 0;
+}
+
+@media only screen and (max-width: 960px) {
+  .data_selection_skeleton_container .data_selection_skeleton_left .MuiGrid-item,
+  .data_selection_skeleton_container .data_selection_skeleton_right .MuiGrid-item {
+    padding: 0px;
+  }
+  .data_selection_skeleton_container .data_selection_skeleton_button {
+    padding-left: 10px;
+  }
+}
+
+/* Color font
+___________________________________ */
+/* Secondary Colors
+___________________________________ */
+/* Extra Colors
+___________________________________ */
+/* Font
+___________________________________ */
+/* Screen size
+___________________________________ */
+.similarity_algorithms_container button {
+  padding: 7px 23px;
+  margin: 10px;
+}
+
+.similarity_algorithms_container .MuiGrid-item {
+  padding: 8px;
+}
+
+.similarity_algorithms_container .similarity-algorithms-title {
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.similarity_algorithms_container .similarity-algorithms-execute {
+  max-width: 1600px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.similarity_algorithms_container .similarity-algorithms-execute .similarity-algorithms-form-control {
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.similarity_algorithms_container .similarity-algorithms-execute .similarity-algorithms-form-control .chips {
+  display: flex;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+}
+
+@media only screen and (max-width: 960px) {
+  .similarity_algorithms_container {
+    margin: auto;
+    max-width: 950px;
+    padding: 0 3%;
+  }
+  .similarity_algorithms_container button {
+    float: right;
+    margin: 0;
+  }
+  .similarity_algorithms_action_btn_group {
+    max-width: 100%;
+  }
+}
+
+.rotate {
+  transform: rotate(180deg);
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.inverseRotate {
+  transform: rotate(0deg);
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.sentiment_analyzer .download_button {
+  padding-right: 18px;
+  padding-left: 2px;
+  margin: 0 10px;
+  float: right;
+}
+
+.sentiment_analyzer .download_button svg {
+  margin: 0 10px 0;
+  font-size: medium;
+}
+
+.sentiment_analyzer .sentiment_group_btn {
+  margin: 10px;
+}
+
+.sentiment_analyzer .sentiment_group_btn .button_selected {
+  background-color: #4c8abd;
+  color: white;
+}
+
+.sentiment_analyzer .card_container {
+  padding: 10px;
+}
+
+.sentiment_analyzer .card_container .MuiCard-root {
+  height: calc(100% - 10px);
+  padding: 10px 10px 0;
+}
+
+.sentiment_analyzer .card_container .MuiCard-root a {
+  color: black;
+  font-weight: 500;
+}
+
+.sentiment_analyzer .card_container .MuiCard-root p {
+  word-wrap: break-word !important;
+  white-space: pre;
+  /* IE>=6 */
+  white-space: -moz-pre-wrap;
+  /* For Fx<=2 */
+  white-space: pre-wrap;
+  /* Fx>3, Opera>8, Safari>3*/
+}
+
+.sentiment_analyzer .card_container .MuiCard-root .MuiCardContent-root {
+  height: calc(100% - 70px);
+  padding: 0 10px;
+}
+
+.sentiment_analyzer .card_container .MuiCard-root .MuiCardContent-root .MuiGrid-container {
+  height: 100%;
+}
+
+.sentiment_analyzer .card_container .MuiCard-root .MuiCardContent-root .tweet_content {
+  align-self: flex-start;
+}
+
+.select_tweet_topics {
+  width: calc(100% - 125px);
+}
+
+.select_tweet_topics .MuiFormControl-root {
+  width: calc(100% - 20px);
+  margin: 5px 10px;
+}
+
+.select_tweet_topic_btn {
+  margin: 5px 10px;
+  width: calc(100% - 20px);
+}
+
+@media only screen and (max-width: 600px) {
+  .select_tweet_topic_btn {
+    margin: 15px 0;
+    width: 100%;
+  }
+}
+
+.select_algorithm_sentiment_analyzer {
+  margin: 10px;
+}
+
+.select_algorithm_sentiment_analyzer .sentiment_analyzer_umbral {
+  max-width: 65px;
+}
+
+.select_algorithm_sentiment_analyzer .sentiment_analyzer_umbral .MuiInputBase-input {
+  padding: 15px 10px;
+  text-align: center;
+}
+
+.select_algorithm_sentiment_analyzer .select_executed_algorithms {
+  width: calc(100% - 65px);
+}
+
+.select_algorithm_sentiment_analyzer .select_executed_algorithms .MuiFormControl-root {
+  width: calc(100% - 20px);
+  margin: 5px 10px;
+}
+
+.home_container .title_box {
+  background-image: url("/homeBackground.jpg");
+  background-size: cover;
+  background-position-y: bottom;
+  background-color: #011b31;
+  padding: 80px 25%;
+}
+
+.home_container .title_box h2 {
+  font-weight: 700;
+}
+
+.home_container .title_box h5 {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 1.0625rem;
+  line-height: 1.55em;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.home_container .title_box h2,
+.home_container .title_box h5 {
+  color: white;
+  font-family: Roboto Slab, Times New Roman, serif;
+}
+
+.home_container .title_box .home_begin_btn {
+  margin: 10px 0;
+  justify-self: center;
+  justify-content: center;
+  display: flex;
+}
+
+.home_container .title_box .home_begin_btn button {
+  margin: 10px 15px 0;
+  border-radius: 20px;
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+.home_cards_container {
+  padding: 40px 10%;
+  background-color: white;
+}
+
+.home_cards_container .MuiGrid-item {
+  padding: 0 15px;
+}
+
+.home_cards_container .MuiGrid-item .MuiCard-root {
+  overflow: visible;
+  height: calc(100% - 30px);
+  max-width: 410px;
+  margin: 15px auto;
+  padding: 0 6px 10px;
+}
+
+.home_cards_container .MuiGrid-item .MuiCard-root .section {
+  top: -28px;
+  position: relative;
+  height: 5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  background-color: white;
+  padding: 0 15px;
+}
+
+.home_cards_container .MuiGrid-item .MuiCard-root .MuiCardContent-root {
+  height: calc(100% - 50px);
+}
+
+.home_cards_container .MuiGrid-item .MuiCard-root .MuiCardActions-root {
+  justify-content: center;
+}
+
+@media only screen and (min-width: 1920px) {
+  .home_cards_container {
+    padding: 50px 15%;
+  }
+  .home_container .title_box {
+    padding: 80px 30%;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .home_cards_container {
+    padding: 50px 3%;
+  }
+  .home_container .title_box {
+    padding: 80px 10%;
+  }
+}
+
+.edit_report_panel_form {
+  margin-top: 30px;
+  padding: 30px 45px 8px;
+}
+
+.edit_report_panel_form .danger p {
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 960px) {
+  .edit_report_panel_form {
+    padding: 15px 18px 8px;
+  }
+}
+
+.add_new_report {
+  display: flex;
+  top: -20px;
+  position: relative;
+}
+
+.add_new_report button {
+  background-color: #4ba471;
+  color: white;
+  margin: auto;
+  padding: auto;
+  width: 42px;
+  height: 42px;
+}
+
+.add_new_report button:hover {
+  background-color: #68ba8b !important;
+}
+
+.report_box_form,
+.report_box_form .MuiFormControl-root {
+  width: 100%;
+  height: 100%;
+}
+
+.report_box_form .edit_content {
+  margin-top: 16px;
+  border: 1px solid #c3c3c3;
+  border-radius: 5px;
+  padding: 0;
+}
+
+.report_box_form .edit_content:hover {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.report_box_form .edit_content:active, .report_box_form .edit_content:focus, .report_box_form .edit_content:focus-within {
+  border-width: 2px;
+  border-color: #4c8abd;
+}
+
+.report_box_form .edit_content:active .edit_label, .report_box_form .edit_content:focus .edit_label, .report_box_form .edit_content:focus-within .edit_label {
+  color: #4c8abd;
+}
+
+.report_box_form .edit_content[aria-invalid='true'], .report_box_form .edit_content[aria-invalid='true']:hover, .report_box_form .edit_content[aria-invalid='true']:focus {
+  border-color: red !important;
+}
+
+.report_box_form .edit_content[aria-invalid='true'] label {
+  color: red !important;
+}
+
+.report_box_form .edit_content textarea {
+  min-height: 200px;
+  margin-top: 0;
+  border-top: none;
+  height: unset;
+  resize: none;
+}
+
+.report_box_form .edit_content .edit_label {
+  margin-bottom: 0;
+  transform: translate(13px, -14px) scale(0.85);
+  background: white;
+  padding-right: 5px;
+  padding-left: 5px;
+  height: 14px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.report_box_form .error {
+  padding: 5px;
+  height: 25px;
+}
+
+.report_box_form .language_buttons {
+  margin-bottom: 25px;
+}
+
+.deleteable_chips {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 4px;
+  margin: 0;
+}
+
+.deleteable_chips .chip {
+  margin: 4px;
+  font-weight: 400;
+  color: white;
+  font-size: 0.95rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  background-color: #92648c;
+}
+
+.deleteable_chips .chip svg {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.tweet_fetcher_container,
+.tweet_fetcher_container .MuiGrid-item {
+  padding: 5px;
+}
+
+.tweet_fetcher_container .MuiTextField-root {
+  width: 100%;
+}
+
+.tweet_fetcher_container .date_picker_container .MuiGrid-item {
+  padding-left: 10px;
+}
+
+.tweet_fetcher_container #add_tag_button {
+  height: 56px;
+  margin-top: 16px;
+}
+
+.tweet_fetcher_container #add_tag_button svg {
+  width: 50px;
+}
+
+.tweet_fetcher_data_box {
+  border-radius: 5px;
+  border-color: transparent;
+  padding: 5px 15px;
+  background-color: #4c8abd;
+  width: fit-content;
+  float: right;
+  margin: 0 10px;
+}
+
+.tweet_fetcher_data_box p {
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.my_reports_title {
+  width: calc(100% - 166px);
+}
+
+.my_reports_title h1 {
+  width: calc(100% - 152px);
+}
+
+.my_reports_add_button {
+  padding: 7px 15px;
+}
+
+.my_reports_divider {
+  margin: 5px 0 20px;
+}
+
+.my_reports_delete_button {
+  padding: 5px 12px;
+  min-width: 50px;
+  margin: 0 10px;
+}
+
+.my_reports_select_all button {
+  height: 34px;
+}
+
+.my_reports_no_content {
+  padding: 15px 30px;
+  margin: 20px 10px;
+  background-color: #ffebd6;
+  border-radius: 4px;
+}
+
+/* Color font
+___________________________________ */
+/* Secondary Colors
+___________________________________ */
+/* Extra Colors
+___________________________________ */
+/* Font
+___________________________________ */
+/* Screen size
+___________________________________ */
+/* BOTONES PANTALLA XS Y SM */
+.user_menu_add_delete_btn_box {
+  max-width: 665px;
+  width: 100%;
+  margin: 15px auto;
+}
+
+.user_menu_tabs {
+  margin-top: 10px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.user_menu_tabs .MuiTabs-root {
+  width: 100%;
+  max-height: 400px;
+  max-width: 650px;
+  /* BOTON CORRESPONDIENTE AL TITULO */
+}
+
+.user_menu_tabs .MuiTabs-root .Mui-selected {
+  background-color: rgba(159, 173, 189, 0.15) !important;
+}
+
+.user_menu_tabs .MuiTabs-root button:first-child {
+  position: sticky !important;
+  top: 0;
+  color: #4c8abd !important;
+  opacity: 1 !important;
+  background-color: white !important;
+  padding: 0;
+  z-index: 2;
+}
+
+.user_menu_tabs .MuiTabs-root button:first-child .user_menu_delete_topics_button {
+  pointer-events: all !important;
+  cursor: pointer;
+  padding-right: 28%;
+  width: 40px;
+}
+
+.user_menu_tabs button {
+  max-width: 100%;
+  border: 0 !important;
+}
+
+.user_menu_tabs button:focus, .user_menu_tabs button:active {
+  outline: 0;
+  border-radius: 5px;
+  background-color: rgba(159, 173, 189, 0.15) !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .user_menu_tabs {
+    margin-bottom: 0px;
+  }
+}
+
+@media only screen and (max-width: 0px) {
+  .user_menu_tabs .MuiTabs-root {
+    max-height: 250px !important;
+  }
+}
+
+.my_tweet_tweets_by_topic.tweets_by_topic tbody {
+  height: 500px;
+}
+
+.my_tweets_tab_panel .MuiBox-root {
+  padding-top: 0;
+  padding-bottom: 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .my_tweets_tab_panel {
+    margin-top: 30px;
+  }
+  .my_tweets_tab_panel .MuiBox-root {
+    padding: 0;
+    max-width: 800px;
+    margin: auto;
+  }
+}
+
+/* Color font
+___________________________________ */
+/* Secondary Colors
+___________________________________ */
+/* Extra Colors
+___________________________________ */
+/* Font
+___________________________________ */
+/* Screen size
+___________________________________ */
+:export {
+  /* COLORES DE LA APLICACION */
+  primaryColor: #4c8abd;
+  roseColor: #92648c;
+  warningColor: #ff8400;
+  dangerColor: #f44336;
+  successColor: #4ba471;
+  infoColor: #172b32;
+  darkColor: #011527;
+  lightColor: #9fadbd;
+  grayColor: #f1f1f1;
+  lightGrayColor: #ececec;
+  darkGrayColor: #979797;
+  spacing: 8px;
+  /* COLORES PARA EL ANALISIS DE SENTIMIENTOS */
+  anger: #f44336;
+  anticipation: #1abc9c;
+  disgust: #138d75;
+  fear: #cd6155;
+  joy: #a569bd;
+  sadness: #5dade2;
+  surprise: #ec7818;
+  trust: #6f8850;
+  none: #999999;
+  /* COLORES PARA LOS CHIPS DE ALGORITMOS DE SIMILITUD */
+  lightOrange: #F4845F;
+  orange: #EC5D32;
+  darkOrange: #E94615;
+  lightGreen: #18B495;
+  green: #16A286;
+  darkGreen: #138d75;
+  lightPurple: #CA99C3;
+  purple: #AE7EA7;
+  darkPurple: #92648C;
+  lightRed: #f44336;
+  red: #D0191D;
+  darkRed: #AC0002;
+  lightBlue: #00B2D6;
+  blue: #0088A3;
+  darkBlue: #0099B8;
+  /* TAMANOS VALIDOS */
+  xs: 0px;
+  sm: 600px;
+  md: 960px;
+  lg: 1280px;
+}
+/*# sourceMappingURL=export.css.map */

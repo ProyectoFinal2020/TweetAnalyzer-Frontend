@@ -1,0 +1,57 @@
+/* Color font
+___________________________________ */
+/* Secondary Colors
+___________________________________ */
+/* Extra Colors
+___________________________________ */
+/* Font
+___________________________________ */
+/* Screen size
+___________________________________ */
+:export {
+  /* COLORES DE LA APLICACION */
+  primaryColor: #4c8abd;
+  roseColor: #92648c;
+  warningColor: #ff8400;
+  dangerColor: #f44336;
+  successColor: #4ba471;
+  infoColor: #172b32;
+  darkColor: #011527;
+  lightColor: #9fadbd;
+  grayColor: #f1f1f1;
+  lightGrayColor: #ececec;
+  darkGrayColor: #979797;
+  spacing: 8px;
+  /* COLORES PARA EL ANALISIS DE SENTIMIENTOS */
+  anger: #f44336;
+  anticipation: #1abc9c;
+  disgust: #138d75;
+  fear: #cd6155;
+  joy: #a569bd;
+  sadness: #5dade2;
+  surprise: #ec7818;
+  trust: #6f8850;
+  none: #999999;
+  /* COLORES PARA LOS CHIPS DE ALGORITMOS DE SIMILITUD */
+  lightOrange: #F4845F;
+  orange: #EC5D32;
+  darkOrange: #E94615;
+  lightGreen: #18B495;
+  green: #16A286;
+  darkGreen: #138d75;
+  lightPurple: #CA99C3;
+  purple: #AE7EA7;
+  darkPurple: #92648C;
+  lightRed: #f44336;
+  red: #D0191D;
+  darkRed: #AC0002;
+  lightBlue: #00B2D6;
+  blue: #0088A3;
+  darkBlue: #0099B8;
+  /* TAMANOS VALIDOS */
+  xs: 0px;
+  sm: 600px;
+  md: 960px;
+  lg: 1280px;
+}
+/*# sourceMappingURL=config.css.map */
