@@ -1,5 +1,4 @@
 import DateFnsUtils from "@date-io/date-fns";
-import { Typography } from "@material-ui/core";
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
@@ -8,8 +7,9 @@ import React from "react";
 import { ValidatorComponent } from "react-material-ui-form-validator";
 
 export class DatePicker extends ValidatorComponent {
-  render() {
+  renderValidatorComponent() {
     const props = this.props;
+    const { isValid } = this.state;
 
     return (
       <>
@@ -25,34 +25,11 @@ export class DatePicker extends ValidatorComponent {
             onChange={props.handleChange}
             id={props.label}
             variant="inline"
+            error={!isValid}
+            helperText={(!isValid && this.getErrorMessage()) || props.helperText}
           />
         </MuiPickersUtilsProvider>
-        {this.errorText()}
       </>
-    );
-  }
-  errorText() {
-    const { isValid } = this.state;
-
-    if (!document.getElementById(this.props.label)) {
-      return null;
-    } else {
-      if (isValid) {
-        document
-          .getElementById(this.props.label)
-          .parentElement.parentElement.setAttribute("aria-invalid", "false");
-        return null;
-      } else {
-        document
-          .getElementById(this.props.label)
-          .parentElement.parentElement.setAttribute("aria-invalid", "true");
-      }
-    }
-
-    return (
-      <Typography color="error" variant="caption">
-        {this.getErrorMessage()}
-      </Typography>
     );
   }
 }
