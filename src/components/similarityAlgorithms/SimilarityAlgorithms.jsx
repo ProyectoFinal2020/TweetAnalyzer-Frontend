@@ -58,7 +58,7 @@ export const SimilarityAlgorithms = () => {
   const [wasExecuted, setWasExecuted] = useState(false);
 
   useEffect(() => {
-    if (!wasExecuted) {
+    if (!wasExecuted && selectedData.algorithms) {
       getData(selectedData.algorithms);
     }
     // eslint-disable-next-line
@@ -302,7 +302,7 @@ export const SimilarityAlgorithms = () => {
                 Ejecutar
               </Button>
             </Grid>
-            {/* To - Do KAIT MAGIC */}
+            {/* ToDo KAIT MAGIC (poner noticia y tweets que se ejecutaron?)*/}
             {tweetsWithScores && !wasExecuted ? (
               <Typography variant="caption">
                 Esto fue lo último que se ejecutó...

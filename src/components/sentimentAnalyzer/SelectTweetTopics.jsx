@@ -9,10 +9,12 @@ import {
   Select,
 } from "@material-ui/core";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
-import React from "react";
+import { AuthContext } from "contexts/AuthContext";
+import React, { useContext } from "react";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { useHistory } from "react-router-dom";
 import { get, post } from "utils/api/api.js";
+import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { routes } from "utils/routes/routes";
 import { DownloadButton } from "./DownloadButton";
 
@@ -23,12 +25,25 @@ export const SelectTweetTopics = ({
   tweetsPerPage,
   disableDownload,
   setResults,
+  setWasExecuted,
+  setTweetAndSentiments,
   ...rest
 }) => {
   const history = useHistory();
+  const { selectedData, setSelectedData } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setWasExecuted(true);
+    setTweetAndSentiments(undefined);
+    saveSelectedData({
+      ...selectedData,
+      sentimentAnalysis: selectedTweetTopic,
+    });
+    setSelectedData({
+      ...selectedData,
+      sentimentAnalysis: selectedTweetTopic,
+    });
     post("/sentimentAnalyzer/unfiltered", {
       reportId: 0,
       topicTitle: selectedTweetTopic,
