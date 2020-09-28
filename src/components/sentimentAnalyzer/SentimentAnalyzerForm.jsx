@@ -11,15 +11,18 @@ import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { get, post } from "utils/api/api.js";
+import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { DownloadButton } from "./DownloadButton";
 
 export const SentimentAnalyzerForm = ({
   tweetsPerPage,
   setResults,
   disableDownload,
+  setWasExecuted,
+  setTweetAndSentiments,
   ...rest
 }) => {
-  const { selectedData } = useContext(AuthContext);
+  const { selectedData, setSelectedData } = useContext(AuthContext);
   const [selectedAlgorithm, setSelectedAlgorithm] = useState(
     selectedData ? selectedData.algorithms[0] : undefined
   );
@@ -35,6 +38,16 @@ export const SentimentAnalyzerForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setWasExecuted(true);
+    setTweetAndSentiments(undefined);
+    saveSelectedData({
+      ...selectedData,
+      sentimentAnalysis: selectedData.topic.title,
+    });
+    setSelectedData({
+      ...selectedData,
+      sentimentAnalysis: selectedData.topic.title,
+    });
     post("/sentimentAnalyzer", {
       reportId: selectedData.report.id,
       topicTitle: selectedData.topic.title,

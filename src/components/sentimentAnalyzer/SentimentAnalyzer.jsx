@@ -30,6 +30,22 @@ export const SentimentAnalyzer = () => {
     selectedData ? selectedData.topic.title : undefined
   );
   const [tweetTopics, setTweetTopics] = useState(undefined);
+  const [wasExecuted, setWasExecuted] = useState(false);
+
+  useEffect(() => {
+    if (!wasExecuted && selectedData.sentimentAnalysis) {
+      get(
+        "/sentimentAnalyzer?page=" +
+          1 +
+          "&per_page=" +
+          6 +
+          "&topicTitle=" +
+          selectedData.sentimentAnalysis
+      ).then((response) => {
+        setResults(response.data);
+      });
+    }
+  }, [selectedData.sentimentAnalysis, wasExecuted]);
 
   useEffect(() => {
     get("/user/tweets/topics").then((response) => {
@@ -48,26 +64,28 @@ export const SentimentAnalyzer = () => {
   };
 
   const handlePageChange = (e, value) => {
+    let aux = wasExecuted ? selectedTweetTopic : selectedData.sentimentAnalysis;
     get(
       "/sentimentAnalyzer?page=" +
         value +
         "&per_page=" +
         tweetsPerPage +
         "&topicTitle=" +
-        selectedTweetTopic
+        aux
     ).then((response) => {
       setResults(response.data);
     });
   };
 
   const handleTweetsPerPageChange = (e) => {
+    let aux = wasExecuted ? selectedTweetTopic : selectedData.sentimentAnalysis;
     get(
       "/sentimentAnalyzer?page=" +
         1 +
         "&per_page=" +
         e.target.value +
         "&topicTitle=" +
-        selectedTweetTopic
+        aux
     ).then((response) => {
       setResults(response.data);
     });
@@ -142,6 +160,8 @@ export const SentimentAnalyzer = () => {
               }
               tweetsPerPage={tweetsPerPage}
               setResults={setResults}
+              setWasExecuted={setWasExecuted}
+              setTweetAndSentiments={setTweetAndSentiments}
             />
           ) : (
             <SelectTweetTopics
@@ -153,9 +173,17 @@ export const SentimentAnalyzer = () => {
               setSelectedTweetTopic={setSelectedTweetTopic}
               tweetsPerPage={tweetsPerPage}
               setResults={setResults}
+              setWasExecuted={setWasExecuted}
+              setTweetAndSentiments={setTweetAndSentiments}
             />
           )}
         </Grid>
+        {/* ToDo KAIT MAGIC  (poner el algoritmo y/o titulo que se ejecuto?)*/}
+        {tweetAndSentiments && !wasExecuted ? (
+          <Typography variant="caption">
+            Esto fue lo último que se ejecutó...
+          </Typography>
+        ) : null}
         {tweetAndSentiments && tweetAndSentiments.length > 0 ? (
           <>
             <Grid container direction="row" alignItems="stretch">

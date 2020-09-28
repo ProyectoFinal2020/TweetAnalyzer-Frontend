@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   );
   let userTourAux = getUserTour();
   const [userTour, setUserTour] = useState(
-    isLoggedIn() && userTourAux ? userTourAux : false
+    isLoggedIn() && userTourAux ? userTourAux : true
   );
 
   useEffect(() => {

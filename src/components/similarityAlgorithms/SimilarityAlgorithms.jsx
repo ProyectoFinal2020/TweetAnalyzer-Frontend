@@ -21,7 +21,7 @@ import { AuthContext } from "contexts/AuthContext";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { get, post } from "utils/api/api";
 import { downloadFile } from "utils/fileDownloader/downloadFile.js";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { routes } from "utils/routes/routes";
@@ -55,6 +55,14 @@ export const SimilarityAlgorithms = () => {
   const [selectedProp, setSelectedProp] = useState("Tweet");
   const [error, setError] = useState("");
   const [isExecuting, setIsExecuting] = useState(false);
+  const [wasExecuted, setWasExecuted] = useState(false);
+
+  useEffect(() => {
+    if (!wasExecuted && selectedData.algorithms) {
+      getData(selectedData.algorithms);
+    }
+    // eslint-disable-next-line
+  }, [selectedData.algorithms, wasExecuted]);
 
   const getAlgorithms = () => {
     let algorithms = [];
@@ -84,8 +92,8 @@ export const SimilarityAlgorithms = () => {
 
   const getData = (
     algorithms = getAlgorithms(),
-    pageNum = page,
-    perPage = tweetsPerPage,
+    pageNum = 1,
+    perPage = 10,
     desc = false,
     orderBy = "Tweet"
   ) => {
@@ -115,7 +123,13 @@ export const SimilarityAlgorithms = () => {
     setSelectedProp(prop);
     let dict = { ...sortDirections };
     dict[prop] = dict[prop] ? false : true;
-    getData(getAlgorithms(), page, tweetsPerPage, !dict[prop], prop);
+    getData(
+      wasExecuted ? getAlgorithms() : selectedData.algorithms,
+      page,
+      tweetsPerPage,
+      !dict[prop],
+      prop
+    );
     setSortDirections(dict);
   };
 
@@ -124,6 +138,7 @@ export const SimilarityAlgorithms = () => {
   };
 
   const handleClick = () => {
+    setWasExecuted(true);
     let algorithms = getAlgorithms();
     if (algorithms && algorithms.length > 0) {
       setError("");
@@ -153,7 +168,7 @@ export const SimilarityAlgorithms = () => {
 
   const handlePageChange = (e, value) => {
     getData(
-      getAlgorithms(),
+      wasExecuted ? getAlgorithms() : selectedData.algorithms,
       value,
       tweetsPerPage,
       sortDirections[selectedProp],
@@ -164,7 +179,7 @@ export const SimilarityAlgorithms = () => {
 
   const handleTweetsPerPageChange = (e) => {
     getData(
-      getAlgorithms(),
+      wasExecuted ? getAlgorithms() : selectedData.algorithms,
       1,
       e.target.value,
       sortDirections[selectedProp],
@@ -287,6 +302,12 @@ export const SimilarityAlgorithms = () => {
                 Ejecutar
               </Button>
             </Grid>
+            {/* ToDo KAIT MAGIC (poner noticia y tweets que se ejecutaron?)*/}
+            {tweetsWithScores && !wasExecuted ? (
+              <Typography variant="caption">
+                Esto fue lo último que se ejecutó...
+              </Typography>
+            ) : null}
           </Grid>
         </Grid>
       </Grid>
