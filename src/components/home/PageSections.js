@@ -86,5 +86,18 @@ export const getPageSections = (routes) => {
         },
       ],
     },
+    {
+      name: "Análisis de sentimiento",
+      color: config["blue"],
+      icon: <SentimentVerySatisfied />,
+      subsections: [
+        {
+          name: "Análisis de sentimiento",
+          description:
+            "Obtiene los sentimientos de cada tweet: positivo, negativo o neutro. Incluso, permite seleccionar un subconjunto de los tweets obtenidos en el paso anterior.",
+          link: routes.sentimentAnalyzer.path,
+        },
+      ],
+    },
   ];
 };

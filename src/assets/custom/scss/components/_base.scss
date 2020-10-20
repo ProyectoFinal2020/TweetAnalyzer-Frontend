@@ -25,7 +25,7 @@ body {
   overflow-y: auto;
   width: 100vw;
   padding: 0 8px 0 0 !important;
-  @include add_scrollbar(8px);
+  @include add_scrollbar(8px, 1);
   font-family: $font-family;
   color: $primary;
   background-color: lighten($light-grey, 3%);
@@ -41,7 +41,7 @@ body {
   div,
   p,
   pre {
-    @include add_scrollbar(5px);
+    @include add_scrollbar(5px, 1);
   }
 
   textarea {
@@ -57,7 +57,7 @@ body {
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: 0.00938em;
-    @include add_scrollbar(5px);
+    @include add_scrollbar(5px, 1);
   }
 
   .title {
@@ -75,18 +75,18 @@ body {
 
 @media only screen and (max-width: map-get($breakpoints, md)) {
   body {
-    @include add_scrollbar(5px);
+    @include add_scrollbar(5px, 1);
+    background-color: white;
 
     div,
     p,
     pre,
     textarea,
     tbody {
-      @include add_scrollbar(3px);
+      @include add_scrollbar(3px, 1);
     }
 
     .body_margin {
-      margin: 50px 2% 0 2%;
       padding: 25px 2% 130px 2%;
       background-color: white;
     }
@@ -155,7 +155,7 @@ table {
   }
 
   tbody {
-    @include add_scrollbar(5px);
+    @include add_scrollbar(5px, 1);
     display: block;
     overflow-y: auto;
     overflow-x: hidden;
@@ -180,7 +180,6 @@ table {
   margin-bottom: 0;
 
   &[aria-invalid="true"] {
-
     .MuiInput-underline::before,
     .MuiInput-underline::after {
       border-color: red;
@@ -200,7 +199,6 @@ table {
   }
 
   &[aria-invalid="true"] {
-
     fieldset,
     fieldset:hover,
     fieldset:focus,
@@ -278,7 +276,6 @@ table {
     }
 
     .MuiInput-underline {
-
       &::after,
       &::before {
         border: none !important;

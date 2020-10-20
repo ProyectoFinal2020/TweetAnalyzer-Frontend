@@ -7,8 +7,7 @@ import "react-fake-tweet/dist/index.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./assets/mdbreact/scss/mdb.scss";
-import "./assets/custom/css/export.css";
-import App from "./App";    
+import "./assets/custom/scss/export.scss";
+import App from "./App";
 
 ReactDOM.render(<App />, document.getElementById("root"));
-

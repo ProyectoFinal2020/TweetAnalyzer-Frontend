@@ -109,6 +109,10 @@ const App = () => {
                     path={routes.dataSelection.path}
                     component={routes.dataSelection.component}
                   />
+                  <PrivateRoute
+                    path={routes.sentimentAnalyzer.path}
+                    component={routes.sentimentAnalyzer.component}
+                  />
                 </DefaultLayout>
               </Switch>
             </Router>

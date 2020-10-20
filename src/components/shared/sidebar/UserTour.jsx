@@ -26,8 +26,9 @@ const TOUR_STEPS = [
       "Aquí podrás elegir varios algoritmos de similitud para ver cuánto se asemejan los tweets seleccionados a la noticia",
   },
   {
-    target: ".navbar-emotion-analysis",
+    target: ".navbar-analysis",
     content:
+      "Aquí podrás evaluar el sentimiento de los tweets: positivo, negativo o neutro.\n" +
       "Finalmente, podrás elegir uno de los algoritmos de similitud ejecutados y un umbral. " +
       "En base a tu selección se analizarán las emociones de los tweets cuyo puntaje de similitud con la noticia supere al umbral elegido",
   },

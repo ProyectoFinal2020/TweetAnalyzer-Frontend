@@ -67,11 +67,24 @@ export const Sidebar = ({ ...props }) => {
       className: "navbar-similarity-algorithms",
     },
     {
-      name: "analisisDeEmociones",
-      label: "Análisis de emociones",
+      name: "analisisDeTweets",
+      label: "Análisis",
       icon: <SentimentVerySatisfied />,
-      onClick: () => history.push(routes.emotionAnalyzer.path),
-      className: "navbar-emotion-analysis",
+      className: "navbar-analysis",
+      items: [
+        {
+          name: "analisisDeEmociones",
+          label: "Análisis de emociones",
+          onClick: () => history.push(routes.emotionAnalyzer.path),
+          className: "",
+        },
+        {
+          name: "analisisDeSentimientos",
+          label: "Análisis de sentimientos",
+          onClick: () => history.push(routes.sentimentAnalyzer.path),
+          className: "",
+        },
+      ],
     },
     {
       name: "cargaDeDatos",

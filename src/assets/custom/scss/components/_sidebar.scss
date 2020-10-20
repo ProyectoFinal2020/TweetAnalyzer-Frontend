@@ -1,98 +1,104 @@
 .sidebar_button {
-    display: block;
-    width: 100%;
-    margin-right: 1em;
-    margin-bottom: 2px;
-    padding: 0.5rem 1rem 0.5rem 1.3rem;
-    border-radius: 10px;
-    transition: all 0.25s;
+  display: block;
+  width: 100%;
+  margin-right: 1em;
+  margin-bottom: 2px;
+  padding: 0.5rem 1rem 0.5rem 1.3rem;
+  border-radius: 10px;
+  transition: all 0.25s;
 
-    svg {
-        color: $primary;
-    }
+  svg {
+    color: $primary;
+  }
 
-    &:hover,
-    &:focus,
-    &:active {
-        background-color: rgba($light, 0.25);
-    }
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: rgba($light, 0.25);
+  }
 
-    &.nav-selected {
-        color: $white;
-        background: $primary;
-    }
+  &.nav-selected {
+    color: $white;
+    background: $primary;
+  }
 }
 
 .mobile_sidebar {
-    padding: 10px 5px;
+  padding: 10px 5px;
 
-    ul {
-        padding: 0;
+  ul {
+    padding: 0;
+    overflow-y: auto;
+    @include add_scrollbar(4px, 0.65);
 
-        p {
-            @include font-size(14px);
-            color: black;
-            padding-left: 20px;
-            line-height: 15px;
-        }
-
-        img {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-        }
-
-        .MuiListItem-button {
-            @extend .sidebar_button;
-        }
+    p {
+      @include font-size(14px);
+      color: black;
+      padding-left: 20px;
+      line-height: 15px;
     }
+
+    img {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+    }
+
+    .MuiListItem-button {
+      @extend .sidebar_button;
+    }
+  }
 }
 
 .sidebar {
-    min-width: 280px;
-    float: left;
-    position: fixed;
+  min-width: 290px;
+  float: left;
+  position: fixed;
+  height: calc(100vh - 50px);
+  padding: 10px 0;
+  overflow-y: auto;
+  @include add_scrollbar(4px, 0.65);
+
+  .sidebar_list_container {
     height: calc(100vh - 50px);
-    padding: 5px;
 
-    .sidebar_list_container {
-        height: calc(100vh - 50px);
+    .MuiListItem-root.Mui-disabled {
+      opacity: 1;
 
-        .MuiListItem-root.Mui-disabled {
-            opacity: 1;
-
-            p,
-            svg {
-                opacity: 0.5;
-            }
-        }
-
-        img {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-        }
+      p,
+      svg {
+        opacity: 0.5;
+      }
     }
 
-    ul {
-        padding: 0;
-
-        p {
-            color: black;
-            padding-left: 20px;
-            line-height: 25px;
-        }
-
-        .MuiListItem-button {
-            @extend .sidebar_button;
-        }
+    img {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
     }
+  }
+
+  ul {
+    padding: 0;
+
+    p {
+      color: black;
+      padding-left: 20px;
+      line-height: 25px;
+    }
+
+    .MuiListItem-button {
+      @extend .sidebar_button;
+    }
+  }
 }
 
-.sidebar_content {
+@media only screen and (min-width: map-get($breakpoints, md)) {
+  .sidebar_content {
     padding: 18px 30px 130px 30px;
     width: auto;
     min-height: calc(100vh - 50px);
     margin-left: 290px;
     background-color: white;
+  }
 }

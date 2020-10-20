@@ -12,6 +12,7 @@ import { LoginPage } from "components/auth/views/LoginPage";
 import { VerifyEmail } from "components/auth/views/VerifyEmail";
 import { EmailWasVerified } from "components/auth/views/EmailWasVerified";
 import { PasswordReset } from "components/auth/views/PasswordReset";
+import { SentimentAnalyzer } from "components/sentimentAnalyzer/SentimentAnalyzer";
 
 export const routes = {
   home: {
@@ -58,6 +59,11 @@ export const routes = {
     name: "Análisis de emociones",
     path: "/emotionAnalyzer",
     component: EmotionAnalyzer,
+  },
+  sentimentAnalyzer: {
+    name: "Análisis de sentimiento",
+    path: "/sentimentAnalyzer",
+    component: SentimentAnalyzer,
   },
   tweetFetcher: {
     name: "Buscar tweets",
