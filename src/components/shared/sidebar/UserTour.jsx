@@ -26,10 +26,10 @@ const TOUR_STEPS = [
       "Aquí podrás elegir varios algoritmos de similitud para ver cuánto se asemejan los tweets seleccionados a la noticia",
   },
   {
-    target: ".navbar-sentiment-analysis",
+    target: ".navbar-emotion-analysis",
     content:
       "Finalmente, podrás elegir uno de los algoritmos de similitud ejecutados y un umbral. " +
-      "En base a tu selección se analizarán los sentimientos de los tweets cuyo puntaje de similitud con la noticia supere al umbral elegido",
+      "En base a tu selección se analizarán las emociones de los tweets cuyo puntaje de similitud con la noticia supere al umbral elegido",
   },
   {
     target: ".navbar-dropdown",

@@ -7,5 +7,5 @@ export const emotionsDictionary = {
   sadness: "tristeza",
   surprise: "sorpresa",
   trust: "confianza",
-  "No posee sentimiento": "No posee sentimiento",
+  "No posee emoción": "No posee emoción",
 };

@@ -74,15 +74,15 @@ export const getPageSections = (routes) => {
       ],
     },
     {
-      name: "Análisis de sentimientos",
+      name: "Análisis de emociones",
       color: config["blue"],
       icon: <SentimentVerySatisfied />,
       subsections: [
         {
-          name: "Análisis de sentimientos",
+          name: "Análisis de emociones",
           description:
-            "Obtiene el sentimiento de cada tweet: alegría, anticipación, aversión, confianza, enojo, miedo, sorpresa y/o tristeza. Incluso, permite seleccionar un subconjunto de los tweets obtenidos en el paso anterior.",
-          link: routes.sentimentAnalyzer.path,
+            "Obtiene las emociones de cada tweet: alegría, anticipación, aversión, confianza, enojo, miedo, sorpresa y/o tristeza. Incluso, permite seleccionar un subconjunto de los tweets obtenidos en el paso anterior.",
+          link: routes.emotionAnalyzer.path,
         },
       ],
     },

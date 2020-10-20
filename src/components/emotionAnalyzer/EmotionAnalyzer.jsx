@@ -15,13 +15,13 @@ import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { get } from "utils/api/api.js";
 import { PieChartView } from "./charts";
-import { getTweetAndSentiments } from "./getTweetAndSentiments";
+import { getTweetAndEmotions } from "./getTweetAndEmotions";
 import { SelectTweetTopics } from "./SelectTweetTopics";
-import { SentimentAnalyzerForm } from "./SentimentAnalyzerForm";
+import { EmotionAnalyzerForm } from "./EmotionAnalyzerForm";
 
-export const SentimentAnalyzer = () => {
+export const EmotionAnalyzer = () => {
   const { selectedData } = useContext(AuthContext);
-  const [tweetAndSentiments, setTweetAndSentiments] = useState(undefined);
+  const [tweetAndEmotions, setTweetAndEmotions] = useState(undefined);
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(1);
   const [tweetsPerPage, setTweetsPerPage] = useState(6);
@@ -33,19 +33,19 @@ export const SentimentAnalyzer = () => {
   const [wasExecuted, setWasExecuted] = useState(false);
 
   useEffect(() => {
-    if (!wasExecuted && selectedData.sentimentAnalysis) {
+    if (!wasExecuted && selectedData.emotionAnalysis) {
       get(
-        "/sentimentAnalyzer?page=" +
+        "/emotionAnalyzer?page=" +
           1 +
           "&per_page=" +
           6 +
           "&topicTitle=" +
-          selectedData.sentimentAnalysis
+          selectedData.emotionAnalysis
       ).then((response) => {
         setResults(response.data);
       });
     }
-  }, [selectedData.sentimentAnalysis, wasExecuted]);
+  }, [selectedData.emotionAnalysis, wasExecuted]);
 
   useEffect(() => {
     get("/user/tweets/topics").then((response) => {
@@ -58,15 +58,15 @@ export const SentimentAnalyzer = () => {
 
   const setResults = (results) => {
     setPage(parseInt(results.page));
-    setTweetAndSentiments(getTweetAndSentiments(results.items));
+    setTweetAndEmotions(getTweetAndEmotions(results.items));
     setTweetsPerPage(parseInt(results.per_page));
     setCount(parseInt(results.pages));
   };
 
   const handlePageChange = (e, value) => {
-    let aux = wasExecuted ? selectedTweetTopic : selectedData.sentimentAnalysis;
+    let aux = wasExecuted ? selectedTweetTopic : selectedData.emotionAnalysis;
     get(
-      "/sentimentAnalyzer?page=" +
+      "/emotionAnalyzer?page=" +
         value +
         "&per_page=" +
         tweetsPerPage +
@@ -78,9 +78,9 @@ export const SentimentAnalyzer = () => {
   };
 
   const handleTweetsPerPageChange = (e) => {
-    let aux = wasExecuted ? selectedTweetTopic : selectedData.sentimentAnalysis;
+    let aux = wasExecuted ? selectedTweetTopic : selectedData.emotionAnalysis;
     get(
-      "/sentimentAnalyzer?page=" +
+      "/emotionAnalyzer?page=" +
         1 +
         "&per_page=" +
         e.target.value +
@@ -112,25 +112,25 @@ export const SentimentAnalyzer = () => {
         direction="row"
         justify="flex-end"
         alignItems="center"
-        className="sentiment_analyzer"
+        className="emotion_analyzer"
       >
         <Grid item xs={12}>
           <Typography component="h1" variant="h1" align="center">
-            Análisis de sentimientos
+            Análisis de emociones
           </Typography>
         </Grid>
         {selectedData &&
         selectedData.topic &&
         selectedData.algorithms &&
         selectedData.algorithms.length > 0 ? (
-          <Grid item className="sentiment_group_btn">
+          <Grid item className="emotion_group_btn">
             <ButtonGroup
               disableElevation
               variant="outlined"
               color="primary"
               size="small"
             >
-              <Tooltip title="¡Aquí puedes analizar el sentimiento de un conjunto de tweets almacenado!">
+              <Tooltip title="¡Aquí puedes analizar las emociones de un conjunto de tweets almacenado!">
                 <Button
                   className={searchBy === "tweets" ? "button_selected" : ""}
                   onClick={() => setSearchBy("tweets")}
@@ -154,19 +154,19 @@ export const SentimentAnalyzer = () => {
         ) : null}
         <Grid item xs={12}>
           {searchBy === "alg_sim" ? (
-            <SentimentAnalyzerForm
+            <EmotionAnalyzerForm
               disableDownload={
-                !tweetAndSentiments || tweetAndSentiments.length === 0
+                !tweetAndEmotions || tweetAndEmotions.length === 0
               }
               tweetsPerPage={tweetsPerPage}
               setResults={setResults}
               setWasExecuted={setWasExecuted}
-              setTweetAndSentiments={setTweetAndSentiments}
+              setTweetAndEmotions={setTweetAndEmotions}
             />
           ) : (
             <SelectTweetTopics
               disableDownload={
-                !tweetAndSentiments || tweetAndSentiments.length === 0
+                !tweetAndEmotions || tweetAndEmotions.length === 0
               }
               tweetTopics={tweetTopics}
               selectedTweetTopic={selectedTweetTopic}
@@ -174,46 +174,46 @@ export const SentimentAnalyzer = () => {
               tweetsPerPage={tweetsPerPage}
               setResults={setResults}
               setWasExecuted={setWasExecuted}
-              setTweetAndSentiments={setTweetAndSentiments}
+              setTweetAndEmotions={setTweetAndEmotions}
             />
           )}
         </Grid>
         {/* ToDo KAIT MAGIC  (poner el algoritmo y/o titulo que se ejecuto?)*/}
-        {tweetAndSentiments && !wasExecuted ? (
+        {tweetAndEmotions && !wasExecuted ? (
           <Typography variant="caption">
             Esto fue lo último que se ejecutó...
           </Typography>
         ) : null}
-        {tweetAndSentiments && tweetAndSentiments.length > 0 ? (
+        {tweetAndEmotions && tweetAndEmotions.length > 0 ? (
           <>
             <Grid container direction="row" alignItems="stretch">
-              {tweetAndSentiments.map((tweetAndSentiments) => (
+              {tweetAndEmotions.map((tweetAndEmotions) => (
                 <Grid
                   item
                   xs={12}
                   sm={6}
                   lg={4}
                   className="card_container"
-                  key={tweetAndSentiments.tweet.id}
+                  key={tweetAndEmotions.tweet.id}
                 >
                   <Card variant="outlined">
                     <CardHeader
                       avatar={
                         <Avatar
-                          aria-label={tweetAndSentiments.tweet.username}
-                          src={tweetAndSentiments.tweet.img_url ?? avatarImage}
+                          aria-label={tweetAndEmotions.tweet.username}
+                          src={tweetAndEmotions.tweet.img_url ?? avatarImage}
                         />
                       }
                       title={
                         <a
-                          href={tweetAndSentiments.tweet.permalink}
+                          href={tweetAndEmotions.tweet.permalink}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {"@" + tweetAndSentiments.tweet.username}
+                          {"@" + tweetAndEmotions.tweet.username}
                         </a>
                       }
-                      subheader={getDateAndTime(tweetAndSentiments.tweet)}
+                      subheader={getDateAndTime(tweetAndEmotions.tweet)}
                     />
                     <CardContent>
                       <Grid container alignItems="flex-end">
@@ -223,13 +223,13 @@ export const SentimentAnalyzer = () => {
                             color="textSecondary"
                             component="p"
                           >
-                            {tweetAndSentiments.tweet.text}
+                            {tweetAndEmotions.tweet.text}
                           </Typography>
                         </Grid>
                         <Grid item xs={12}>
                           <PieChartView
                             className="pie_chart"
-                            sentiment={tweetAndSentiments.emotions}
+                            emotion={tweetAndEmotions.emotions}
                           />
                         </Grid>
                       </Grid>

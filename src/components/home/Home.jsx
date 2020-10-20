@@ -34,7 +34,7 @@ export const Home = () => {
         >
           Tweet Analyzer es una plataforma que te permite buscar tweets
           oficiales, analizar su correlación con una noticia en particular y
-          realizar un análisis de sentimientos sobre los tweets.
+          realizar un análisis de emociones sobre los tweets.
         </Typography>
         {!isAuthenticated ? (
           <Grid item xs={12} className="home_begin_btn">

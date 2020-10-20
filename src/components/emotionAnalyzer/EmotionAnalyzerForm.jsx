@@ -14,12 +14,12 @@ import { get, post } from "utils/api/api.js";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { DownloadButton } from "./DownloadButton";
 
-export const SentimentAnalyzerForm = ({
+export const EmotionAnalyzerForm = ({
   tweetsPerPage,
   setResults,
   disableDownload,
   setWasExecuted,
-  setTweetAndSentiments,
+  setTweetAndEmotions,
   ...rest
 }) => {
   const { selectedData, setSelectedData } = useContext(AuthContext);
@@ -39,23 +39,23 @@ export const SentimentAnalyzerForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     setWasExecuted(true);
-    setTweetAndSentiments(undefined);
+    setTweetAndEmotions(undefined);
     saveSelectedData({
       ...selectedData,
-      sentimentAnalysis: selectedData.topic.title,
+      emotionAnalysis: selectedData.topic.title,
     });
     setSelectedData({
       ...selectedData,
-      sentimentAnalysis: selectedData.topic.title,
+      emotionAnalysis: selectedData.topic.title,
     });
-    post("/sentimentAnalyzer", {
+    post("/emotionAnalyzer", {
       reportId: selectedData.report.id,
       topicTitle: selectedData.topic.title,
       algorithm: selectedAlgorithm,
       threshold: parseThreshold(),
     }).then(() => {
       get(
-        "/sentimentAnalyzer?page=1&per_page=" +
+        "/emotionAnalyzer?page=1&per_page=" +
           tweetsPerPage +
           "&topicTitle=" +
           selectedData.topic.title
@@ -98,7 +98,7 @@ export const SentimentAnalyzerForm = ({
   return (
     <ValidatorForm onSubmit={handleSubmit}>
       <Grid container alignItems="center" justify="flex-end">
-        <Grid item xs={12} className="select_algorithm_sentiment_analyzer">
+        <Grid item xs={12} className="select_algorithm_emotion_analyzer">
           <Grid container alignItems="center" justify="center">
             <Grid item xs="auto" className="select_executed_algorithms">
               <FormControl>
@@ -124,7 +124,7 @@ export const SentimentAnalyzerForm = ({
             <Grid item xs="auto">
               <TextValidator
                 label="Umbral"
-                className="sentiment_analyzer_umbral"
+                className="emotion_analyzer_umbral"
                 value={threshold}
                 onChange={(e) => setThreshold(e.target.value)}
                 type="float"
@@ -157,9 +157,9 @@ export const SentimentAnalyzerForm = ({
         </Grid>
         <DownloadButton
           url={
-            "/sentimentAnalyzer/download?topicTitle=" + selectedData.topic.title
+            "/emotionAnalyzer/download?topicTitle=" + selectedData.topic.title
           }
-          filename={selectedData.topic.title + "-sentiment-analysis"}
+          filename={selectedData.topic.title + "-emotion-analysis"}
           disabled={disableDownload}
         />
       </Grid>

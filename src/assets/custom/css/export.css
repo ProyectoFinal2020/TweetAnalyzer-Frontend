@@ -2004,42 +2004,42 @@ ___________________________________ */
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.sentiment_analyzer .download_button {
+.emotion_analyzer .download_button {
   padding-right: 18px;
   padding-left: 2px;
   margin: 0 10px;
   float: right;
 }
 
-.sentiment_analyzer .download_button svg {
+.emotion_analyzer .download_button svg {
   margin: 0 10px 0;
   font-size: medium;
 }
 
-.sentiment_analyzer .sentiment_group_btn {
+.emotion_analyzer .emotion_group_btn {
   margin: 10px;
 }
 
-.sentiment_analyzer .sentiment_group_btn .button_selected {
+.emotion_analyzer .emotion_group_btn .button_selected {
   background-color: #4c8abd;
   color: white;
 }
 
-.sentiment_analyzer .card_container {
+.emotion_analyzer .card_container {
   padding: 10px;
 }
 
-.sentiment_analyzer .card_container .MuiCard-root {
+.emotion_analyzer .card_container .MuiCard-root {
   height: calc(100% - 10px);
   padding: 10px 10px 0;
 }
 
-.sentiment_analyzer .card_container .MuiCard-root a {
+.emotion_analyzer .card_container .MuiCard-root a {
   color: black;
   font-weight: 500;
 }
 
-.sentiment_analyzer .card_container .MuiCard-root p {
+.emotion_analyzer .card_container .MuiCard-root p {
   word-wrap: break-word !important;
   white-space: pre;
   /* IE>=6 */
@@ -2049,16 +2049,16 @@ ___________________________________ */
   /* Fx>3, Opera>8, Safari>3*/
 }
 
-.sentiment_analyzer .card_container .MuiCard-root .MuiCardContent-root {
+.emotion_analyzer .card_container .MuiCard-root .MuiCardContent-root {
   height: calc(100% - 70px);
   padding: 0 10px;
 }
 
-.sentiment_analyzer .card_container .MuiCard-root .MuiCardContent-root .MuiGrid-container {
+.emotion_analyzer .card_container .MuiCard-root .MuiCardContent-root .MuiGrid-container {
   height: 100%;
 }
 
-.sentiment_analyzer .card_container .MuiCard-root .MuiCardContent-root .tweet_content {
+.emotion_analyzer .card_container .MuiCard-root .MuiCardContent-root .tweet_content {
   align-self: flex-start;
 }
 
@@ -2083,24 +2083,24 @@ ___________________________________ */
   }
 }
 
-.select_algorithm_sentiment_analyzer {
+.select_algorithm_emotion_analyzer {
   margin: 10px;
 }
 
-.select_algorithm_sentiment_analyzer .sentiment_analyzer_umbral {
+.select_algorithm_emotion_analyzer .emotion_analyzer_umbral {
   max-width: 65px;
 }
 
-.select_algorithm_sentiment_analyzer .sentiment_analyzer_umbral .MuiInputBase-input {
+.select_algorithm_emotion_analyzer .emotion_analyzer_umbral .MuiInputBase-input {
   padding: 15px 10px;
   text-align: center;
 }
 
-.select_algorithm_sentiment_analyzer .select_executed_algorithms {
+.select_algorithm_emotion_analyzer .select_executed_algorithms {
   width: calc(100% - 65px);
 }
 
-.select_algorithm_sentiment_analyzer .select_executed_algorithms .MuiFormControl-root {
+.select_algorithm_emotion_analyzer .select_executed_algorithms .MuiFormControl-root {
   width: calc(100% - 20px);
   margin: 5px 10px;
 }

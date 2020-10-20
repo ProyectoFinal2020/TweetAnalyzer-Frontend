@@ -49,8 +49,6 @@ export const DataSelection = () => {
     }
   }, [selectedTweetsTopic, selectedReport, submitted]);
 
-  // To-Do: Border para que se vea mejor cual está seleccionado
-
   useEffect(() => {
     get("/reports").then((response) => {
       setReports(response.data);
@@ -98,7 +96,7 @@ export const DataSelection = () => {
         history.push(
           selectedReport !== ""
             ? routes.similarityAlgorithms.path
-            : routes.sentimentAnalyzer.path
+            : routes.emotionAnalyzer.path
         );
       }
     }

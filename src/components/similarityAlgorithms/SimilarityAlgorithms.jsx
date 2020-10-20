@@ -231,7 +231,7 @@ export const SimilarityAlgorithms = () => {
             className="action_btn_group similarity_algorithms_action_btn_group"
           >
             <Button
-              onClick={() => history.push(routes.sentimentAnalyzer.path)}
+              onClick={() => history.push(routes.emotionAnalyzer.path)}
               className="success"
               aria-label="Continuar"
             >
@@ -352,7 +352,7 @@ export const SimilarityAlgorithms = () => {
           <Tooltip title="Continuar">
             <Box>
               <Fab
-                onClick={() => history.push(routes.sentimentAnalyzer.path)}
+                onClick={() => history.push(routes.emotionAnalyzer.path)}
                 className="success"
                 aria-label="Continuar"
               >

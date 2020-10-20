@@ -26,7 +26,7 @@ export const SelectTweetTopics = ({
   disableDownload,
   setResults,
   setWasExecuted,
-  setTweetAndSentiments,
+  setTweetAndEmotions,
   ...rest
 }) => {
   const history = useHistory();
@@ -35,23 +35,23 @@ export const SelectTweetTopics = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     setWasExecuted(true);
-    setTweetAndSentiments(undefined);
+    setTweetAndEmotions(undefined);
     saveSelectedData({
       ...selectedData,
-      sentimentAnalysis: selectedTweetTopic,
+      emotionAnalysis: selectedTweetTopic,
     });
     setSelectedData({
       ...selectedData,
-      sentimentAnalysis: selectedTweetTopic,
+      emotionAnalysis: selectedTweetTopic,
     });
-    post("/sentimentAnalyzer/unfiltered", {
+    post("/emotionAnalyzer/unfiltered", {
       reportId: 0,
       topicTitle: selectedTweetTopic,
       algorithm: "",
       threshold: 0,
     }).then(() => {
       get(
-        "/sentimentAnalyzer?page=1&per_page=" +
+        "/emotionAnalyzer?page=1&per_page=" +
           tweetsPerPage +
           "&topicTitle=" +
           selectedTweetTopic
@@ -95,8 +95,8 @@ export const SelectTweetTopics = ({
           </Button>
         </Grid>
         <DownloadButton
-          url={"/sentimentAnalyzer/download?topicTitle=" + selectedTweetTopic}
-          filename={selectedTweetTopic + "-sentiment-analysis"}
+          url={"/emotionAnalyzer/download?topicTitle=" + selectedTweetTopic}
+          filename={selectedTweetTopic + "-emotion-analysis"}
           disabled={disableDownload}
         />
       </Grid>

@@ -4,7 +4,7 @@ import { ReportsList } from "components/reports/MyReportsList";
 import { DataSelection } from "../../components/dataSelection/DataSelection";
 import { TweetFetcher } from "../../components/dataUploader/TweetFetcher";
 import { Home } from "../../components/home/Home";
-import { SentimentAnalyzer } from "../../components/sentimentAnalyzer/SentimentAnalyzer";
+import { EmotionAnalyzer } from "../../components/emotionAnalyzer/EmotionAnalyzer";
 import { SimilarityAlgorithms } from "../../components/similarityAlgorithms/SimilarityAlgorithms";
 import { MyTweets } from "../../components/myTweets/MyTweets";
 import { SignUpPage } from "components/auth/views/SignUpPage";
@@ -54,10 +54,10 @@ export const routes = {
     path: "/similarityAlgorithms",
     component: SimilarityAlgorithms,
   },
-  sentimentAnalyzer: {
-    name: "Análisis de sentimientos",
-    path: "/sentimentAnalyzer",
-    component: SentimentAnalyzer,
+  emotionAnalyzer: {
+    name: "Análisis de emociones",
+    path: "/emotionAnalyzer",
+    component: EmotionAnalyzer,
   },
   tweetFetcher: {
     name: "Buscar tweets",

@@ -1,4 +1,4 @@
-.sentiment_analyzer {
+.emotion_analyzer {
     .download_button {
         padding-right: 18px;
         padding-left: 2px;
@@ -11,7 +11,7 @@
         }
     }
 
-    .sentiment_group_btn {
+    .emotion_group_btn {
         margin: 10px;
 
         .button_selected {
@@ -75,10 +75,10 @@
     }
 }
 
-.select_algorithm_sentiment_analyzer {
+.select_algorithm_emotion_analyzer {
     margin: 10px;
 
-    .sentiment_analyzer_umbral {
+    .emotion_analyzer_umbral {
         max-width: 65px;
 
         .MuiInputBase-input {

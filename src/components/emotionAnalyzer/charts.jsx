@@ -9,7 +9,7 @@ export const PieChartView = (props) => {
   const [chartColors, setChartColors] = useState([]);
 
   useEffect(() => {
-    let data = props.sentiment.map((entry, i) => {
+    let data = props.emotion.map((entry, i) => {
       if (hovered === i) {
         return {
           ...entry,
@@ -28,7 +28,7 @@ export const PieChartView = (props) => {
       };
     });
     setChartColors(chartColors);
-  }, [props.sentiment, hovered]);
+  }, [props.emotion, hovered]);
 
   return (
     <Grid container justify="center" alignItems="flex-end">

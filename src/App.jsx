@@ -74,8 +74,8 @@ const App = () => {
                 />
                 <DefaultLayout>
                   <PrivateRoute
-                    path={routes.sentimentAnalyzer.path}
-                    component={routes.sentimentAnalyzer.component}
+                    path={routes.emotionAnalyzer.path}
+                    component={routes.emotionAnalyzer.component}
                   />
                   <PrivateRoute
                     path={routes.tweets.path}

@@ -39,7 +39,7 @@
         "helpers/_mixins.scss",
         "pages/_similarityAlgorithms.scss",
         "helpers/_variables.scss",
-        "pages/_sentimentAnalyzer.scss",
+        "pages/_emotionAnalyzer.scss",
         "pages/_home.scss",
         "pages/_reportForm.scss",
         "pages/_tweetFetcher.scss",

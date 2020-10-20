@@ -67,11 +67,11 @@ export const Sidebar = ({ ...props }) => {
       className: "navbar-similarity-algorithms",
     },
     {
-      name: "analisisDeSentimientos",
-      label: "Análisis de sentimientos",
+      name: "analisisDeEmociones",
+      label: "Análisis de emociones",
       icon: <SentimentVerySatisfied />,
-      onClick: () => history.push(routes.sentimentAnalyzer.path),
-      className: "navbar-sentiment-analysis",
+      onClick: () => history.push(routes.emotionAnalyzer.path),
+      className: "navbar-emotion-analysis",
     },
     {
       name: "cargaDeDatos",
