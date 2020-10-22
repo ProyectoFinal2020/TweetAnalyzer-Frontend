@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { PieChart } from "react-minimal-pie-chart";
-import { emotionsDictionary } from "./emotionsDictionary.js";
+import { emotionsDictionary } from "../../emotionAnalyzer/emotionsDictionary.js";
 import { Grid } from "@material-ui/core";
 
 export const PieChartView = (props) => {

@@ -1,23 +1,18 @@
 import {
-  Avatar,
   Button,
   ButtonGroup,
-  Card,
-  CardContent,
-  CardHeader,
   Grid,
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import avatarImage from "assets/custom/img/tweetLogo.svg";
 import { Paginator } from "components/shared/paginator/Paginator";
+import { Tweet } from "components/shared/tweet/Tweet";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { get } from "utils/api/api.js";
-import { PieChartView } from "./charts";
+import { EmotionAnalyzerForm } from "./EmotionAnalyzerForm";
 import { getTweetAndEmotions } from "./getTweetAndEmotions";
 import { SelectTweetTopics } from "./SelectTweetTopics";
-import { EmotionAnalyzerForm } from "./EmotionAnalyzerForm";
 
 export const EmotionAnalyzer = () => {
   const { selectedData } = useContext(AuthContext);
@@ -33,7 +28,7 @@ export const EmotionAnalyzer = () => {
   const [wasExecuted, setWasExecuted] = useState(false);
 
   useEffect(() => {
-    if (!wasExecuted && selectedData.emotionAnalysis) {
+    if (!wasExecuted && selectedData && selectedData.emotionAnalysis) {
       get(
         "/emotionAnalyzer?page=" +
           1 +
@@ -45,7 +40,7 @@ export const EmotionAnalyzer = () => {
         setResults(response.data);
       });
     }
-  }, [selectedData.emotionAnalysis, wasExecuted]);
+  }, [selectedData, wasExecuted]);
 
   useEffect(() => {
     get("/user/tweets/topics").then((response) => {
@@ -89,20 +84,6 @@ export const EmotionAnalyzer = () => {
     ).then((response) => {
       setResults(response.data);
     });
-  };
-
-  const getDateAndTime = (tweet) => {
-    const date = new Date(tweet.date);
-
-    return (
-      date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) +
-      " • " +
-      date.toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    );
   };
 
   return (
@@ -196,45 +177,10 @@ export const EmotionAnalyzer = () => {
                   className="card_container"
                   key={tweetAndEmotions.tweet.id}
                 >
-                  <Card variant="outlined">
-                    <CardHeader
-                      avatar={
-                        <Avatar
-                          aria-label={tweetAndEmotions.tweet.username}
-                          src={tweetAndEmotions.tweet.img_url ?? avatarImage}
-                        />
-                      }
-                      title={
-                        <a
-                          href={tweetAndEmotions.tweet.permalink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {"@" + tweetAndEmotions.tweet.username}
-                        </a>
-                      }
-                      subheader={getDateAndTime(tweetAndEmotions.tweet)}
-                    />
-                    <CardContent>
-                      <Grid container alignItems="flex-end">
-                        <Grid item xs={12} className="tweet_content">
-                          <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                          >
-                            {tweetAndEmotions.tweet.text}
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <PieChartView
-                            className="pie_chart"
-                            emotion={tweetAndEmotions.emotions}
-                          />
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                  </Card>
+                  <Tweet
+                    tweet={tweetAndEmotions.tweet}
+                    emotions={tweetAndEmotions.emotions}
+                  />
                 </Grid>
               ))}
             </Grid>
