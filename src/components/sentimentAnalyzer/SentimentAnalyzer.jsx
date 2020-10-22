@@ -1,137 +1,115 @@
-import React, { useEffect, useState } from "react";
-import { Chart } from "react-charts";
-import ResizableBox from "./ResizableBox";
-import "./styles.css";
+import React, { useContext, useEffect, useState } from "react";
 import { get } from "utils/api/api";
+import { Bar } from "react-chartjs-2";
+import config from "assets/custom/scss/config.scss";
+import { AuthContext } from "contexts/AuthContext";
 
 export const SentimentAnalyzer = () => {
   const [tweets, setTweets] = useState(undefined);
+  const { selectedData } = useContext(AuthContext);
 
   useEffect(() => {
-    get("/sentimentAnalyzer?topicTitle=Coronavirus").then((response) => {
-      let aux = [0, 0, 0, 0, 0, 0, 0, 0];
-      let i = 0;
-      let j = 0;
-      let max = 1;
-      let min = 0.75;
-      while (i < response.data.length) {
-        let polarity = response.data[i].polarity;
-        if (polarity <= max && polarity >= min) {
-          aux[j] = aux[j] + 1;
-          i++;
-        } else {
-          j++;
-          min -= 0.25;
-          max -= 0.25;
+    get("/sentimentAnalyzer?topicTitle=" + selectedData.topic.title).then(
+      (response) => {
+        let aux = [0, 0, 0, 0, 0, 0, 0, 0];
+        let i = 0;
+        let j = 0;
+        let max = 1;
+        let min = 0.75;
+        while (i < response.data.length) {
+          let polarity = response.data[i].polarity;
+          if (polarity <= max && polarity >= min) {
+            aux[j] = aux[j] + 1;
+            i++;
+          } else {
+            j++;
+            min -= 0.25;
+            max -= 0.25;
+          }
         }
+
+        const data = {
+          labels: [
+            "-1 a -0.75",
+            "-0.75 a -0.50",
+            "-0.5 a -0.25",
+            "-0.25 a 0",
+            "0 a 0.25",
+            "0.25 a 0.50",
+            "0.50 a 0.75",
+            "0.75 a 1",
+          ],
+          datasets: [
+            {
+              label: selectedData.topic.title,
+              backgroundColor: [
+                config["graphBlue"],
+                config["graphOrange"],
+                config["graphRed"],
+                config["graphTeal"],
+                config["graphYellow"],
+                config["graphGreen"],
+                config["graphPurple"],
+                config["graphPink"],
+              ],
+              borderColor: [
+                config["graphBlue"],
+                config["graphOrange"],
+                config["graphRed"],
+                config["graphTeal"],
+                config["graphYellow"],
+                config["graphGreen"],
+                config["graphPurple"],
+                config["graphPink"],
+              ],
+              borderWidth: 1,
+              data: aux,
+            },
+          ],
+        };
+
+        setTweets(data);
       }
-      const algo = [
-        {
-          label: "-1 a -0.75",
-          data: [
-            {
-              primary: "Polaridad",
-              radius: undefined,
-              secondary: aux[7],
-            },
-          ],
-        },
-        {
-          label: "-0.75 a -0.50",
-          data: [
-            {
-              primary: "Polaridad",
-              radius: undefined,
-              secondary: aux[6],
-            },
-          ],
-        },
-        {
-          label: "-0.5 a -0.25",
-          data: [
-            {
-              primary: "Polaridad",
-              radius: undefined,
-              secondary: aux[5],
-            },
-          ],
-        },
-        {
-          label: "-0.25 a 0",
-          data: [
-            {
-              primary: "Polaridad",
-              radius: undefined,
-              secondary: aux[4],
-            },
-          ],
-        },
-        {
-          label: "0 a 0.25",
-          data: [
-            {
-              primary: "Polaridad",
-              radius: undefined,
-              secondary: aux[3],
-            },
-          ],
-        },
-        {
-          label: "0.25 a 0.50",
-          data: [
-            {
-              primary: "Polaridad",
-              radius: undefined,
-              secondary: aux[2],
-            },
-          ],
-        },
-        {
-          label: "0.50 a 0.75",
-          data: [
-            {
-              primary: "Polaridad",
-              radius: undefined,
-              secondary: aux[1],
-            },
-          ],
-        },
-        {
-          label: "0.75 a 1",
-          data: [
-            {
-              primary: "Polaridad",
-              radius: undefined,
-              secondary: aux[0],
-            },
-          ],
-        },
-      ];
-      setTweets(algo);
-    });
-  }, []);
-
-  const series = React.useMemo(
-    () => ({
-      type: "bar",
-    }),
-    []
-  );
-
-  const axes = React.useMemo(
-    () => [
-      { primary: true, type: "ordinal", position: "bottom" },
-      { position: "left", type: "linear", stacked: false },
-    ],
-    []
-  );
+    );
+  }, [selectedData.topic.title]);
 
   return (
     <>
       {tweets ? (
-        <ResizableBox>
-          <Chart data={tweets} series={series} axes={axes} tooltip />
-        </ResizableBox>
+        <Bar
+          data={tweets}
+          legend={{ display: false }}
+          options={{
+            title: {
+              text: selectedData.topic.title,
+              display: true,
+              fontSize: 22,
+            },
+            scales: {
+              xAxes: [
+                {
+                  scaleLabel: {
+                    labelString: "Polaridad",
+                    display: true,
+                    fontSize: 18,
+                  },
+                  gridLines: {
+                    color: "rgba(0, 0, 0, 0)",
+                  },
+                },
+              ],
+              yAxes: [
+                {
+                  scaleLabel: {
+                    labelString: "Cantidad de tweets",
+                    display: true,
+                    fontSize: 18,
+                  },
+                },
+              ],
+            },
+          }}
+        />
       ) : null}
     </>
   );
