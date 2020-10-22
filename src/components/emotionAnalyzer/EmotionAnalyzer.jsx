@@ -33,7 +33,7 @@ export const EmotionAnalyzer = () => {
   const [wasExecuted, setWasExecuted] = useState(false);
 
   useEffect(() => {
-    if (!wasExecuted && selectedData.emotionAnalysis) {
+    if (!wasExecuted && selectedData && selectedData.emotionAnalysis) {
       get(
         "/emotionAnalyzer?page=" +
           1 +
@@ -45,7 +45,7 @@ export const EmotionAnalyzer = () => {
         setResults(response.data);
       });
     }
-  }, [selectedData.emotionAnalysis, wasExecuted]);
+  }, [selectedData, wasExecuted]);
 
   useEffect(() => {
     get("/user/tweets/topics").then((response) => {
