@@ -7,10 +7,10 @@ import {
   MenuItem,
   Select,
 } from "@material-ui/core";
+import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
-import { DownloadButton } from "../emotionAnalyzer/DownloadButton";
 
 export const SelectSimAlgorithmForm = ({
   disableDownload,

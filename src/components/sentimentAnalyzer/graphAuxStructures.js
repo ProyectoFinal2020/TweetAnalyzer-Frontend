@@ -16,10 +16,10 @@ export const graphColors = [
   config["graphOrange"],
   config["graphRed"],
   config["graphTeal"],
-  config["graphYellow"],
+  config["graphPink"],
   config["graphGreen"],
   config["graphPurple"],
-  config["graphPink"],
+  config["graphYellow"],
 ];
 
 export const getOptions = (title) => {

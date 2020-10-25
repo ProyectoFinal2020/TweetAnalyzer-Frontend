@@ -113,6 +113,10 @@ const App = () => {
                     path={routes.sentimentAnalyzer.path}
                     component={routes.sentimentAnalyzer.component}
                   />
+                  <PrivateRoute
+                    path={routes.bubbleChart.path}
+                    component={routes.bubbleChart.component}
+                  />
                 </DefaultLayout>
               </Switch>
             </Router>

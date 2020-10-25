@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import { TweetsSelection } from "components/analyzers/TweetsSelection";
+import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
 import { Paginator } from "components/shared/paginator/Paginator";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
@@ -31,6 +32,7 @@ export const SentimentAnalyzer = () => {
   );
   const [tweetTopics, setTweetTopics] = useState(undefined);
   const [wasExecuted, setWasExecuted] = useState(false);
+  const STEP_SIZE = 0.25;
 
   useEffect(() => {
     if (!wasExecuted && selectedData && selectedData.sentimentAnalysis) {
@@ -171,7 +173,7 @@ export const SentimentAnalyzer = () => {
                     className="polarity-slider"
                     value={polarity}
                     min={-1}
-                    step={0.25}
+                    step={STEP_SIZE}
                     max={1}
                     onChange={(event, value) => setPolarity(value)}
                     valueLabelDisplay="auto"
@@ -184,6 +186,16 @@ export const SentimentAnalyzer = () => {
                   Buscar
                 </Button>
               </Grid>
+              <DownloadButton
+                url={
+                  "/sentimentAnalyzer/download?topicTitle=" +
+                  selectedData.topic.title +
+                  "&step_size=" +
+                  STEP_SIZE
+                }
+                filename={selectedData.topic.title + "-sentiment-analysis"}
+                // disabled={disableDownload} ToDo
+              />
             </Grid>
           </form>
         </Grid>

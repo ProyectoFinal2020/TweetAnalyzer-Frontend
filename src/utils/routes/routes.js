@@ -13,6 +13,7 @@ import { VerifyEmail } from "components/auth/views/VerifyEmail";
 import { EmailWasVerified } from "components/auth/views/EmailWasVerified";
 import { PasswordReset } from "components/auth/views/PasswordReset";
 import { SentimentAnalyzer } from "components/sentimentAnalyzer/SentimentAnalyzer";
+import { BubbleChartView } from "components/bubbleChart/BubbleChartView";
 
 export const routes = {
   home: {
@@ -64,6 +65,11 @@ export const routes = {
     name: "Análisis de sentimiento",
     path: "/sentimentAnalyzer",
     component: SentimentAnalyzer,
+  },
+  bubbleChart: {
+    name: "Gráfico de burbujas",
+    path: "/bubbleChart",
+    component: BubbleChartView,
   },
   tweetFetcher: {
     name: "Buscar tweets",

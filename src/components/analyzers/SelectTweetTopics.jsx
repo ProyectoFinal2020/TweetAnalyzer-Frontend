@@ -13,7 +13,7 @@ import React from "react";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { useHistory } from "react-router-dom";
 import { routes } from "utils/routes/routes";
-import { DownloadButton } from "../emotionAnalyzer/DownloadButton";
+import { DownloadButton } from "../shared/downloadButton/DownloadButton";
 
 export const SelectTweetTopics = ({
   disableDownload,
