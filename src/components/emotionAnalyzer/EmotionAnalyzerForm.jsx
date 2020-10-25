@@ -12,7 +12,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { get, post } from "utils/api/api.js";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
-import { DownloadButton } from "./DownloadButton";
+import { DownloadButton } from "../shared/downloadButton/DownloadButton";
 
 export const EmotionAnalyzerForm = ({
   tweetsPerPage,

@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
+import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
@@ -19,6 +20,7 @@ export const SentimentAnalyzer = () => {
   const [graphInfo, setGraphInfo] = useState(undefined);
   const [tweets, setTweets] = useState(undefined);
   const { selectedData } = useContext(AuthContext);
+  const STEP_SIZE = 0.25;
 
   useEffect(() => {
     get("/sentimentAnalyzer/graph?topicTitle=" + selectedData.topic.title).then(
@@ -41,11 +43,10 @@ export const SentimentAnalyzer = () => {
     );
   }, [selectedData.topic.title]);
 
-  const handleSubmit = () => {
-    console.log(this.polarity[0]);
-    console.log(this.polarity[1]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
     get("/sentimentAnalyzer?topicTitle=Coronavirus").then((response) => {
-      setGraphInfo(response.data);
+      setTweets(response.data);
     });
   };
 
@@ -83,7 +84,7 @@ export const SentimentAnalyzer = () => {
                     className="polarity-slider"
                     value={polarity}
                     min={-1}
-                    step={0.25}
+                    step={STEP_SIZE}
                     max={1}
                     onChange={(event, value) => setPolarity(value)}
                     valueLabelDisplay="auto"
@@ -96,6 +97,16 @@ export const SentimentAnalyzer = () => {
                   Buscar
                 </Button>
               </Grid>
+              <DownloadButton
+                url={
+                  "/sentimentAnalyzer/download?topicTitle=" +
+                  selectedData.topic.title +
+                  "&step_size=" +
+                  STEP_SIZE
+                }
+                filename={selectedData.topic.title + "-sentiment-analysis"}
+                // disabled={disableDownload} ToDo
+              />
             </Grid>
           </form>
         </Grid>

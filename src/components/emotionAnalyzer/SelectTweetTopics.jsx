@@ -16,7 +16,7 @@ import { useHistory } from "react-router-dom";
 import { get, post } from "utils/api/api.js";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { routes } from "utils/routes/routes";
-import { DownloadButton } from "./DownloadButton";
+import { DownloadButton } from "../shared/downloadButton/DownloadButton";
 
 export const SelectTweetTopics = ({
   tweetTopics,
