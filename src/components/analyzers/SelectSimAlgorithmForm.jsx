@@ -10,19 +10,14 @@ import {
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
-import { get, post } from "utils/api/api.js";
-import { saveSelectedData } from "utils/localStorageManagement/selectedData";
-import { DownloadButton } from "./DownloadButton";
+import { DownloadButton } from "../emotionAnalyzer/DownloadButton";
 
-export const EmotionAnalyzerForm = ({
-  tweetsPerPage,
-  setResults,
+export const SelectSimAlgorithmForm = ({
   disableDownload,
-  setWasExecuted,
-  setTweetAndEmotions,
+  handleSubmit,
   ...rest
 }) => {
-  const { selectedData, setSelectedData } = useContext(AuthContext);
+  const { selectedData } = useContext(AuthContext);
   const [selectedAlgorithm, setSelectedAlgorithm] = useState(
     selectedData ? selectedData.algorithms[0] : undefined
   );
@@ -36,33 +31,14 @@ export const EmotionAnalyzerForm = ({
     return parseFloat(aux);
   };
 
-  const handleSubmit = (e) => {
+  const submit = (e) => {
     e.preventDefault();
-    setWasExecuted(true);
-    setTweetAndEmotions(undefined);
-    saveSelectedData({
-      ...selectedData,
-      emotionAnalysis: selectedData.topic.title,
-    });
-    setSelectedData({
-      ...selectedData,
-      emotionAnalysis: selectedData.topic.title,
-    });
-    post("/emotionAnalyzer", {
-      reportId: selectedData.report.id,
-      topicTitle: selectedData.topic.title,
-      algorithm: selectedAlgorithm,
-      threshold: parseThreshold(),
-    }).then(() => {
-      get(
-        "/emotionAnalyzer?page=1&per_page=" +
-          tweetsPerPage +
-          "&topicTitle=" +
-          selectedData.topic.title
-      ).then((response) => {
-        setResults(response.data);
-      });
-    });
+    handleSubmit(
+      selectedData.report.id,
+      selectedData.topic.title,
+      selectedAlgorithm,
+      parseThreshold()
+    );
   };
 
   useEffect(() => {
@@ -96,7 +72,7 @@ export const EmotionAnalyzerForm = ({
   }, []);
 
   return (
-    <ValidatorForm onSubmit={handleSubmit}>
+    <ValidatorForm onSubmit={submit}>
       <Grid container alignItems="center" justify="flex-end">
         <Grid item xs={12} className="select_algorithm_emotion_analyzer">
           <Grid container alignItems="center" justify="center">

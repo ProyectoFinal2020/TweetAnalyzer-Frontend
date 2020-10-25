@@ -57,25 +57,12 @@ export const TweetsByTopicTable = ({
     });
   }, [topicTitle, tweetsPerPage]);
 
-  const handlePageChange = (e, value) => {
+  const getTweets = (page, per_page) => {
     get(
       "/user/tweets/paginated?page=" +
-        value +
+        page +
         "&per_page=" +
-        tweetsPerPage +
-        "&topic_title=" +
-        topicTitle
-    ).then((response) => {
-      setResults(response.data);
-    });
-  };
-
-  const handleTweetsPerPageChange = (e) => {
-    get(
-      "/user/tweets/paginated?page=" +
-        1 +
-        "&per_page=" +
-        e.target.value +
+        per_page +
         "&topic_title=" +
         topicTitle
     ).then((response) => {
@@ -144,7 +131,7 @@ export const TweetsByTopicTable = ({
         const lastPage = (totalTweets - keys.length) / tweetsPerPage;
         const newPage = lastPage > page ? page : lastPage;
         setCheckboxes({});
-        handlePageChange(undefined, Math.ceil(newPage));
+        getTweets(Math.ceil(newPage), tweetsPerPage);
       });
     }
   };
@@ -340,8 +327,9 @@ export const TweetsByTopicTable = ({
           count={count}
           itemsPerPage={tweetsPerPage}
           listItemsPerPage={listTweetsPerPage}
-          handleItemsPerPageChange={handleTweetsPerPageChange}
-          handlePageChange={handlePageChange}
+          getItems={getTweets}
+          setPage={setPage}
+          setItemsPerPage={setTweetsPerPage}
         />
       </Grid>
     </Grid>

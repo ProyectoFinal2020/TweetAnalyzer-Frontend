@@ -1,21 +1,15 @@
-import {
-  Button,
-  ButtonGroup,
-  Grid,
-  Tooltip,
-  Typography,
-} from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
+import { TweetsSelection } from "components/analyzers/TweetsSelection";
 import { Paginator } from "components/shared/paginator/Paginator";
 import { Tweet } from "components/shared/tweet/Tweet";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
-import { get } from "utils/api/api.js";
-import { EmotionAnalyzerForm } from "./EmotionAnalyzerForm";
+import { get, post } from "utils/api/api.js";
+import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { getTweetAndEmotions } from "./getTweetAndEmotions";
-import { SelectTweetTopics } from "./SelectTweetTopics";
 
 export const EmotionAnalyzer = () => {
-  const { selectedData } = useContext(AuthContext);
+  const { selectedData, setSelectedData } = useContext(AuthContext);
   const [tweetAndEmotions, setTweetAndEmotions] = useState(undefined);
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(1);
@@ -58,13 +52,13 @@ export const EmotionAnalyzer = () => {
     setCount(parseInt(results.pages));
   };
 
-  const handlePageChange = (e, value) => {
+  const getTweets = (page, per_page) => {
     let aux = wasExecuted ? selectedTweetTopic : selectedData.emotionAnalysis;
     get(
       "/emotionAnalyzer?page=" +
-        value +
+        page +
         "&per_page=" +
-        tweetsPerPage +
+        per_page +
         "&topicTitle=" +
         aux
     ).then((response) => {
@@ -72,17 +66,31 @@ export const EmotionAnalyzer = () => {
     });
   };
 
-  const handleTweetsPerPageChange = (e) => {
-    let aux = wasExecuted ? selectedTweetTopic : selectedData.emotionAnalysis;
-    get(
-      "/emotionAnalyzer?page=" +
-        1 +
-        "&per_page=" +
-        e.target.value +
-        "&topicTitle=" +
-        aux
-    ).then((response) => {
-      setResults(response.data);
+  const handleSubmit = (reportId, topicTitle, algorithm, threshold) => {
+    setWasExecuted(true);
+    setTweetAndEmotions(undefined);
+    saveSelectedData({
+      ...selectedData,
+      emotionAnalysis: topicTitle,
+    });
+    setSelectedData({
+      ...selectedData,
+      emotionAnalysis: topicTitle,
+    });
+    post("/emotionAnalyzer", {
+      reportId: reportId,
+      topicTitle: topicTitle,
+      algorithm: algorithm,
+      threshold: threshold,
+    }).then(() => {
+      get(
+        "/emotionAnalyzer?page=1&per_page=" +
+          tweetsPerPage +
+          "&topicTitle=" +
+          topicTitle
+      ).then((response) => {
+        setResults(response.data);
+      });
     });
   };
 
@@ -100,64 +108,16 @@ export const EmotionAnalyzer = () => {
             Análisis de emociones
           </Typography>
         </Grid>
-        {selectedData &&
-        selectedData.topic &&
-        selectedData.algorithms &&
-        selectedData.algorithms.length > 0 ? (
-          <Grid item className="emotion_group_btn">
-            <ButtonGroup
-              disableElevation
-              variant="outlined"
-              color="primary"
-              size="small"
-            >
-              <Tooltip title="¡Aquí puedes analizar las emociones de un conjunto de tweets almacenado!">
-                <Button
-                  className={searchBy === "tweets" ? "button_selected" : ""}
-                  onClick={() => setSearchBy("tweets")}
-                >
-                  Tweets
-                </Button>
-              </Tooltip>
-              <Tooltip title="¡Aquí puedes puedes seleccionar un algoritmo de similitud ejecutado previamente y filtrar los tweets de acuerdo a un umbral representativo!">
-                <Button
-                  className={searchBy === "alg_sim" ? "button_selected" : ""}
-                  onClick={() => {
-                    setSearchBy("alg_sim");
-                    setSelectedTweetTopic(selectedData.topic.title);
-                  }}
-                >
-                  Algoritmos de similitud
-                </Button>
-              </Tooltip>
-            </ButtonGroup>
-          </Grid>
-        ) : null}
         <Grid item xs={12}>
-          {searchBy === "alg_sim" ? (
-            <EmotionAnalyzerForm
-              disableDownload={
-                !tweetAndEmotions || tweetAndEmotions.length === 0
-              }
-              tweetsPerPage={tweetsPerPage}
-              setResults={setResults}
-              setWasExecuted={setWasExecuted}
-              setTweetAndEmotions={setTweetAndEmotions}
-            />
-          ) : (
-            <SelectTweetTopics
-              disableDownload={
-                !tweetAndEmotions || tweetAndEmotions.length === 0
-              }
-              tweetTopics={tweetTopics}
-              selectedTweetTopic={selectedTweetTopic}
-              setSelectedTweetTopic={setSelectedTweetTopic}
-              tweetsPerPage={tweetsPerPage}
-              setResults={setResults}
-              setWasExecuted={setWasExecuted}
-              setTweetAndEmotions={setTweetAndEmotions}
-            />
-          )}
+          <TweetsSelection
+            searchBy={searchBy}
+            setSearchBy={setSearchBy}
+            setSelectedTweetTopic={setSelectedTweetTopic}
+            disableDownload={!tweetAndEmotions || tweetAndEmotions.length === 0}
+            tweetTopics={tweetTopics}
+            selectedTweetTopic={selectedTweetTopic}
+            handleSubmit={handleSubmit}
+          />
         </Grid>
         {/* ToDo KAIT MAGIC  (poner el algoritmo y/o titulo que se ejecuto?)*/}
         {tweetAndEmotions && !wasExecuted ? (
@@ -190,8 +150,9 @@ export const EmotionAnalyzer = () => {
                 page={page}
                 itemsPerPage={tweetsPerPage}
                 listItemsPerPage={[6, 12, 24, 48]}
-                handleItemsPerPageChange={handleTweetsPerPageChange}
-                handlePageChange={handlePageChange}
+                getItems={getTweets}
+                setPage={setPage}
+                setItemsPerPage={setTweetsPerPage}
               />
             </Grid>
           </>

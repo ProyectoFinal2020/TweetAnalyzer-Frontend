@@ -166,26 +166,14 @@ export const SimilarityAlgorithms = () => {
     }
   };
 
-  const handlePageChange = (e, value) => {
+  const getTweets = (page, per_page) => {
     getData(
       wasExecuted ? getAlgorithms() : selectedData.algorithms,
-      value,
-      tweetsPerPage,
+      page,
+      per_page,
       sortDirections[selectedProp],
       selectedProp
     );
-    setPage(value);
-  };
-
-  const handleTweetsPerPageChange = (e) => {
-    getData(
-      wasExecuted ? getAlgorithms() : selectedData.algorithms,
-      1,
-      e.target.value,
-      sortDirections[selectedProp],
-      selectedProp
-    );
-    setPage(1);
   };
 
   const handleFabClick = () => {
@@ -314,12 +302,13 @@ export const SimilarityAlgorithms = () => {
       {(tweetsWithScores && tweetsWithScores.length > 0) || isExecuting ? (
         <TweetsWithScoresTable
           page={page}
+          setPage={setPage}
           tweetsWithScores={tweetsWithScores}
+          setTweetsPerPage={setTweetsPerPage}
           setTweetsWithScores={setTweetsWithScores}
           count={count}
           tweetsPerPage={tweetsPerPage}
-          handleTweetsPerPageChange={handleTweetsPerPageChange}
-          handlePageChange={handlePageChange}
+          getTweets={getTweets}
           sortByProp={sortByProp}
           sortDirections={sortDirections}
           setSortDirections={setSortDirections}

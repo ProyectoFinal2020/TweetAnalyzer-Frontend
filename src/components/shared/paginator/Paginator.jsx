@@ -6,6 +6,17 @@ import Pagination from "@material-ui/lab/Pagination";
 import config from "assets/custom/scss/config.scss";
 
 export const Paginator = (props) => {
+  const handlePageChange = (e, value) => {
+    props.getItems(value, props.itemsPerPage);
+    props.setPage(value);
+  };
+
+  const handleItemsPerPageChange = (e) => {
+    props.getItems(1, e.target.value);
+    props.setPage(1);
+    props.setItemsPerPage(e.target.value);
+  };
+
   return (
     <>
       <Grid container direction="row" className="paginator_container">
@@ -16,7 +27,7 @@ export const Paginator = (props) => {
             color="secondary"
             siblingCount={window.innerWidth > config["xs"] ? 1 : 0}
             size="medium"
-            onChange={props.handlePageChange}
+            onChange={handlePageChange}
           />
         </Grid>
         <Grid item xs={12} sm={3} md={5} lg={6}>
@@ -27,7 +38,7 @@ export const Paginator = (props) => {
               variant="outlined"
               label="Items por página"
               value={props.itemsPerPage}
-              onChange={props.handleItemsPerPageChange}
+              onChange={handleItemsPerPageChange}
             >
               {props.listItemsPerPage.map((itemsPerPage, key) => (
                 <MenuItem value={itemsPerPage} key={key}>

@@ -22,9 +22,10 @@ export const TweetsWithScoresTable = ({
   setTweetsWithScores,
   count,
   tweetsPerPage,
-  handleTweetsPerPageChange,
-  handlePageChange,
+  setTweetsPerPage,
+  getTweets,
   page,
+  setPage,
   sortDirections,
   setSortDirections,
   sortByProp,
@@ -187,8 +188,9 @@ export const TweetsWithScoresTable = ({
           page={page}
           itemsPerPage={tweetsPerPage}
           listItemsPerPage={listTweetsPerPage}
-          handleItemsPerPageChange={handleTweetsPerPageChange}
-          handlePageChange={handlePageChange}
+          getItems={getTweets}
+          setPage={setPage}
+          setItemsPerPage={setTweetsPerPage}
         />
       </Box>
     </>
