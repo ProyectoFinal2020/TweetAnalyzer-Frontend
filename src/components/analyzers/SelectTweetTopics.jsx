@@ -21,6 +21,8 @@ export const SelectTweetTopics = ({
   selectedTweetTopic,
   setSelectedTweetTopic,
   handleSubmit,
+  downloadUrl,
+  downloadFilename,
   ...rest
 }) => {
   const history = useHistory();
@@ -64,8 +66,8 @@ export const SelectTweetTopics = ({
           </Button>
         </Grid>
         <DownloadButton
-          url={"/emotionAnalyzer/download?topicTitle=" + selectedTweetTopic}
-          filename={selectedTweetTopic + "-emotion-analysis"}
+          url={downloadUrl}
+          filename={downloadFilename}
           disabled={disableDownload}
         />
       </Grid>

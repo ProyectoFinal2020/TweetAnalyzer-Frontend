@@ -117,6 +117,10 @@ export const EmotionAnalyzer = () => {
             tweetTopics={tweetTopics}
             selectedTweetTopic={selectedTweetTopic}
             handleSubmit={handleSubmit}
+            downloadUrl={
+              "/emotionAnalyzer/download?topicTitle=" + selectedData.topic.title
+            }
+            downloadFilename={selectedData.topic.title + "-emotion-analysis"}
           />
         </Grid>
         {/* ToDo KAIT MAGIC  (poner el algoritmo y/o titulo que se ejecuto?)*/}

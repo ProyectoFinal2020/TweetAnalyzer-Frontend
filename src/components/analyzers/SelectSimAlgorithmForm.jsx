@@ -15,6 +15,8 @@ import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 export const SelectSimAlgorithmForm = ({
   disableDownload,
   handleSubmit,
+  downloadUrl,
+  downloadFilename,
   ...rest
 }) => {
   const { selectedData } = useContext(AuthContext);
@@ -133,9 +135,15 @@ export const SelectSimAlgorithmForm = ({
         </Grid>
         <DownloadButton
           url={
-            "/emotionAnalyzer/download?topicTitle=" + selectedData.topic.title
+            downloadUrl +
+            "&reportId=" +
+            selectedData.report.id +
+            "&algorithm=" +
+            selectedAlgorithm +
+            "&threshold=" +
+            threshold
           }
-          filename={selectedData.topic.title + "-emotion-analysis"}
+          filename={downloadFilename}
           disabled={disableDownload}
         />
       </Grid>
