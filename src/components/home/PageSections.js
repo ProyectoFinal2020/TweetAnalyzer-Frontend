@@ -74,20 +74,20 @@ export const getPageSections = (routes) => {
       ],
     },
     {
-      name: "Análisis de emociones",
+      name: "Análisis",
       color: config["blue"],
       icon: <SentimentVerySatisfied />,
       subsections: [
         {
-          name: "Análisis de emociones",
+          name: "Análisis de frecuencias",
           description:
-            "Obtiene las emociones de cada tweet: alegría, anticipación, aversión, confianza, enojo, miedo, sorpresa y/o tristeza. Incluso, permite seleccionar un subconjunto de los tweets obtenidos en el paso anterior.",
-          link: routes.emotionAnalyzer.path,
+            "Obtiene la frecuencia de aparición de todas las palabras relevantes al tema seleccionado.",
+          link: routes.sentimentAnalyzer.path,
         },
       ],
     },
     {
-      name: "Análisis de sentimiento",
+      name: "Análisis",
       color: config["blue"],
       icon: <SentimentVerySatisfied />,
       subsections: [
@@ -96,6 +96,19 @@ export const getPageSections = (routes) => {
           description:
             "Obtiene los sentimientos de cada tweet: positivo, negativo o neutro. Incluso, permite seleccionar un subconjunto de los tweets obtenidos en el paso anterior.",
           link: routes.sentimentAnalyzer.path,
+        },
+      ],
+    },
+    {
+      name: "Análisis",
+      color: config["blue"],
+      icon: <SentimentVerySatisfied />,
+      subsections: [
+        {
+          name: "Análisis de emociones",
+          description:
+            "Obtiene las emociones de cada tweet: alegría, anticipación, aversión, confianza, enojo, miedo, sorpresa y/o tristeza. Incluso, permite seleccionar un subconjunto de los tweets obtenidos en el paso anterior.",
+          link: routes.emotionAnalyzer.path,
         },
       ],
     },

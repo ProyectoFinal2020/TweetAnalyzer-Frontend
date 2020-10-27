@@ -15,7 +15,6 @@ import { routes } from "../../../utils/routes/routes";
 import { get } from "utils/api/api.js";
 import CustomDropdown from "./CustomDropdown/CustomDropdown";
 import anonymousUser from "assets/custom/img/anonymousUser.png";
-import { removeUserTour } from "utils/localStorageManagement/userTour";
 
 const useStyles = makeStyles(styles);
 const useNavbarStyles = makeStyles(navbarsStyle);
@@ -97,10 +96,6 @@ export const HeaderLinks = (props) => {
                       {
                         name: "Mis Noticias",
                         onClick: () => history.push(routes.reports.path),
-                      },
-                      {
-                        name: "Mostrar Recorrido",
-                        onClick: () => removeUserTour(),
                       },
                       {
                         name: "Cerrar sesión",
