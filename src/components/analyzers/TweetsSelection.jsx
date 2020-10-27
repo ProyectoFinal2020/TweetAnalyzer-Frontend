@@ -13,6 +13,8 @@ export const TweetsSelection = ({
   tweetTopics,
   selectedTweetTopic,
   handleSubmit,
+  downloadUrl,
+  downloadFilename,
 }) => {
   const { selectedData } = useContext(AuthContext);
   return (
@@ -55,6 +57,8 @@ export const TweetsSelection = ({
         <SelectSimAlgorithmForm
           disableDownload={disableDownload}
           handleSubmit={handleSubmit}
+          downloadUrl={downloadUrl}
+          downloadFilename={downloadFilename}
         />
       ) : (
         <SelectTweetTopics
@@ -63,6 +67,8 @@ export const TweetsSelection = ({
           selectedTweetTopic={selectedTweetTopic}
           setSelectedTweetTopic={setSelectedTweetTopic}
           handleSubmit={handleSubmit}
+          downloadUrl={downloadUrl}
+          downloadFilename={downloadFilename}
         />
       )}
     </>

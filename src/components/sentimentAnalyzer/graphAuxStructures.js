@@ -1,16 +1,5 @@
 import config from "assets/custom/scss/config.scss";
 
-export const labels = [
-  "-1 a -0.75",
-  "-0.75 a -0.50",
-  "-0.5 a -0.25",
-  "-0.25 a 0",
-  "0 a 0.25",
-  "0.25 a 0.50",
-  "0.50 a 0.75",
-  "0.75 a 1",
-];
-
 export const graphColors = [
   config["graphBlue"],
   config["graphOrange"],

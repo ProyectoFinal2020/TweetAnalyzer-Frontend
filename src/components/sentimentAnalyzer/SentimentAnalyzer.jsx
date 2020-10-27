@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import { TweetsSelection } from "components/analyzers/TweetsSelection";
-import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
 import { Paginator } from "components/shared/paginator/Paginator";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
@@ -16,11 +15,14 @@ import { Bar } from "react-chartjs-2";
 import { get } from "utils/api/api";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { Tweet } from "../shared/tweet/Tweet";
-import { getOptions, graphColors, labels } from "./graphAuxStructures";
+import { getOptions, graphColors } from "./graphAuxStructures";
 
 export const SentimentAnalyzer = () => {
   const { selectedData, setSelectedData } = useContext(AuthContext);
   const [polarity, setPolarity] = React.useState([-1, 1]);
+  const [reportId, setReportId] = React.useState(undefined);
+  const [algorithm, setAlgorithm] = React.useState(undefined);
+  const [threshold, setThreshold] = React.useState(undefined);
   const [graphInfo, setGraphInfo] = useState(undefined);
   const [tweets, setTweets] = useState(undefined);
   const [count, setCount] = useState(0);
@@ -41,19 +43,30 @@ export const SentimentAnalyzer = () => {
       ).then((response) => {
         setGraphResults(selectedData.sentimentAnalysis, response.data);
       });
+      getTweets(
+        1,
+        6,
+        selectedData.topic.title,
+        polarity[0],
+        polarity[1],
+        0,
+        "",
+        0
+      );
     }
+    // eslint-disable-next-line
   }, [selectedData, wasExecuted]);
 
-  const setGraphResults = (topicTitle, datasetData) => {
+  const setGraphResults = (topicTitle, result) => {
     const data = {
-      labels: labels,
+      labels: result.map((e) => e.min_value + " a " + e.max_value),
       datasets: [
         {
           label: topicTitle,
           backgroundColor: graphColors,
           borderColor: graphColors,
           borderWidth: 1,
-          data: datasetData,
+          data: result.map((e) => e.tweets_amount),
         },
       ],
     };
@@ -71,21 +84,45 @@ export const SentimentAnalyzer = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    getTweets(page, tweetsPerPage);
+    getTweets(
+      page,
+      tweetsPerPage,
+      selectedData.topic.title,
+      polarity[0],
+      polarity[1],
+      reportId,
+      algorithm,
+      threshold
+    );
   };
 
-  const getTweets = (page, per_page) => {
+  const getTweets = (
+    page,
+    per_page,
+    topic_title,
+    min_polarity,
+    max_polarity,
+    reportId,
+    algorithm,
+    threshold
+  ) => {
     get(
       "/sentimentAnalyzer?page=" +
         page +
         "&per_page=" +
         per_page +
         "&topicTitle=" +
-        selectedData.topic.title +
+        topic_title +
         "&min_polarity=" +
-        polarity[0] +
+        min_polarity +
         "&max_polarity=" +
-        polarity[1]
+        max_polarity +
+        "&reportId=" +
+        reportId +
+        "&algorithm=" +
+        algorithm +
+        "&threshold=" +
+        threshold
     ).then((response) => {
       setResults(response.data);
     });
@@ -106,6 +143,9 @@ export const SentimentAnalyzer = () => {
   ) => {
     setWasExecuted(true);
     setGraphInfo(undefined);
+    setReportId(reportId);
+    setAlgorithm(algorithm);
+    setThreshold(threshold);
     saveSelectedData({
       ...selectedData,
       sentimentAnalysis: topicTitle,
@@ -114,9 +154,19 @@ export const SentimentAnalyzer = () => {
       ...selectedData,
       sentimentAnalysis: topicTitle,
     });
+    getTweets(
+      page,
+      tweetsPerPage,
+      topicTitle,
+      polarity[0],
+      polarity[1],
+      reportId,
+      algorithm,
+      threshold
+    );
     get(
       "/sentimentAnalyzer/graph?topicTitle=" +
-        selectedData.sentimentAnalysis +
+        topicTitle +
         "&reportId=" +
         reportId +
         "&algorithm=" +
@@ -145,6 +195,13 @@ export const SentimentAnalyzer = () => {
             tweetTopics={tweetTopics}
             selectedTweetTopic={selectedTweetTopic}
             handleSubmit={handleTweetSelectionSubmit}
+            downloadUrl={
+              "/sentimentAnalyzer/download?topicTitle=" +
+              selectedData.topic.title +
+              "&step_size=" +
+              STEP_SIZE
+            }
+            downloadFilename={selectedData.topic.title + "-sentiment-analysis"}
           />
         </Grid>
         <Grid item xs={12}>
@@ -186,16 +243,6 @@ export const SentimentAnalyzer = () => {
                   Buscar
                 </Button>
               </Grid>
-              <DownloadButton
-                url={
-                  "/sentimentAnalyzer/download?topicTitle=" +
-                  selectedData.topic.title +
-                  "&step_size=" +
-                  STEP_SIZE
-                }
-                filename={selectedData.topic.title + "-sentiment-analysis"}
-                // disabled={disableDownload} ToDo
-              />
             </Grid>
           </form>
         </Grid>
