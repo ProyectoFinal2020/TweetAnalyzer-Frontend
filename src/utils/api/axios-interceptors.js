@@ -1,6 +1,10 @@
 import axios from "axios";
 
-export const initializeInterceptors = (setLoading) => {
+export const initializeInterceptors = (
+  setLoading,
+  setSnackbarItem,
+  setShowSnackbar
+) => {
   axios.interceptors.request.use(
     (config) => {
       setLoading(true);
@@ -8,6 +12,11 @@ export const initializeInterceptors = (setLoading) => {
     },
     (error) => {
       setLoading(false);
+      setSnackbarItem({
+        severity: "error",
+        message: error.response ? error.response.data : error.message,
+      });
+      setShowSnackbar(true);
       return Promise.reject(error);
     }
   );
@@ -19,6 +28,11 @@ export const initializeInterceptors = (setLoading) => {
     },
     (error) => {
       setLoading(false);
+      setSnackbarItem({
+        severity: "error",
+        message: error.response ? error.response.data : error.message,
+      });
+      setShowSnackbar(true);
       return Promise.reject(error);
     }
   );

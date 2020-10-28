@@ -46,7 +46,7 @@ export const SentimentAnalyzer = () => {
       getTweets(
         1,
         6,
-        selectedData.topic.title,
+        selectedData.sentimentAnalysis,
         polarity[0],
         polarity[1],
         0,

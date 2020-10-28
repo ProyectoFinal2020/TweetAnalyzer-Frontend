@@ -71,7 +71,7 @@ export const CustomProvider = ({ children }) => {
     }
   };
 
-  initializeInterceptors(setLoading);
+  initializeInterceptors(setLoading, setSnackbarItem, setShowSnackbar);
 
   const renderSnackbar = () => {
     return (
