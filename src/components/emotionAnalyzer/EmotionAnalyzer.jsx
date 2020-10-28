@@ -1,11 +1,14 @@
-import { Grid, Typography } from "@material-ui/core";
+import { Box, Grid, Typography } from "@material-ui/core";
 import { TweetsSelection } from "components/analyzers/TweetsSelection";
+import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { Paginator } from "components/shared/paginator/Paginator";
 import { Tweet } from "components/shared/tweet/Tweet";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { get, post } from "utils/api/api.js";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
+import { routes } from "utils/routes/routes";
 import { getTweetAndEmotions } from "./getTweetAndEmotions";
 
 export const EmotionAnalyzer = () => {
@@ -20,6 +23,7 @@ export const EmotionAnalyzer = () => {
   );
   const [tweetTopics, setTweetTopics] = useState(undefined);
   const [wasExecuted, setWasExecuted] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     if (!wasExecuted && selectedData && selectedData.emotionAnalysis) {
@@ -94,7 +98,7 @@ export const EmotionAnalyzer = () => {
     });
   };
 
-  return (
+  return selectedData ? (
     <>
       <Grid
         container
@@ -163,5 +167,19 @@ export const EmotionAnalyzer = () => {
         ) : null}
       </Grid>
     </>
+  ) : (
+    <Box className="no_content_box">
+      {NoContentComponent(
+        "No elegiste los datos",
+        "¡Seleccioná una noticia y un conjunto de tweets antes de comenzar!",
+        "#NoSearchResult",
+        [
+          {
+            handleClick: () => history.push(routes.dataSelection.path),
+            buttonText: "Seleccionar datos",
+          },
+        ]
+      )}
+    </Box>
   );
 };

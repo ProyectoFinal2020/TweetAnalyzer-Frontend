@@ -19,7 +19,6 @@ import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { AuthContext } from "contexts/AuthContext";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { get, post } from "utils/api/api";
 import { downloadFile } from "utils/fileDownloader/downloadFile.js";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -28,6 +27,8 @@ import { routes } from "utils/routes/routes";
 import { DataSelectedInfo } from "./DataSelectedInfo";
 import { SimilarityAlgorithmsNames } from "./SimilarityAlgorithmsNames";
 import { TweetsWithScoresTable } from "./TweetsWithScoresTable";
+import { get } from "utils/api/api";
+import { post } from "utils/api/api";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -58,11 +59,11 @@ export const SimilarityAlgorithms = () => {
   const [wasExecuted, setWasExecuted] = useState(false);
 
   useEffect(() => {
-    if (!wasExecuted && selectedData.algorithms) {
+    if (!wasExecuted && selectedData && selectedData.algorithms) {
       getData(selectedData.algorithms);
     }
     // eslint-disable-next-line
-  }, [selectedData.algorithms, wasExecuted]);
+  }, [selectedData, wasExecuted]);
 
   const getAlgorithms = () => {
     let algorithms = [];

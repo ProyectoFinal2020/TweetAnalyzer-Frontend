@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BubbleChart from "@weknow/react-bubble-chart-d3";
 import { get } from "utils/api/api";
+import { AuthContext } from "contexts/AuthContext";
+import { useHistory } from "react-router-dom";
+import { routes } from "utils/routes/routes";
+import { NoContentComponent } from "components/shared/noContent/NoContent";
+import { Box } from "@material-ui/core";
 
-export const BubbleChartView = () => {
+export const FrequencyAnalyzer = () => {
   const [wordsCount, setWordsCount] = useState(undefined);
+  const { selectedData } = useContext(AuthContext);
+  const history = useHistory();
 
   const bubbleClick = (label) => {
     console.log("Custom bubble click func");
@@ -12,19 +19,23 @@ export const BubbleChartView = () => {
     console.log("Customer legend click func");
   };
   useEffect(() => {
-    get("/bubbleChart?topicTitle=Coronavirus").then((response) => {
-      let aux = [];
-      for (var word in response.data) {
-        // To-Do: Agregar algo para que el usuario pueda elegir
-        if (response.data[word] > 0) {
-          aux.push({ label: word, value: response.data[word] });
+    if (selectedData && selectedData.topic) {
+      get("/bubbleChart?topicTitle=" + selectedData.topic.title).then(
+        (response) => {
+          let aux = [];
+          for (var word in response.data) {
+            // To-Do: Agregar algo para que el usuario pueda elegir
+            if (response.data[word] > 0) {
+              aux.push({ label: word, value: response.data[word] });
+            }
+          }
+          setWordsCount(aux);
         }
-      }
-      setWordsCount(aux);
-    });
-  }, []);
+      );
+    }
+  }, [selectedData]);
 
-  return (
+  return selectedData ? (
     <>
       {wordsCount ? (
         <BubbleChart
@@ -63,5 +74,19 @@ export const BubbleChartView = () => {
         />
       ) : null}
     </>
+  ) : (
+    <Box className="no_content_box">
+      {NoContentComponent(
+        "No elegiste los datos",
+        "¡Seleccioná una noticia y un conjunto de tweets antes de comenzar!",
+        "#NoSearchResult",
+        [
+          {
+            handleClick: () => history.push(routes.dataSelection.path),
+            buttonText: "Seleccionar datos",
+          },
+        ]
+      )}
+    </Box>
   );
 };

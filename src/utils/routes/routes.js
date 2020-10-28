@@ -13,7 +13,7 @@ import { VerifyEmail } from "components/auth/views/VerifyEmail";
 import { EmailWasVerified } from "components/auth/views/EmailWasVerified";
 import { PasswordReset } from "components/auth/views/PasswordReset";
 import { SentimentAnalyzer } from "components/sentimentAnalyzer/SentimentAnalyzer";
-import { BubbleChartView } from "components/bubbleChart/BubbleChartView";
+import { FrequencyAnalyzer } from "components/frequencyAnalyzer/FrequencyAnalyzer";
 
 export const routes = {
   home: {
@@ -68,8 +68,8 @@ export const routes = {
   },
   bubbleChart: {
     name: "Gráfico de burbujas",
-    path: "/bubbleChart",
-    component: BubbleChartView,
+    path: "/frequencyAnalyzer",
+    component: FrequencyAnalyzer,
   },
   tweetFetcher: {
     name: "Buscar tweets",

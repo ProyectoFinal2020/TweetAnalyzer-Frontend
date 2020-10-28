@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   FormControl,
   Grid,
@@ -8,12 +9,15 @@ import {
 } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import { TweetsSelection } from "components/analyzers/TweetsSelection";
+import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { Paginator } from "components/shared/paginator/Paginator";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
+import { useHistory } from "react-router-dom";
 import { get } from "utils/api/api";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
+import { routes } from "utils/routes/routes";
 import { Tweet } from "../shared/tweet/Tweet";
 import { getOptions, graphColors } from "./graphAuxStructures";
 
@@ -35,6 +39,7 @@ export const SentimentAnalyzer = () => {
   const [tweetTopics, setTweetTopics] = useState(undefined);
   const [wasExecuted, setWasExecuted] = useState(false);
   const STEP_SIZE = 0.25;
+  const history = useHistory();
 
   useEffect(() => {
     if (!wasExecuted && selectedData && selectedData.sentimentAnalysis) {
@@ -178,7 +183,7 @@ export const SentimentAnalyzer = () => {
     });
   };
 
-  return (
+  return selectedData ? (
     <>
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item xs={12}>
@@ -270,5 +275,19 @@ export const SentimentAnalyzer = () => {
         ) : null}
       </Grid>
     </>
+  ) : (
+    <Box className="no_content_box">
+      {NoContentComponent(
+        "No elegiste los datos",
+        "¡Seleccioná una noticia y un conjunto de tweets antes de comenzar!",
+        "#NoSearchResult",
+        [
+          {
+            handleClick: () => history.push(routes.dataSelection.path),
+            buttonText: "Seleccionar datos",
+          },
+        ]
+      )}
+    </Box>
   );
 };
