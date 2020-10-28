@@ -114,6 +114,7 @@ export const EmotionAnalyzer = () => {
         </Grid>
         <Grid item xs={12}>
           <TweetsSelection
+            sectionName="emociones"
             searchBy={searchBy}
             setSearchBy={setSearchBy}
             setSelectedTweetTopic={setSelectedTweetTopic}

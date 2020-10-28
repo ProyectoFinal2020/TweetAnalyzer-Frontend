@@ -7,7 +7,7 @@ import {
   Box,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
 
 export const LanguageButtons = ({
   language,
@@ -16,6 +16,12 @@ export const LanguageButtons = ({
   topicsWithLanguage = [],
   ...rest
 }) => {
+  useEffect(() => {
+    if (topicsWithLanguage[title]) {
+      setLanguage(topicsWithLanguage[title]);
+    }
+  }, [title, topicsWithLanguage, setLanguage]);
+
   return (
     <Box className="language_buttons">
       <FormLabel component="legend">

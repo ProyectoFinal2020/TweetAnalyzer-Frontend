@@ -143,10 +143,12 @@ export const TweetFetcher = () => {
     const payload = createPayload();
     setQueryResult(undefined);
     setLoadingQuery(true);
-    post("/tweetRetrieval", payload).then((response) => {
-      setQueryResult(response.data);
-      setLoadingQuery(false);
-    });
+    post("/tweetRetrieval", payload)
+      .then((response) => {
+        setQueryResult(response.data);
+        setLoadingQuery(false);
+      })
+      .catch((error) => setLoadingQuery(false));
   };
 
   const handleEnterPress = (e) => {
