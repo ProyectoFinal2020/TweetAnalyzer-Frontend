@@ -30,7 +30,13 @@ export const TweetsSelection = ({
             color="primary"
             size="small"
           >
-            <Tooltip title="¡Aquí puedes analizar las emociones de un conjunto de tweets almacenado!">
+            <Tooltip
+              title={
+                "¡Aquí puedes analizar " +
+                sectionName +
+                " de un conjunto de tweets almacenado!"
+              }
+            >
               <Button
                 className={searchBy === "tweets" ? "button_selected" : ""}
                 onClick={() => setSearchBy("tweets")}

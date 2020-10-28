@@ -188,6 +188,7 @@ export const SentimentAnalyzer = () => {
         </Grid>
         <Grid item xs={12}>
           <TweetsSelection
+            sectionName="sentimientos"
             searchBy={searchBy}
             setSearchBy={setSearchBy}
             setSelectedTweetTopic={setSelectedTweetTopic}
@@ -261,7 +262,18 @@ export const SentimentAnalyzer = () => {
                 page={page}
                 itemsPerPage={tweetsPerPage}
                 listItemsPerPage={[6, 12, 24, 48]}
-                getItems={getTweets}
+                getItems={(page, per_page) =>
+                  getTweets(
+                    page,
+                    per_page,
+                    selectedTweetTopic,
+                    polarity[0],
+                    polarity[1],
+                    reportId,
+                    algorithm,
+                    threshold
+                  )
+                }
                 setPage={setPage}
                 setItemsPerPage={setTweetsPerPage}
               />
