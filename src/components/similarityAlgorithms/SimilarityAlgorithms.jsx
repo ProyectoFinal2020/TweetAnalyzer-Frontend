@@ -29,6 +29,7 @@ import { SimilarityAlgorithmsNames } from "./SimilarityAlgorithmsNames";
 import { TweetsWithScoresTable } from "./TweetsWithScoresTable";
 import { get } from "utils/api/api";
 import { post } from "utils/api/api";
+import { ViewSwitcher } from "./ViewSwitcher";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -57,6 +58,7 @@ export const SimilarityAlgorithms = () => {
   const [error, setError] = useState("");
   const [isExecuting, setIsExecuting] = useState(false);
   const [wasExecuted, setWasExecuted] = useState(false);
+  const [view, setView] = useState("chips");
 
   useEffect(() => {
     if (!wasExecuted && selectedData && selectedData.algorithms) {
@@ -301,21 +303,27 @@ export const SimilarityAlgorithms = () => {
         </Grid>
       </Grid>
       {(tweetsWithScores && tweetsWithScores.length > 0) || isExecuting ? (
-        <TweetsWithScoresTable
-          page={page}
-          setPage={setPage}
-          tweetsWithScores={tweetsWithScores}
-          setTweetsPerPage={setTweetsPerPage}
-          setTweetsWithScores={setTweetsWithScores}
-          count={count}
-          tweetsPerPage={tweetsPerPage}
-          getTweets={getTweets}
-          sortByProp={sortByProp}
-          sortDirections={sortDirections}
-          setSortDirections={setSortDirections}
-          selectedProp={selectedProp}
-          isExecuting={isExecuting}
-        />
+        <>
+          <Hidden mdDown>
+            <ViewSwitcher view={view} setView={setView} />
+          </Hidden>
+          <TweetsWithScoresTable
+            page={page}
+            setPage={setPage}
+            tweetsWithScores={tweetsWithScores}
+            setTweetsPerPage={setTweetsPerPage}
+            setTweetsWithScores={setTweetsWithScores}
+            count={count}
+            tweetsPerPage={tweetsPerPage}
+            getTweets={getTweets}
+            sortByProp={sortByProp}
+            sortDirections={sortDirections}
+            setSortDirections={setSortDirections}
+            selectedProp={selectedProp}
+            isExecuting={isExecuting}
+            view={view}
+          />
+        </>
       ) : (
         <Box>
           {NoContentComponent(

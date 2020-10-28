@@ -31,6 +31,7 @@ export const TweetsWithScoresTable = ({
   sortByProp,
   selectedProp,
   isExecuting,
+  view,
   ...rest
 }) => {
   const truncate = (num) => {
@@ -40,148 +41,154 @@ export const TweetsWithScoresTable = ({
   };
   const [propHovered, setPropHovered] = useState("");
 
-  return !isExecuting ? (
-    <>
-      <Hidden mdDown>
-        <Paper elevation={2} className="tweets_with_scores_table">
-          <MDBTable hover>
+  const renderChipsView = () => {
+    return (
+      <Box className="fake_tweets_with_scores_container">
+        <Paper elevation={2}>
+          <MDBTable>
             <MDBTableHead color="primary-color" textWhite>
               <tr>
                 <th>
                   <ButtonBase
-                    onMouseOver={() => setPropHovered("Tweet")}
+                    onMouseOver={() => setPropHovered("Tweets")}
                     onMouseLeave={() => setPropHovered(null)}
-                    onClick={() => sortByProp("Tweet")}
+                    onClick={() => sortByProp("Tweets")}
                   >
                     Tweet{" "}
                     <ExpandMoreIcon
                       hidden={
-                        selectedProp !== "Tweet" && propHovered !== "Tweet"
+                        selectedProp !== "Tweets" && propHovered !== "Tweets"
                       }
                       className={
-                        sortDirections["Tweet"] ? "rotate" : "inverseRotate"
+                        sortDirections["Tweets"] ? "rotate" : "inverseRotate"
                       }
                     />
                   </ButtonBase>
                 </th>
-                {Object.entries(tweetsWithScores[0].scores).map(
-                  (entry, key) => (
-                    <th key={key} width="8%">
-                      <Tooltip
-                        title={SimilarityAlgorithmsKeys[entry[0]].name}
-                        placement="top"
-                      >
-                        <ButtonBase
-                          onMouseOver={() => setPropHovered(entry[0])}
-                          onMouseLeave={() => setPropHovered(null)}
-                          onClick={() => sortByProp(entry[0])}
-                        >
-                          {SimilarityAlgorithmsKeys[entry[0]].key}
-                          <ExpandMoreIcon
-                            hidden={
-                              selectedProp !== entry[0] &&
-                              propHovered !== entry[0]
-                            }
-                            className={
-                              sortDirections[entry[0]]
-                                ? "rotate"
-                                : "inverseRotate"
-                            }
-                          />
-                        </ButtonBase>
-                      </Tooltip>
-                    </th>
-                  )
-                )}
               </tr>
             </MDBTableHead>
             <MDBTableBody>
-              {tweetsWithScores.map((item, key) => (
-                <tr key={key}>
-                  <td className="tweets_column">{item.tweet.text}</td>
-                  {Object.entries(tweetsWithScores[key].scores).map(
-                    (entry, k) => (
-                      <td key={k} width="8%">
-                        {truncate(entry[1])}
-                      </td>
-                    )
-                  )}
+              {tweetsWithScores.map((tweetWithScores) => (
+                <tr key={tweetWithScores.tweet.id}>
+                  <td className="tweets_col">
+                    <Tweet
+                      config={{
+                        user: {
+                          avatar:
+                            tweetWithScores.tweet.img_url &&
+                            tweetWithScores.tweet.img_url !== ""
+                              ? tweetWithScores.tweet.img_url
+                              : avatarImage,
+                          nickname: tweetWithScores.tweet.username,
+                        },
+                        text: tweetWithScores.tweet.text,
+                        date: tweetWithScores.tweet.date,
+                        retweets: tweetWithScores.tweet.retweets,
+                        likes: tweetWithScores.tweet.favorites,
+                      }}
+                    />
+                    {Object.entries(tweetWithScores.scores).map((entry, k) => (
+                      <Chip
+                        key={k}
+                        className="tweet_with_scores_chips"
+                        style={{
+                          backgroundColor:
+                            SimilarityAlgorithmsKeys[entry[0]].color,
+                        }}
+                        label={
+                          SimilarityAlgorithmsKeys[entry[0]].name +
+                          ": " +
+                          truncate(entry[1])
+                        }
+                      ></Chip>
+                    ))}
+                  </td>
                 </tr>
               ))}
             </MDBTableBody>
           </MDBTable>
         </Paper>
-      </Hidden>
-      <Hidden lgUp>
-        <Box className="fake_tweets_with_scores_container">
-          <Paper elevation={2}>
-            <MDBTable>
+      </Box>
+    );
+  };
+
+  return !isExecuting ? (
+    <>
+      {view === "table" ? (
+        <Hidden mdDown>
+          <Paper elevation={2} className="tweets_with_scores_table">
+            <MDBTable hover>
               <MDBTableHead color="primary-color" textWhite>
                 <tr>
                   <th>
                     <ButtonBase
-                      onMouseOver={() => setPropHovered("Tweets")}
+                      onMouseOver={() => setPropHovered("Tweet")}
                       onMouseLeave={() => setPropHovered(null)}
-                      onClick={() => sortByProp("Tweets")}
+                      onClick={() => sortByProp("Tweet")}
                     >
-                      Tweet{" "}
+                      Tweet
                       <ExpandMoreIcon
                         hidden={
-                          selectedProp !== "Tweets" && propHovered !== "Tweets"
+                          selectedProp !== "Tweet" && propHovered !== "Tweet"
                         }
                         className={
-                          sortDirections["Tweets"] ? "rotate" : "inverseRotate"
+                          sortDirections["Tweet"] ? "rotate" : "inverseRotate"
                         }
                       />
                     </ButtonBase>
                   </th>
+                  {Object.entries(tweetsWithScores[0].scores).map(
+                    (entry, key) => (
+                      <th key={key} width="8%">
+                        <Tooltip
+                          title={SimilarityAlgorithmsKeys[entry[0]].name}
+                          placement="top"
+                        >
+                          <ButtonBase
+                            onMouseOver={() => setPropHovered(entry[0])}
+                            onMouseLeave={() => setPropHovered(null)}
+                            onClick={() => sortByProp(entry[0])}
+                          >
+                            {SimilarityAlgorithmsKeys[entry[0]].key}
+                            <ExpandMoreIcon
+                              hidden={
+                                selectedProp !== entry[0] &&
+                                propHovered !== entry[0]
+                              }
+                              className={
+                                sortDirections[entry[0]]
+                                  ? "rotate"
+                                  : "inverseRotate"
+                              }
+                            />
+                          </ButtonBase>
+                        </Tooltip>
+                      </th>
+                    )
+                  )}
                 </tr>
               </MDBTableHead>
               <MDBTableBody>
-                {tweetsWithScores.map((tweetWithScores) => (
-                  <tr key={tweetWithScores.tweet.id}>
-                    <td className="tweets_col">
-                      <Tweet
-                        config={{
-                          user: {
-                            avatar:
-                              tweetWithScores.tweet.img_url &&
-                              tweetWithScores.tweet.img_url !== ""
-                                ? tweetWithScores.tweet.img_url
-                                : avatarImage,
-                            nickname: tweetWithScores.tweet.username,
-                          },
-                          text: tweetWithScores.tweet.text,
-                          date: tweetWithScores.tweet.date,
-                          retweets: tweetWithScores.tweet.retweets,
-                          likes: tweetWithScores.tweet.favorites,
-                        }}
-                      />
-                      {Object.entries(tweetWithScores.scores).map(
-                        (entry, k) => (
-                          <Chip
-                            key={k}
-                            className="tweet_with_scores_chips"
-                            style={{
-                              backgroundColor:
-                                SimilarityAlgorithmsKeys[entry[0]].color,
-                            }}
-                            label={
-                              SimilarityAlgorithmsKeys[entry[0]].name +
-                              ": " +
-                              truncate(entry[1])
-                            }
-                          ></Chip>
-                        )
-                      )}
-                    </td>
+                {tweetsWithScores.map((item, key) => (
+                  <tr key={key}>
+                    <td className="tweets_column">{item.tweet.text}</td>
+                    {Object.entries(tweetsWithScores[key].scores).map(
+                      (entry, k) => (
+                        <td key={k} width="8%">
+                          {truncate(entry[1])}
+                        </td>
+                      )
+                    )}
                   </tr>
                 ))}
               </MDBTableBody>
             </MDBTable>
           </Paper>
-        </Box>
-      </Hidden>
+        </Hidden>
+      ) : (
+        renderChipsView()
+      )}
+      <Hidden lgUp>{renderChipsView()}</Hidden>
       <Box className="tweets_with_scores_container">
         <Paginator
           count={count}
