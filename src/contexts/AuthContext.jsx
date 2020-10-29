@@ -1,4 +1,4 @@
-import { get } from "utils/api/api.js";
+import { get } from "utils/api/api";
 import React, { useEffect, useState } from "react";
 import {
   getUserInformation,

@@ -11,6 +11,7 @@ import { DownloadButton } from "components/shared/downloadButton/DownloadButton"
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+import "./selectSimAlgorithmForm.scss";
 
 export const SelectSimAlgorithmForm = ({
   disableDownload,
@@ -76,10 +77,10 @@ export const SelectSimAlgorithmForm = ({
   return (
     <ValidatorForm onSubmit={submit}>
       <Grid container alignItems="center" justify="flex-end">
-        <Grid item xs={12} className="select_algorithm_emotion_analyzer">
+        <Grid item xs={12}>
           <Grid container alignItems="center" justify="center">
-            <Grid item xs="auto" className="select_executed_algorithms">
-              <FormControl>
+            <Grid item xs={9} md={10} lg={11}>
+              <FormControl fullWidth={true} className="form">
                 <InputLabel shrink id="report-label">
                   Seleccione un algoritmo
                 </InputLabel>
@@ -99,10 +100,11 @@ export const SelectSimAlgorithmForm = ({
                 </FormHelperText>
               </FormControl>
             </Grid>
-            <Grid item xs="auto">
+            <Grid item xs={3} md={2} lg={1}>
               <TextValidator
+                fullWidth={true}
                 label="Umbral"
-                className="emotion_analyzer_umbral"
+                className="threshold"
                 value={threshold}
                 onChange={(e) => setThreshold(e.target.value)}
                 type="float"
@@ -123,16 +125,9 @@ export const SelectSimAlgorithmForm = ({
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs="auto">
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="submit"
-          >
-            Ejecutar
-          </Button>
-        </Grid>
+        <Button type="submit" variant="contained" color="primary">
+          Ejecutar
+        </Button>
         <DownloadButton
           url={
             downloadUrl +

@@ -23,7 +23,7 @@ import {
   ValidatorForm,
 } from "react-material-ui-form-validator";
 import { useHistory } from "react-router-dom";
-import { get } from "utils/api/api.js";
+import { get } from "utils/api/api";
 
 export const DataSelection = () => {
   const [reports, setReports] = useState(undefined);

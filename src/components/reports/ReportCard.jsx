@@ -12,7 +12,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { AuthContext } from "contexts/AuthContext";
-import { deleteBatch } from "utils/api/api.js";
+import { deleteBatch } from "utils/api/api";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { routes } from "utils/routes/routes";

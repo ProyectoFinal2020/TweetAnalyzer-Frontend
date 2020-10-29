@@ -1,0 +1,10 @@
+@import "assets/custom/scss/helpers/_variables";
+
+.tweets-selection-group-btn {
+  margin: 10px 0 20px;
+
+  .btn-selected {
+    background-color: $primary;
+    color: white;
+  }
+}

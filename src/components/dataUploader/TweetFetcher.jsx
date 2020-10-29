@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import { AddCircle } from "@material-ui/icons";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
-import { get, post } from "utils/api/api.js";
+import { get, post } from "utils/api/api";
 import { downloadFile } from "utils/fileDownloader/downloadFile.js";
 import React, { useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";

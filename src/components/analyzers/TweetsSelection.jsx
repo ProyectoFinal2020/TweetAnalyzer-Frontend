@@ -3,6 +3,7 @@ import { AuthContext } from "contexts/AuthContext";
 import React, { useContext } from "react";
 import { SelectSimAlgorithmForm } from "./SelectSimAlgorithmForm";
 import { SelectTweetTopics } from "./SelectTweetTopics";
+import "./tweetsSelection.scss";
 
 export const TweetsSelection = ({
   sectionName,
@@ -23,7 +24,7 @@ export const TweetsSelection = ({
       selectedData.topic &&
       selectedData.algorithms &&
       selectedData.algorithms.length > 0 ? (
-        <Grid item className="emotion_group_btn">
+        <Grid item className="tweets-selection-group-btn">
           <ButtonGroup
             disableElevation
             variant="outlined"
@@ -38,7 +39,7 @@ export const TweetsSelection = ({
               }
             >
               <Button
-                className={searchBy === "tweets" ? "button_selected" : ""}
+                className={searchBy === "tweets" ? "btn-selected" : ""}
                 onClick={() => setSearchBy("tweets")}
               >
                 Tweets
@@ -46,7 +47,7 @@ export const TweetsSelection = ({
             </Tooltip>
             <Tooltip title="¡Aquí puedes puedes seleccionar un algoritmo de similitud ejecutado previamente y filtrar los tweets de acuerdo a un umbral representativo!">
               <Button
-                className={searchBy === "alg_sim" ? "button_selected" : ""}
+                className={searchBy === "alg_sim" ? "btn-selected" : ""}
                 onClick={() => {
                   setSearchBy("alg_sim");
                   setSelectedTweetTopic(selectedData.topic.title);

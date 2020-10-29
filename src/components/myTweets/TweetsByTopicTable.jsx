@@ -18,7 +18,7 @@ import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import React, { useEffect, useState } from "react";
 import { Tweet } from "react-fake-tweet";
 import swal from "sweetalert";
-import { deleteBatch, get } from "utils/api/api.js";
+import { deleteBatch, get } from "utils/api/api";
 
 export const TweetsByTopicTable = ({
   topicTitle,

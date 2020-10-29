@@ -14,7 +14,7 @@ import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { CustomContext } from "contexts/CustomContext";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { get, post, put } from "utils/api/api.js";
+import { get, post, put } from "utils/api/api";
 import { routes } from "utils/routes/routes";
 import { LanguageButtons } from "./LanguageButtons";
 

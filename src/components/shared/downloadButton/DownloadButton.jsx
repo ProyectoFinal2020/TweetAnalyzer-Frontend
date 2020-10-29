@@ -1,8 +1,9 @@
 import { Button } from "@material-ui/core";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import React from "react";
-import { get } from "utils/api/api.js";
+import { get } from "utils/api/api";
 import { downloadFile } from "utils/fileDownloader/downloadFile.js";
+import "./downloadButton.scss";
 
 export const DownloadButton = ({
   disabled = false,
@@ -16,7 +17,7 @@ export const DownloadButton = ({
 
   return (
     <Button
-      className="download_button"
+      className="btn-download"
       variant="contained"
       color="secondary"
       aria-label="Descargar"

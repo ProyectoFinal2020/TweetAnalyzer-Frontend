@@ -17,7 +17,7 @@ import { AuthContext } from "contexts/AuthContext";
 import { CustomContext } from "contexts/CustomContext";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { post } from "utils/api/api.js";
+import { post } from "utils/api/api";
 import { app, storage } from "utils/firebase/firebase";
 import { routes } from "utils/routes/routes";
 import Card from "../Card/Card.js";
@@ -177,7 +177,7 @@ export const SignUpPage = () => {
             signUp();
           }
           app.auth().currentUser.sendEmailVerification({
-            url:  process.env.CURRENT_APP + routes.emailWasVerified.path,
+            url: process.env.CURRENT_APP + routes.emailWasVerified.path,
           });
         })
         .catch((error) => {

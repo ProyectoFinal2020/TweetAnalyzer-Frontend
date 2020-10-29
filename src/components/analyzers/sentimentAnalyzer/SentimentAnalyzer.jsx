@@ -18,7 +18,7 @@ import { useHistory } from "react-router-dom";
 import { get } from "utils/api/api";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { routes } from "utils/routes/routes";
-import { Tweet } from "../shared/tweet/Tweet";
+import { Tweet } from "../../shared/tweet/Tweet";
 import { getOptions, graphColors } from "./graphAuxStructures";
 
 export const SentimentAnalyzer = () => {

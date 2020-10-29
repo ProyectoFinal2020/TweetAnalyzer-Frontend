@@ -12,7 +12,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { app } from "../../../utils/firebase/firebase";
 import { logout } from "../../../utils/localStorageManagement/authentication";
 import { routes } from "../../../utils/routes/routes";
-import { get } from "utils/api/api.js";
+import { get } from "utils/api/api";
 import CustomDropdown from "./CustomDropdown/CustomDropdown";
 import anonymousUser from "assets/custom/img/anonymousUser.png";
 import {

@@ -7,7 +7,7 @@ import { AuthContext } from "contexts/AuthContext";
 import { CustomContext } from "contexts/CustomContext";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { get } from "utils/api/api.js";
+import { get } from "utils/api/api";
 import { app } from "utils/firebase/firebase";
 import { routes } from "utils/routes/routes";
 import Card from "../Card/Card.js";

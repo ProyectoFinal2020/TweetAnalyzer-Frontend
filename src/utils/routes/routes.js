@@ -1,19 +1,19 @@
+import { FrequencyAnalyzer } from "components/analyzers/frequencyAnalyzer/FrequencyAnalyzer";
+import { SentimentAnalyzer } from "components/analyzers/sentimentAnalyzer/SentimentAnalyzer";
+import { EmailWasVerified } from "components/auth/views/EmailWasVerified";
+import { LoginPage } from "components/auth/views/LoginPage";
+import { PasswordReset } from "components/auth/views/PasswordReset";
+import { SignUpPage } from "components/auth/views/SignUpPage";
+import { VerifyEmail } from "components/auth/views/VerifyEmail";
 import { ReportForm } from "components/dataUploader/ReportForm";
 import { ReportsCard } from "components/reports/MyReportsCard";
 import { ReportsList } from "components/reports/MyReportsList";
+import { EmotionAnalyzer } from "../../components/analyzers/emotionAnalyzer/EmotionAnalyzer";
 import { DataSelection } from "../../components/dataSelection/DataSelection";
 import { TweetFetcher } from "../../components/dataUploader/TweetFetcher";
 import { Home } from "../../components/home/Home";
-import { EmotionAnalyzer } from "../../components/emotionAnalyzer/EmotionAnalyzer";
-import { SimilarityAlgorithms } from "../../components/similarityAlgorithms/SimilarityAlgorithms";
 import { MyTweets } from "../../components/myTweets/MyTweets";
-import { SignUpPage } from "components/auth/views/SignUpPage";
-import { LoginPage } from "components/auth/views/LoginPage";
-import { VerifyEmail } from "components/auth/views/VerifyEmail";
-import { EmailWasVerified } from "components/auth/views/EmailWasVerified";
-import { PasswordReset } from "components/auth/views/PasswordReset";
-import { SentimentAnalyzer } from "components/sentimentAnalyzer/SentimentAnalyzer";
-import { FrequencyAnalyzer } from "components/frequencyAnalyzer/FrequencyAnalyzer";
+import { SimilarityAlgorithms } from "../../components/similarityAlgorithms/SimilarityAlgorithms";
 
 export const routes = {
   home: {

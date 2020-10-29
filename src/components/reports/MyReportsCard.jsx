@@ -3,7 +3,7 @@ import Box from "@material-ui/core/Box";
 import { Delete } from "@material-ui/icons";
 import { AuthContext } from "contexts/AuthContext";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { deleteBatch, get } from "utils/api/api.js";
+import { deleteBatch, get } from "utils/api/api";
 import { CustomContext } from "contexts/CustomContext";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";

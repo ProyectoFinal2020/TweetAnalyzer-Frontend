@@ -14,7 +14,7 @@ import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { AuthContext } from "contexts/AuthContext";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { get, deleteBatch } from "utils/api/api.js";
+import { get, deleteBatch } from "utils/api/api";
 import PropTypes from "prop-types";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";

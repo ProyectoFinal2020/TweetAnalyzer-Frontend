@@ -20,7 +20,7 @@ import { Add, Delete, Edit, Search } from "@material-ui/icons";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 // import { DetailedReport } from "components/dataSelection/DetailedReport";
-import { get } from "utils/api/api.js";
+import { get } from "utils/api/api";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { routes } from "utils/routes/routes";

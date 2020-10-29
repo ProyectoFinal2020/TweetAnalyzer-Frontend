@@ -1,10 +1,6 @@
 @import "../helpers/_variables";
 @import "../components/tweetsByTopicTable";
 
-.submit {
-  margin: 3px, 2px, 2px;
-}
-
 .report_input {
   width: 100%;
 
@@ -100,7 +96,6 @@
 
 @media only screen and (max-width: map-get($breakpoints, md)) {
   .data_selection_skeleton_container {
-
     .data_selection_skeleton_left,
     .data_selection_skeleton_right {
       .MuiGrid-item {
