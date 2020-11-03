@@ -95,7 +95,7 @@ export const Sidebar = ({ ...props }) => {
         {
           name: "analisisDeFrecuencias",
           label: "Análisis de frecuencias",
-          onClick: () => history.push(routes.bubbleChart.path),
+          onClick: () => history.push(routes.frequencyAnalyzer.path),
           className: "navbar-frequencies-analysis",
         },
         {

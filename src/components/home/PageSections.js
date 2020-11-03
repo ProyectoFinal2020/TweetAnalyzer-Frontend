@@ -82,7 +82,7 @@ export const getPageSections = (routes) => {
           name: "Análisis de frecuencias",
           description:
             "Obtiene la frecuencia de aparición de todas las palabras relevantes al tema seleccionado.",
-          link: routes.sentimentAnalyzer.path,
+          link: routes.frequencyAnalyzer.path,
         },
       ],
     },

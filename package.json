@@ -35,6 +35,8 @@
     "react-scripts": "^3.4.4",
     "react-slick": "^0.25.2",
     "react-swipeable-views": "0.13.9",
+    "react-tag-cloud": "^1.3.2",
+    "react-tagcloud": "^2.0.0",
     "react-toastify": "^5.5.0",
     "slick-carousel": "^1.8.1",
     "sweetalert": "^2.1.2"

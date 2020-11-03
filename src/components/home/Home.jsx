@@ -62,7 +62,7 @@ export const Home = () => {
         ) : (
           <Grid item xs={12} className="home_begin_btn">
             <Button
-              onClick={() => history.push(routes.dataSelection.path)}
+              onClick={() => history.push(routes.tweetFetcher.path)}
               variant="contained"
               color="default"
             >

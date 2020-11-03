@@ -137,7 +137,8 @@ export const HeaderLinks = (props) => {
                   dropdownList={[
                     {
                       name: "Frecuencias",
-                      onClick: () => history.push(routes.bubbleChart.path),
+                      onClick: () =>
+                        history.push(routes.frequencyAnalyzer.path),
                     },
                     {
                       name: "Sentimientos",

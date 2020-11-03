@@ -114,8 +114,8 @@ const App = () => {
                     component={routes.sentimentAnalyzer.component}
                   />
                   <PrivateRoute
-                    path={routes.bubbleChart.path}
-                    component={routes.bubbleChart.component}
+                    path={routes.frequencyAnalyzer.path}
+                    component={routes.frequencyAnalyzer.component}
                   />
                 </DefaultLayout>
               </Switch>

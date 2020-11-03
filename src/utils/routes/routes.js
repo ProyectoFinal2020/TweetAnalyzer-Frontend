@@ -66,7 +66,7 @@ export const routes = {
     path: "/sentimentAnalyzer",
     component: SentimentAnalyzer,
   },
-  bubbleChart: {
+  frequencyAnalyzer: {
     name: "Gráfico de burbujas",
     path: "/frequencyAnalyzer",
     component: FrequencyAnalyzer,
