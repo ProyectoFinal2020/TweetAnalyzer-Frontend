@@ -1,13 +1,17 @@
 import {
   Box,
   Button,
+  Chip,
   FormControl,
   Grid,
   InputLabel,
+  Paper,
   Slider,
   Typography,
 } from "@material-ui/core";
+import FilterListIcon from "@material-ui/icons/FilterList";
 import InfoIcon from "@material-ui/icons/Info";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { TweetsSelection } from "components/analyzers/TweetsSelection";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { Paginator } from "components/shared/paginator/Paginator";
@@ -24,6 +28,7 @@ import { getOptions, graphColors } from "./graphAuxStructures";
 export const SentimentAnalyzer = () => {
   const { selectedData, setSelectedData } = useContext(AuthContext);
   const [polarity, setPolarity] = React.useState([-1, 1]);
+  const [searchedPolarity, setSearchedPolarity] = React.useState([-1, 1]);
   const [reportId, setReportId] = React.useState(undefined);
   const [algorithm, setAlgorithm] = React.useState(undefined);
   const [threshold, setThreshold] = React.useState(undefined);
@@ -111,6 +116,7 @@ export const SentimentAnalyzer = () => {
     algorithm,
     threshold
   ) => {
+    setSearchedPolarity([min_polarity, max_polarity]);
     get(
       "/sentimentAnalyzer?page=" +
         page +
@@ -211,57 +217,71 @@ export const SentimentAnalyzer = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          {graphInfo && selectedData ? (
-            <Bar
-              data={graphInfo}
-              legend={{ display: false }}
-              options={getOptions(selectedData.topic.title)}
-            />
-          ) : null}
+          <Paper style={{ padding: 15 }} elevation={3}>
+            <Box width={650} height={400}>
+              {graphInfo && selectedData && selectedData.topic.title ? (
+                <Bar
+                  data={graphInfo}
+                  height={400}
+                  width={650}
+                  legend={{ display: false }}
+                  options={getOptions(selectedData.topic.title)}
+                />
+              ) : (
+                <Skeleton height={450} />
+              )}
+            </Box>
+          </Paper>
         </Grid>
         <Grid item xs={12}>
+          <Typography align="center" variant="h5">
+            Filtrado de tweets
+          </Typography>
           <form onSubmit={handleSubmit}>
-            <Grid
-              container
-              direction="row"
-              justify="flex-end"
-              alignItems="center"
+            <FormControl fullWidth={true}>
+              <InputLabel shrink id="polarity-slider">
+                Rango de polaridad <InfoIcon />
+              </InputLabel>
+              <Slider
+                className="polarity-slider"
+                value={polarity}
+                min={-1}
+                step={STEP_SIZE}
+                max={1}
+                onChange={(event, value) => setPolarity(value)}
+                valueLabelDisplay="auto"
+                aria-labelledby="polarity-slider"
+              />
+            </FormControl>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              align="right"
+              startIcon={<FilterListIcon />}
             >
-              <Grid item xs={5}>
-                <FormControl fullWidth={true}>
-                  <InputLabel shrink id="polarity-slider">
-                    Rango de polaridad <InfoIcon />
-                  </InputLabel>
-                  <Slider
-                    className="polarity-slider"
-                    value={polarity}
-                    min={-1}
-                    step={STEP_SIZE}
-                    max={1}
-                    onChange={(event, value) => setPolarity(value)}
-                    valueLabelDisplay="auto"
-                    aria-labelledby="polarity-slider"
-                  />
-                </FormControl>
-              </Grid>
-              <Grid item>
-                <Button type="submit" variant="contained" color="primary">
-                  Buscar
-                </Button>
-              </Grid>
-            </Grid>
+              Filtrar
+            </Button>
           </form>
-        </Grid>
-        {tweets && tweets.length > 0 ? (
-          <>
-            <Grid container spacing={2} alignItems="stretch">
-              {tweets.map((tweet) => (
-                <Grid item xs={12} sm={6} md={4} xl={3} key={tweet.id}>
-                  <Tweet tweet={tweet} showPolarity={true} />
-                </Grid>
-              ))}
-            </Grid>
-            <Grid item xs={12}>
+          {tweets && tweets.length > 0 ? (
+            <>
+              <Box mb={0.5} align="right">
+                <Chip
+                  label={"Polaridad mínima: " + searchedPolarity[0]}
+                  color="secondary"
+                />
+                <Chip
+                  label={"Polaridad máxima: " + searchedPolarity[1]}
+                  color="secondary"
+                />
+              </Box>
+              <Grid container spacing={2} alignItems="stretch">
+                {tweets.map((tweet) => (
+                  <Grid item xs={12} sm={6} md={4} xl={3} key={tweet.id}>
+                    <Tweet tweet={tweet} showPolarity={true} />
+                  </Grid>
+                ))}
+              </Grid>
               <Paginator
                 count={count}
                 page={page}
@@ -282,9 +302,9 @@ export const SentimentAnalyzer = () => {
                 setPage={setPage}
                 setItemsPerPage={setTweetsPerPage}
               />
-            </Grid>
-          </>
-        ) : null}
+            </>
+          ) : null}
+        </Grid>
       </Grid>
     </>
   ) : (

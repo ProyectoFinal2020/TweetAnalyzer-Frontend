@@ -1,5 +1,6 @@
 import Chip from "@material-ui/core/Chip";
 import React from "react";
+import "./TagChips.scss";
 
 export const TagChips = ({ items, setItems, ...rest }) => {
   const handleDelete = (chipToDelete) => () => {

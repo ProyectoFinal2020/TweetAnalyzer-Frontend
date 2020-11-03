@@ -302,15 +302,17 @@ export const MyTweets = () => {
                 onClick={handleClick}
                 aria-label="Eliminar temas y tweets individuales"
                 className="danger"
+                startIcon={<DeleteIcon />}
               >
-                <DeleteIcon /> Eliminar
+                Eliminar
               </Button>
               <Button
                 onClick={handleAddClick}
                 aria-label="Agregar tweets"
                 className="success"
+                startIcon={<AddIcon />}
               >
-                <AddIcon /> Agregar
+                Agregar
               </Button>
             </Box>
           </Hidden>

@@ -36,8 +36,7 @@ export const HomeCards = () => {
               </CardContent>
               <CardActions>
                 <Button
-                  edge="center"
-                  variant="outlined"
+                  variant="contained"
                   style={{
                     backgroundColor: section.color,
                     color: "white",

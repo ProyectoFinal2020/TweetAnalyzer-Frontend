@@ -7,9 +7,6 @@ import {
   dangerColor,
   roseColor,
   darkColor,
-  transition,
-  boxShadow,
-  drawerWidth,
 } from "../material-kit-react.js";
 
 const headerStyle = {
@@ -123,27 +120,6 @@ const headerStyle = {
     backgroundColor: "#fff !important",
     boxShadow:
       "0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)",
-  },
-  drawerPaper: {
-    border: "none",
-    bottom: "0",
-    transitionProperty: "top, bottom, width",
-    transitionDuration: ".2s, .2s, .35s",
-    transitionTimingFunction: "linear, linear, ease",
-    width: drawerWidth,
-    ...boxShadow,
-    position: "fixed",
-    display: "block",
-    top: "0",
-    height: "100vh",
-    right: "0",
-    left: "auto",
-    visibility: "visible",
-    borderTop: "none",
-    textAlign: "left",
-    paddingRight: "0px",
-    paddingLeft: "0",
-    ...transition,
   },
 };
 

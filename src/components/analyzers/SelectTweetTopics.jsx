@@ -32,13 +32,16 @@ export const SelectTweetTopics = ({
       <Grid container alignItems="center" justify="flex-end">
         <Grid item xs={12} className="select-tweet-topics ">
           <FormControl fullWidth={true}>
-            <InputLabel shrink={tweetTopics} id="selected-tweet-topic">
+            <InputLabel
+              shrink={tweetTopics ? true : false}
+              id="selected-tweet-topic"
+            >
               Tweets
             </InputLabel>
             <Select
               labelId="selected-tweet-topic"
               displayEmpty
-              value={tweetTopics ? selectedTweetTopic : null}
+              value={tweetTopics ? selectedTweetTopic : ""}
               onChange={(e) => setSelectedTweetTopic(e.target.value)}
             >
               {tweetTopics
@@ -66,20 +69,3 @@ export const SelectTweetTopics = ({
     </ValidatorForm>
   );
 };
-
-// To-Do: Ver si esto va en algun lado
-// : tweetTopics && tweetTopics.length === 0 ? (
-//   <Box className="no_content_box">
-//     {NoContentComponent(
-//       "No elegiste los datos",
-//       "¡Seleccioná un conjunto de tweets antes de comenzar!",
-//       "#NoSearchResult",
-//       [
-//         {
-//           handleClick: () => history.push(routes.dataSelection.path),
-//           buttonText: "Seleccionar datos",
-//         },
-//       ]
-//     )}
-//   </Box>
-// ) : null;

@@ -1,0 +1,33 @@
+.data_selection_tweets_by_topic {
+  border: 0 !important;
+  margin-bottom: 0;
+}
+
+@media only screen and (min-device-width: 425px) {
+  .add_button_size {
+    width: 100%;
+    font-size: 30px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .add_button_size {
+    width: 100%;
+    font-size: 28px;
+  }
+}
+
+.card-action {
+  margin: 0;
+}
+
+.card-content {
+  padding-top: 0;
+  padding-bottom: 0 !important;
+}
+
+.card {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 15px 25px 25px;
+}

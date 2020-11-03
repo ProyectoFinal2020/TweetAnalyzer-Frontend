@@ -1,0 +1,25 @@
+.user-dropdown-btn {
+  color: inherit;
+  position: relative;
+  width: fit-content;
+  padding: 0.7rem 1rem;
+  font-weight: 400;
+  font-size: 12px;
+  border-radius: 7px;
+  line-height: 20px;
+  text-decoration: none;
+  display: inline-flex;
+  &:hover,
+  &:focus {
+    color: inherit;
+    background: rgba(200, 200, 200, 0.2);
+  }
+}
+
+.user-label {
+  color: white;
+  text-align: center;
+  padding: 0 10px;
+  text-transform: none;
+  font-size: 0.85rem;
+}

@@ -1,0 +1,105 @@
+@import "assets/custom/scss/helpers/_variables";
+@import "assets/custom/scss/helpers/_mixins";
+
+.sidebar-title {
+  text-align: center;
+  color: white;
+}
+
+.sidebar-header {
+  background-image: url("/homeBackground.jpg");
+  background-size: cover;
+  background-position-y: bottom;
+  background-color: $dark;
+}
+
+.logo-label {
+  color: white;
+  font-family: Roboto Slab, Times New Roman, serif;
+  text-transform: capitalize;
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+.transparent {
+  .MuiBackdrop-root {
+    background-color: transparent;
+  }
+}
+
+.drawer-paper {
+  top: 57px;
+}
+
+@media (max-width: map-get($breakpoints, md)) {
+  .transparent {
+    .MuiBackdrop-root {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .drawer-paper {
+    top: 0;
+  }
+}
+
+.sidebar {
+  padding-bottom: 40px;
+  overflow-y: auto;
+  @include add_scrollbar(4px, 0.65);
+
+  .sidebar_list_container {
+    .MuiListItem-root.Mui-disabled {
+      opacity: 1;
+
+      p,
+      svg {
+        opacity: 0.5;
+      }
+    }
+
+    img {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+    }
+  }
+
+  ul {
+    padding: 0;
+
+    p {
+      color: black;
+      padding-left: 20px;
+      line-height: 25px;
+    }
+
+    .MuiListItem-button {
+      @extend .sidebar_button;
+    }
+  }
+}
+
+.sidebar_button {
+  display: block;
+  width: 100%;
+  margin-bottom: 2px;
+  padding: 0.5rem 1rem 0.5rem 1.3rem;
+  border-radius: 10px;
+  transition: all 0.25s;
+
+  svg {
+    color: $primary;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: rgba($light, 0.25);
+  }
+
+  &.nav-selected {
+    color: $white;
+    background: $primary;
+  }
+}

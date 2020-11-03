@@ -5,6 +5,7 @@ import {
 } from "@material-ui/pickers";
 import React from "react";
 import { ValidatorComponent } from "react-material-ui-form-validator";
+import "./DatePicker.scss";
 
 export class DatePicker extends ValidatorComponent {
   renderValidatorComponent() {
@@ -16,8 +17,8 @@ export class DatePicker extends ValidatorComponent {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             className="date_picker"
-            margin="normal"
             format="dd/MM/yyyy"
+            fullWidth={true}
             label={props.label}
             value={props.value}
             minDate={props.minDate}
@@ -25,8 +26,11 @@ export class DatePicker extends ValidatorComponent {
             onChange={props.handleChange}
             id={props.label}
             variant="inline"
-            error={!isValid}
-            helperText={(!isValid && this.getErrorMessage()) || props.helperText}
+            error={!isValid || !props.isValid}
+            helperText={
+              (!isValid && this.getErrorMessage()) || props.helperText
+            }
+            onKeyDown={(e) => e.preventDefault()}
           />
         </MuiPickersUtilsProvider>
       </>

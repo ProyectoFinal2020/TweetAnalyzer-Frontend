@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
+import "./LanguageButtons.scss";
 
 export const LanguageButtons = ({
   language,

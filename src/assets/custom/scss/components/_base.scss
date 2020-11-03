@@ -26,7 +26,7 @@ body {
   width: 100vw;
   padding: 0 8px 0 0 !important;
   @include add_scrollbar(8px, 1);
-  font-family: $font-family;
+  font-family: $first-font;
   color: $primary;
   background-color: lighten($light-grey, 3%);
   display: flex;
@@ -34,8 +34,8 @@ body {
   animation: loading 0.2s ease-out 1;
 
   .body_margin {
-    margin-top: 50px;
-    min-height: calc(100vh - 50px);
+    margin-top: 65px;
+    min-height: calc(100vh - 65px);
   }
 
   div,
@@ -76,7 +76,7 @@ body {
 @media only screen and (max-width: map-get($breakpoints, md)) {
   body {
     @include add_scrollbar(5px, 1);
-    background-color: white;
+    padding: 0 !important;
 
     div,
     p,
@@ -87,8 +87,9 @@ body {
     }
 
     .body_margin {
-      padding: 25px 2% 130px 2%;
-      background-color: white;
+      padding: 10px 3% 50px;
+      margin-top: 50px;
+      min-height: calc(100vh - 50px);
     }
   }
 }
@@ -122,16 +123,6 @@ body {
 .MuiAppBar-positionFixed {
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.1);
   padding: 0;
-}
-
-.navbar_logo {
-  p {
-    color: white;
-    font-family: Roboto Slab, Times New Roman, serif;
-    text-transform: capitalize;
-    padding-right: 12px;
-    padding-left: 12px;
-  }
 }
 
 /* PROGRESS BAR */
@@ -178,6 +169,10 @@ table {
 /* COMPONENTE CALENDARIO */
 .date_picker {
   margin-bottom: 0;
+
+  .MuiInput-underline::before {
+    margin-right: 5px;
+  }
 
   &[aria-invalid="true"] {
     .MuiInput-underline::before,

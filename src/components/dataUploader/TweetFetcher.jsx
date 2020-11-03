@@ -1,20 +1,25 @@
 import {
+  Box,
   Button,
-  ButtonBase,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
   Grid,
+  IconButton,
   Tooltip,
   Typography,
-  Box,
 } from "@material-ui/core";
 import { AddCircle } from "@material-ui/icons";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
-import { get, post } from "utils/api/api";
-import { downloadFile } from "utils/fileDownloader/downloadFile.js";
 import React, { useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+import { get, post } from "utils/api/api";
+import { downloadFile } from "utils/fileDownloader/downloadFile.js";
 import { DatePicker } from "../shared/datePicker/DatePicker";
 import { LanguageButtons } from "./LanguageButtons";
 import { TagChips } from "./TagChips";
+import "./TweetFetcher.scss";
 
 export const TweetFetcher = () => {
   const substractDays = (date, days) => {
@@ -154,193 +159,200 @@ export const TweetFetcher = () => {
   const handleEnterPress = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      document.getElementById("add_tag_button").click();
+      document.getElementById("add-tag-btn").click();
       return false;
     }
   };
 
   return (
     <>
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={12}>
-          <Typography
-            component="h1"
-            variant="h1"
-            align="center"
-            className="title"
-          >
-            Búsqueda de tweets
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Box className="tweet_fetcher_data_box">
-            <Typography align="center" component="p">
-              Espacio disponible: {availableSpace}
-            </Typography>
-          </Box>
-        </Grid>
-      </Grid>
+      <Typography component="h1" variant="h1" align="center" className="title">
+        Búsqueda de tweets
+      </Typography>
 
       <ValidatorForm
         onSubmit={handleSubmit}
         className="tweet_fetcher_container"
       >
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="flex-start"
-        >
-          <Grid item xs={12} md={7} lg={8}>
-            <TextValidator
-              margin="normal"
-              label="Título"
-              value={title}
-              type="text"
-              variant="outlined"
-              helperText={
-                topicsWithLanguage[title]
-                  ? "Ya existe un conjunto de tweets con este título. Los nuevos tweets se agregarán allí"
-                  : null
-              }
-              onChange={(e) => setTitle(e.target.value)}
-              validators={["required", "titleMaxLength"]}
-              errorMessages={[
-                "El título es requerido",
-                "No debe superar los 30 caracteres",
-              ]}
-            />
-          </Grid>
-          <Grid item xs={12} md={5} lg={4}>
-            <TextValidator
-              margin="normal"
-              label="Cantidad máxima de tweets"
-              value={tweetAmount}
-              onChange={(e) => setTweetAmount(e.target.value)}
-              type="number"
-              variant="outlined"
-              validators={[
-                "required",
-                "minNumber:0",
-                "maxTweetsNotGreaterThanAvailableSpace",
-              ]}
-              errorMessages={[
-                "La cantidad máxima es requerida",
-                "Debe ser un entero positivo",
-                "No debe superar el espacio disponible",
-              ]}
-            />
-          </Grid>
-        </Grid>
-        <Grid container alignItems="flex-start">
-          <Grid item xs={10} sm={11}>
-            <TextValidator
-              id="tag-field"
-              label="Nuevo término"
-              type="text"
-              margin="normal"
-              autoComplete="off"
-              variant="outlined"
-              validators={["tagsNotEmpty"]}
-              errorMessages={["Ingrese al menos un parámetro de búsqueda"]}
-              value={tag}
-              onChange={(e) => setTag(e.target.value)}
-              onKeyPress={handleEnterPress}
-            />
-          </Grid>
-          <Grid item xs={2} sm={1}>
-            <Tooltip title="Agregar tag">
-              <ButtonBase id="add_tag_button" onClick={handleAddTag}>
-                <AddCircle className="add_button_size" color="primary" />
-              </ButtonBase>
-            </Tooltip>
-          </Grid>
-        </Grid>
-        {tags && tags.length > 0 ? (
-          <Grid item xs={12}>
-            <TagChips items={tags} setItems={setTags} />
-          </Grid>
-        ) : null}
-        <Grid container className="date_picker_container">
-          <Grid item xs={12} sm={6} md={4}>
-            <DatePicker
-              label="Fecha inicial"
-              minDate={substractDays(new Date(), 6)}
-              maxDate={substractDays(new Date(), 1)}
-              initialDate={initialDate}
-              endDate={endDate}
-              value={initialDate}
-              validators={["required", "dateCantBeMoreThan7DaysAgo"]}
-              errorMessages={[
-                "La fecha inicial es requerida",
-                "La fecha inicial no puede ser anterior a 7 días",
-              ]}
-              handleChange={(date) => setInitialDate(date)}
-            />
-            {contentErrors.endDateGreaterThanInitial ? (
-              <Typography
-                className="my_reports_error"
-                color="error"
-                variant="caption"
+        <Card style={{ padding: 20 }}>
+          <CardHeader
+            style={{ paddingBottom: 0 }}
+            action={
+              <Box className="tweet_fetcher_data_box">
+                <Typography align="center" component="p">
+                  Espacio disponible: {availableSpace}
+                </Typography>
+              </Box>
+            }
+            classes={{ action: "card-action" }}
+          />
+          <CardContent>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={7} lg={8}>
+                <TextValidator
+                  fullWidth={true}
+                  label="Título"
+                  value={title}
+                  type="text"
+                  variant="outlined"
+                  helperText={
+                    topicsWithLanguage[title]
+                      ? "Ya existe un conjunto de tweets con este título. Los nuevos tweets se agregarán allí"
+                      : null
+                  }
+                  onChange={(e) => setTitle(e.target.value)}
+                  validators={["required", "titleMaxLength"]}
+                  errorMessages={[
+                    "El título es requerido",
+                    "No debe superar los 30 caracteres",
+                  ]}
+                />
+              </Grid>
+              <Grid item xs={12} md={5} lg={4}>
+                <TextValidator
+                  fullWidth={true}
+                  label="Cantidad máxima de tweets"
+                  value={tweetAmount}
+                  onChange={(e) => setTweetAmount(e.target.value)}
+                  type="number"
+                  variant="outlined"
+                  validators={[
+                    "required",
+                    "minNumber:0",
+                    "maxTweetsNotGreaterThanAvailableSpace",
+                  ]}
+                  errorMessages={[
+                    "La cantidad máxima es requerida",
+                    "Debe ser un entero positivo",
+                    "No debe superar el espacio disponible",
+                  ]}
+                />
+              </Grid>
+              <Grid item xs={10} sm={11}>
+                <TextValidator
+                  id="tag-field"
+                  fullWidth={true}
+                  label="Nuevo término"
+                  type="text"
+                  autoComplete="off"
+                  variant="outlined"
+                  validators={["tagsNotEmpty"]}
+                  errorMessages={["Ingrese al menos un parámetro de búsqueda"]}
+                  value={tag}
+                  onChange={(e) => setTag(e.target.value)}
+                  onKeyPress={handleEnterPress}
+                />
+              </Grid>
+              <Grid
+                item
+                xs={2}
+                sm={1}
+                style={{ paddingRight: 0, paddingLeft: 0 }}
               >
-                La fecha inicial debe ser anterior a la fecha final
-              </Typography>
-            ) : null}
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <DatePicker
-              label="Fecha final"
-              value={endDate}
-              minDate={substractDays(new Date(), 6)}
-              maxDate={new Date()}
-              initialDate={initialDate}
-              endDate={endDate}
-              validators={[
-                "required",
-                "endDateNotGreaterThanToday",
-                "dateCantBeMoreThan7DaysAgo",
-              ]}
-              errorMessages={[
-                "La fecha final es requerida",
-                "La fecha final no puede ser mayor que hoy",
-                "La fecha final no puede ser anterior a 7 días",
-              ]}
-              handleChange={(date) => setEndDate(date)}
-            />
-            {contentErrors.endDateGreaterThanInitial ? (
-              <Typography
-                className="my_reports_error"
-                color="error"
-                variant="caption"
-              >
-                La fecha final debe ser posterior a la fecha inicial
-              </Typography>
-            ) : null}
-          </Grid>
-          <Grid item xs={9} sm={9} md={4}>
-            <LanguageButtons
-              language={language}
-              setLanguage={setLanguage}
-              topicsWithLanguage={topicsWithLanguage}
-              title={title}
-            />
-          </Grid>
-        </Grid>
-        <Grid container justify="flex-end">
-          <Box className="action_btn_group">
+                <Tooltip title="Agregar tag">
+                  <IconButton
+                    onClick={handleAddTag}
+                    color="primary"
+                    id="add-tag-btn"
+                    style={{ height: "54px", width: "54px" }}
+                  >
+                    <AddCircle />
+                  </IconButton>
+                </Tooltip>
+              </Grid>
+              {tags && tags.length > 0 ? (
+                <Grid item xs={12} style={{ paddingTop: 0 }}>
+                  <TagChips items={tags} setItems={setTags} />
+                </Grid>
+              ) : null}
+              <Grid item xs={12} sm={6} md={4}>
+                <DatePicker
+                  label="Fecha inicial"
+                  minDate={substractDays(new Date(), 6)}
+                  maxDate={substractDays(new Date(), 1)}
+                  initialDate={initialDate}
+                  endDate={endDate}
+                  value={initialDate}
+                  validators={["required", "dateCantBeMoreThan7DaysAgo"]}
+                  errorMessages={[
+                    "La fecha inicial es requerida",
+                    "La fecha inicial no puede ser anterior a 7 días",
+                  ]}
+                  handleChange={(date) => setInitialDate(date)}
+                  isValid={!contentErrors.endDateGreaterThanInitial}
+                />
+                <Typography
+                  color="error"
+                  variant="caption"
+                  className="label-error"
+                >
+                  {contentErrors.endDateGreaterThanInitial
+                    ? "La fecha inicial debe ser anterior a la fecha final"
+                    : null}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <DatePicker
+                  label="Fecha final"
+                  value={endDate}
+                  minDate={substractDays(new Date(), 6)}
+                  maxDate={new Date()}
+                  initialDate={initialDate}
+                  endDate={endDate}
+                  validators={[
+                    "required",
+                    "endDateNotGreaterThanToday",
+                    "dateCantBeMoreThan7DaysAgo",
+                  ]}
+                  errorMessages={[
+                    "La fecha final es requerida",
+                    "La fecha final no puede ser mayor que hoy",
+                    "La fecha final no puede ser anterior a 7 días",
+                  ]}
+                  handleChange={(date) => setEndDate(date)}
+                  isValid={!contentErrors.endDateGreaterThanInitial}
+                />
+                <Typography
+                  color="error"
+                  variant="caption"
+                  className="label-error"
+                >
+                  {contentErrors.endDateGreaterThanInitial
+                    ? "La fecha final debe ser posterior a la fecha inicial"
+                    : null}
+                </Typography>
+              </Grid>
+              <Grid item xs={9} sm={9} md={4}>
+                <LanguageButtons
+                  language={language}
+                  setLanguage={setLanguage}
+                  topicsWithLanguage={topicsWithLanguage}
+                  title={title}
+                />
+              </Grid>
+            </Grid>
+          </CardContent>
+          <CardActions className="action-btns">
             <Button
-              className="secondary"
+              variant="contained"
+              color="secondary"
               aria-label="Descargar"
               onClick={() => downloadFile(queryResult, title + "-tweets")}
               disabled={!queryResult || loadingQuery}
+              startIcon={<CloudDownloadIcon />}
             >
-              <CloudDownloadIcon /> Descargar
+              Descargar
             </Button>
-            <Button type="submit" className="primary" disabled={loadingQuery}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={loadingQuery}
+            >
               Buscar
             </Button>
-          </Box>
-        </Grid>
+          </CardActions>
+        </Card>
       </ValidatorForm>
     </>
   );

@@ -1,27 +1,22 @@
 /*eslint-disable*/
+import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+import anonymousUser from "assets/custom/img/anonymousUser.png";
 import styles from "assets/custom/jss/material-kit/headerLinksStyle.js";
 import navbarsStyle from "assets/custom/jss/material-kit/navbarsStyle";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import { get } from "utils/api/api";
 import { app } from "../../../utils/firebase/firebase";
 import { logout } from "../../../utils/localStorageManagement/authentication";
 import { routes } from "../../../utils/routes/routes";
-import { get } from "utils/api/api";
 import CustomDropdown from "./CustomDropdown/CustomDropdown";
-import anonymousUser from "assets/custom/img/anonymousUser.png";
-import {
-  CloudUpload,
-  EmojiEmotions,
-  ListAlt,
-  Storage,
-} from "@material-ui/icons";
-import { Grid, Hidden } from "@material-ui/core";
+import "./HeaderLinks.scss";
 
 const useStyles = makeStyles(styles);
 const useNavbarStyles = makeStyles(navbarsStyle);
@@ -70,110 +65,32 @@ export const HeaderLinks = (props) => {
                 Verificar email
               </Button>
             </ListItem>
-          ) : (
-            <>
-              <ListItem className={classes.listItem}>
-                <CustomDropdown
-                  left
-                  caret={false}
-                  hoverColor="black"
-                  buttonText={
-                    <>
-                      <CloudUpload className={classes.icons} />
-                      <Hidden mdDown>Carga de Datos</Hidden>
-                    </>
-                  }
-                  buttonProps={{
-                    className: navbarClasses.navLink,
-                    color: "primary",
-                  }}
-                  dropdownList={[
-                    {
-                      name: "Tweets",
-                      onClick: () => history.push(routes.tweetFetcher.path),
-                    },
-                    {
-                      name: "Noticias",
-                      onClick: () => history.push(routes.createReports.path),
-                    },
-                  ]}
-                />
-              </ListItem>
-              <ListItem className={classes.listItem}>
-                <Button
-                  href={routes.dataSelection.path}
-                  color="inherit"
-                  className={classes.navLink}
-                >
-                  <Storage className={classes.icons} />
-                  <Hidden mdDown>Selección de Datos</Hidden>
-                </Button>
-              </ListItem>
-              <ListItem className={classes.listItem}>
-                <Button
-                  href={routes.similarityAlgorithms.path}
-                  color="inherit"
-                  className={classes.navLink}
-                >
-                  <ListAlt className={classes.icons} />
-                  <Hidden mdDown>Algoritmos de similitud</Hidden>
-                </Button>
-              </ListItem>
-              <ListItem className={classes.listItem}>
-                <CustomDropdown
-                  left
-                  caret={false}
-                  hoverColor="black"
-                  buttonText={
-                    <>
-                      <EmojiEmotions className={classes.icons} />
-                      <Hidden mdDown>Análisis de Tweets</Hidden>
-                    </>
-                  }
-                  buttonProps={{
-                    className: navbarClasses.navLink,
-                    color: "primary",
-                  }}
-                  dropdownList={[
-                    {
-                      name: "Frecuencias",
-                      onClick: () => history.push(routes.bubbleChart.path),
-                    },
-                    {
-                      name: "Sentimientos",
-                      onClick: () =>
-                        history.push(routes.sentimentAnalyzer.path),
-                    },
-                    {
-                      name: "Emociones",
-                      onClick: () => history.push(routes.emotionAnalyzer.path),
-                    },
-                  ]}
-                />
-              </ListItem>
-            </>
-          )}
+          ) : null}
           <ListItem className={navbarClasses.listItem + " navbar-dropdown"}>
             <CustomDropdown
               left
               caret={false}
               hoverColor="black"
-              dropdownHeader={currentUser ? currentUser.name : null}
               buttonText={
-                <img
-                  src={
-                    currentUser
-                      ? currentUser.photoUrl !== ""
-                        ? currentUser.photoUrl
-                        : anonymousUser
-                      : null
-                  }
-                  className={navbarClasses.img}
-                  alt="profile"
-                />
+                <>
+                  <img
+                    src={
+                      currentUser
+                        ? currentUser.photoUrl !== ""
+                          ? currentUser.photoUrl
+                          : anonymousUser
+                        : null
+                    }
+                    className={navbarClasses.img}
+                    alt="profile"
+                  />
+                  <Typography className="user-label">
+                    {currentUser ? currentUser.name : null}
+                  </Typography>
+                </>
               }
               buttonProps={{
-                className: navbarClasses.imageDropdownButton,
+                className: "user-dropdown-btn",
               }}
               dropdownList={
                 currentUser && currentUser.emailVerified

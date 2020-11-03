@@ -1,15 +1,17 @@
 import {
   Avatar,
+  Box,
   Card,
   CardContent,
   CardHeader,
+  Chip,
   Grid,
-  Tooltip,
   Typography,
 } from "@material-ui/core";
 import avatarImage from "assets/custom/img/tweetLogo.svg";
 import React from "react";
 import { PieChartView } from "./EmotionChart";
+import "./tweet.scss";
 
 export const Tweet = ({ tweet, emotions, showPolarity, ...props }) => {
   const getDateAndTime = (tweet) => {
@@ -50,13 +52,15 @@ export const Tweet = ({ tweet, emotions, showPolarity, ...props }) => {
           </Grid>
           {showPolarity ? (
             <Grid item xs={12}>
-              <Tooltip title="Polaridad">
-                <Avatar className="tweet_polarity">
-                  <Typography variant="subtitle1">
-                    {tweet.polarity.toFixed(2)}
-                  </Typography>
-                </Avatar>
-              </Tooltip>
+              <Box mt={2} />
+              <Chip
+                className="subjectivity"
+                label={"Subjetividad: " + tweet.subjectivity.toFixed(2)}
+              />
+              <Chip
+                className="polarity"
+                label={"Polaridad: " + tweet.polarity.toFixed(2)}
+              />
             </Grid>
           ) : null}
           {emotions ? (

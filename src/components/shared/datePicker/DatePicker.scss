@@ -1,0 +1,20 @@
+.date_picker {
+  margin-top: 10px;
+  margin-bottom: 0;
+
+  .MuiInput-underline::before {
+    margin-right: 5px;
+  }
+
+  &[aria-invalid="true"] {
+    .MuiInput-underline::before,
+    .MuiInput-underline::after {
+      border-color: red;
+    }
+
+    label,
+    input {
+      color: red;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+@import "assets/custom/scss/helpers/_variables";
+
+.error {
+  min-height: 15px;
+}
+
+.card-action {
+  margin: 0;
+}
+
+.tweet_fetcher_data_box {
+  border-radius: 5px;
+  border-color: transparent;
+  padding: 5px 15px;
+  background-color: $primary;
+  width: fit-content;
+  float: right;
+  margin: 0 10px;
+
+  p {
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+}
+
+.action-btns {
+  float: right;
+}

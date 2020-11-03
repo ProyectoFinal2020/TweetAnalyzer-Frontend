@@ -1,0 +1,23 @@
+@import "assets/custom/scss/helpers/_variables";
+
+.deleteable_chips {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0 $spacing/2;
+  margin: 0;
+
+  .chip {
+    margin: $spacing/2;
+    font-weight: 400;
+    color: white;
+    font-size: 0.87rem;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    background-color: $secondary;
+
+    svg {
+      color: rgba(white, 0.5);
+    }
+  }
+}

@@ -19,6 +19,7 @@ import Popper from "@material-ui/core/Popper";
 import Button from "@material-ui/core/Button";
 
 import styles from "assets/custom/jss/material-kit/customDropdownStyle.js";
+import { Tooltip } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
@@ -50,6 +51,7 @@ export default function CustomDropdown(props) {
   };
   const classes = useStyles();
   const {
+    tooltip,
     buttonText,
     buttonIcon,
     dropdownList,
@@ -85,19 +87,25 @@ export default function CustomDropdown(props) {
       icon = null;
       break;
   }
+
   return (
     <>
-      <Button
-        aria-label="Notifications"
-        aria-owns={anchorEl ? "menu-list" : null}
-        aria-haspopup="true"
-        {...buttonProps}
-        onClick={handleClick}
+      <Tooltip
+        title={tooltip ? tooltip : ""}
+        disableHoverListener={tooltip ? false : true}
       >
-        {icon}
-        {buttonText !== undefined ? buttonText : null}
-        {caret ? <b className={caretClasses} /> : null}
-      </Button>
+        <Button
+          aria-label="Notifications"
+          aria-owns={anchorEl ? "menu-list" : null}
+          aria-haspopup="true"
+          {...buttonProps}
+          onClick={handleClick}
+        >
+          {icon}
+          {buttonText !== undefined ? buttonText : null}
+          {caret ? <b className={caretClasses} /> : null}
+        </Button>
+      </Tooltip>
 
       <Popper
         open={Boolean(anchorEl)}

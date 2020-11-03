@@ -64,27 +64,3 @@
     display: none !important;
   }
 }
-
-.MuiCard-root.tweet_card {
-  height: 100%;
-
-  .MuiCardContent-root {
-    height: calc(100% - 70px);
-
-    .MuiGrid-container {
-      height: 100%;
-
-      .MuiGrid-item:last-child {
-        align-self: flex-end;
-      }
-    }
-  }
-}
-
-.tweet_polarity {
-  width: 50px;
-  height: 50px;
-  margin: 5px 5px 5px auto;
-  background-color: $primary;
-  color: $white;
-}

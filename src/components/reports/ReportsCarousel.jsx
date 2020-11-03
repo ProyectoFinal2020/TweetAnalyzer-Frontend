@@ -1,12 +1,9 @@
-import { Box, Button, Chip, Grid, Hidden, Typography } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import { Box, Chip, Typography } from "@material-ui/core";
 import config from "assets/custom/scss/config.scss";
 import { CustomContext } from "contexts/CustomContext";
-import React, { useEffect, useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
 import Slider from "react-slick";
 import { languagesDictionary } from "utils/dictionaries/language";
-import { routes } from "utils/routes/routes";
 import { ReportCard } from "./ReportCard";
 import { SearchReports } from "./SearchReports";
 
@@ -27,7 +24,6 @@ export const ReportsCarousel = ({
   const [languages, setLanguages] = useState(Object.keys(languagesDictionary));
   const [searchWords, setSearchWords] = useState(undefined);
   const { windowDimensions } = useContext(CustomContext);
-  const history = useHistory();
 
   useEffect(() => {
     const getSlidesToShow = () => {
@@ -88,34 +84,14 @@ export const ReportsCarousel = ({
   };
 
   return (
-    <Box>
-      <Grid container alignItems="center" justify="center">
-        <Grid item className="reports_carousel_title">
-          <Typography component="h5" variant="h5" color="textPrimary">
-            Seleccionar noticia
-          </Typography>
-        </Grid>
-        <Grid item className="reports_carousel_add_btn">
-          <Button
-            edge="end"
-            aria-label="Agregar noticias"
-            className="success"
-            onClick={() => history.push(routes.createReports.path)}
-          >
-            <Hidden smUp>
-              <Add />
-            </Hidden>
-            <Hidden xsDown>Agregar noticias</Hidden>
-          </Button>
-        </Grid>
-      </Grid>
+    <>
       <SearchReports
         languages={languages}
         handleLanguageChange={handleLanguageChange}
         handleSearchChange={handleSearchChange}
       />
       {selectedReport && selectedReport.title ? (
-        <Box className="reports_carousel_info_box">
+        <Box>
           <Box className="reports_carousel_selected_title">
             <Typography
               variant="subtitle2"
@@ -161,6 +137,6 @@ export const ReportsCarousel = ({
           </Typography>
         </Box>
       )}
-    </Box>
+    </>
   );
 };

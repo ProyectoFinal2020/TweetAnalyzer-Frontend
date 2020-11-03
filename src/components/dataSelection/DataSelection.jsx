@@ -1,29 +1,30 @@
 import {
   Box,
   Button,
-  Fab,
+  Card,
+  CardContent,
+  CardHeader,
+  FormControl,
   Grid,
   Hidden,
-  Tooltip,
+  InputLabel,
+  Select,
   Typography,
 } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Add } from "@material-ui/icons";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import SaveIcon from "@material-ui/icons/Save";
-import { AuthContext } from "contexts/AuthContext";
-import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { saveSelectedData } from "utils/localStorageManagement/selectedData";
-import { routes } from "utils/routes/routes";
-import { ReportsCarousel } from "components/reports/ReportsCarousel";
 import { TweetsByTopicTable } from "components/myTweets/TweetsByTopicTable";
+import { ReportsCarousel } from "components/reports/ReportsCarousel";
+import { NoContentComponent } from "components/shared/noContent/NoContent";
+import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
-import {
-  SelectValidator,
-  ValidatorForm,
-} from "react-material-ui-form-validator";
 import { useHistory } from "react-router-dom";
 import { get } from "utils/api/api";
+import { saveSelectedData } from "utils/localStorageManagement/selectedData";
+import { routes } from "utils/routes/routes";
+import "./DataSelection.scss";
 
 export const DataSelection = () => {
   const [reports, setReports] = useState(undefined);
@@ -120,19 +121,32 @@ export const DataSelection = () => {
   return tweetsTopic &&
     reports &&
     (tweetsTopic.length > 0 || reports.length > 0) ? (
-    <>
+    <Box paddingBottom={10}>
       <Typography component="h1" variant="h1" align="center" className="title">
         Selección de datos
       </Typography>
-      <ValidatorForm onSubmit={handleSubmit}>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="flex-start"
-        >
-          {reports.length > 0 ? (
-            <Grid item xs={12} className="form_col_box">
+      <form onSubmit={handleSubmit}>
+        {reports.length > 0 ? (
+          <Card classes={{ root: "card" }}>
+            <CardHeader
+              action={
+                <Button
+                  edge="end"
+                  aria-label="Agregar noticias"
+                  className="success"
+                  variant="contained"
+                  onClick={() => history.push(routes.createReports.path)}
+                >
+                  <Hidden smUp>
+                    <Add />
+                  </Hidden>
+                  <Hidden xsDown>Agregar noticias</Hidden>
+                </Button>
+              }
+              title="Seleccionar noticia"
+              classes={{ action: "card-action" }}
+            />
+            <CardContent classes={{ root: "card-content" }}>
               <ReportsCarousel
                 reports={reports}
                 selectedReport={selectedReport}
@@ -142,10 +156,12 @@ export const DataSelection = () => {
                 }
                 errors={errors}
               />
-              {/* To-Do: Cambiar las flechas y los puntitos.*/}
-            </Grid>
-          ) : (
-            <Grid item xs={12}>
+              {/* To-Do: Cambiar los puntitos.*/}
+            </CardContent>
+          </Card>
+        ) : (
+          <Card fullWidth={true} classes={{ root: "card" }}>
+            <CardContent>
               {NoContentComponent(
                 "No tenés noticias",
                 "¡Agregá nuevas noticias para comenzar!",
@@ -157,73 +173,65 @@ export const DataSelection = () => {
                   },
                 ]
               )}
-            </Grid>
-          )}
-          <Grid container alignItems="center" justify="center">
-            <Grid item className="tweets_topics_title">
-              <Typography component="h5" variant="h5" color="textPrimary">
-                Seleccionar tweets
-              </Typography>
-            </Grid>
-            <Grid item className="reports_carousel_add_btn">
-              <Button
-                edge="end"
-                aria-label="Agregar noticias"
-                className="success"
-                onClick={() => history.push(routes.tweetFetcher.path)}
-              >
-                <Hidden smUp>
-                  <Add />
-                </Hidden>
-                <Hidden xsDown>Agregar tweets</Hidden>
-              </Button>
-            </Grid>
-          </Grid>
-          {tweetsTopic.length > 0 ? (
-            <Grid item xs={12} className="form_col_box">
-              <Grid item xs={12} className="data_selection_dropbox">
-                <SelectValidator
-                  labelid="tweets-label"
-                  className="report_input"
+            </CardContent>
+          </Card>
+        )}
+        {tweetsTopic.length > 0 ? (
+          <Card classes={{ root: "card" }}>
+            <CardHeader
+              action={
+                <Button
+                  edge="end"
+                  aria-label="Agregar noticias"
+                  className="success"
+                  variant="contained"
+                  onClick={() => history.push(routes.tweetFetcher.path)}
+                >
+                  <Hidden smUp>
+                    <Add />
+                  </Hidden>
+                  <Hidden xsDown>Agregar tweets</Hidden>
+                </Button>
+              }
+              title=" Seleccionar tweets"
+              classes={{ action: "card-action" }}
+            />
+            <CardContent classes={{ root: "card-content" }}>
+              <FormControl fullWidth={true}>
+                <InputLabel
+                  shrink={selectedTweetsTopic?.topic_title ? true : false}
+                  id="selected-tweet-topic"
+                >
+                  Seleccione un conjunto de tweets
+                </InputLabel>
+                <Select
+                  labelId="selected-tweet-topic"
                   value={
                     selectedTweetsTopic ? selectedTweetsTopic.topic_title : ""
                   }
                   onChange={handleTopicSelection}
                 >
-                  {tweetsTopic.length > 0 ? (
-                    tweetsTopic.map((topic, key) => (
-                      <MenuItem key={key} value={topic.topic_title}>
-                        {topic.topic_title + " (" + topic.language + ")"}
-                      </MenuItem>
-                    ))
-                  ) : (
-                    <MenuItem key="no-tweets" value={undefined} disabled>
-                      Todavia no posee tweets, realice una búsqueda presionando
-                      el icono a la derecha
+                  {tweetsTopic.map((topic, key) => (
+                    <MenuItem key={key} value={topic.topic_title}>
+                      {topic.topic_title + " (" + topic.language + ")"}
                     </MenuItem>
-                  )}
-                </SelectValidator>
-                {errors.required ? (
-                  <Typography
-                    component="p"
-                    variant="caption"
-                    color="error"
-                    align="right"
-                  >
-                    Debes seleccionar un tema
-                  </Typography>
-                ) : errors.language ? (
-                  <Typography
-                    component="p"
-                    variant="caption"
-                    color="error"
-                    align="right"
-                  >
-                    El idioma del tema debe ser el mismo que el idioma de la
-                    noticia
-                  </Typography>
-                ) : null}
-              </Grid>
+                  ))}
+                </Select>
+                <Typography
+                  component="p"
+                  variant="caption"
+                  color="error"
+                  align="right"
+                  style={{ minHeight: 20 }}
+                >
+                  {errors.required
+                    ? "Debes seleccionar un tema"
+                    : errors.language
+                    ? "El idioma del tema debe ser el mismo que el idioma de la noticia"
+                    : ""}
+                </Typography>
+              </FormControl>
+              <Box m={1} />
               <Grid item xs={12} className="all_width">
                 {selectedTweetsTopic ? (
                   <TweetsByTopicTable
@@ -235,9 +243,11 @@ export const DataSelection = () => {
                   />
                 ) : null}
               </Grid>
-            </Grid>
-          ) : (
-            <Grid item xs={12}>
+            </CardContent>
+          </Card>
+        ) : (
+          <Card fullWidth={true} classes={{ root: "card" }}>
+            <CardContent>
               {NoContentComponent(
                 "No tenés tweets",
                 "¡Agregá nuevos tweets para comenzar!",
@@ -249,48 +259,57 @@ export const DataSelection = () => {
                   },
                 ]
               )}
-            </Grid>
-          )}
-          {tweetsTopic.length > 0 ? (
-            <Box className="btn-group_fab">
-              <Tooltip title="Guardar cambios">
-                <Fab type="submit" color="secondary" aria-label="Guardar">
-                  <SaveIcon />
-                </Fab>
-              </Tooltip>
-              <Tooltip title="Guardar y continuar">
-                <Fab
-                  onClick={(e) => handleSubmit(e, true)}
-                  color="primary"
-                  aria-label="Continuar"
-                >
-                  <NavigateNextIcon />
-                </Fab>
-              </Tooltip>
-            </Box>
-          ) : null}
-        </Grid>
-      </ValidatorForm>
-    </>
-  ) : tweetsTopic && reports ? (
-    <>
-      <Box className="no_content_box">
-        {NoContentComponent(
-          "No tenés noticias ni tweets",
-          "¡Agregá nuevas noticias y nuevos tweets para comenzar!",
-          "#Error",
-          [
-            {
-              handleClick: handleAddReportClick,
-              buttonText: "Agregar noticias",
-            },
-            {
-              handleClick: handleAddTweetsClick,
-              buttonText: "Agregar tweets",
-            },
-          ]
+            </CardContent>
+          </Card>
         )}
-      </Box>
-    </>
+        {tweetsTopic.length > 0 ? (
+          <Box position="relative">
+            <Box position="absolute" right={0}>
+              <Button
+                variant="contained"
+                color="secondary"
+                type="submit"
+                aria-label="Guardar selección"
+                startIcon={<SaveIcon />}
+                style={{ marginRight: 10 }}
+              >
+                Guardar
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                aria-label="Guardar y continuar"
+                onClick={(e) => handleSubmit(e, true)}
+                startIcon={<NavigateNextIcon />}
+              >
+                Continuar
+              </Button>
+            </Box>
+          </Box>
+        ) : null}
+      </form>
+    </Box>
+  ) : tweetsTopic && reports ? (
+    <Card fullWidth={true} classes={{ root: "card" }}>
+      <CardContent>
+        <Box className="no_content_box">
+          {NoContentComponent(
+            "No tenés noticias ni tweets",
+            "¡Agregá nuevas noticias y nuevos tweets para comenzar!",
+            "#Error",
+            [
+              {
+                handleClick: handleAddReportClick,
+                buttonText: "Agregar noticias",
+              },
+              {
+                handleClick: handleAddTweetsClick,
+                buttonText: "Agregar tweets",
+              },
+            ]
+          )}
+        </Box>
+      </CardContent>
+    </Card>
   ) : null;
 };

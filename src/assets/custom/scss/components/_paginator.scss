@@ -1,40 +1,39 @@
 @import "../helpers/variables";
 
 .paginator_form_control {
-    float: right;
-    margin-top: $spacing*2.5;
-    margin-right: 0;
+  float: right;
+  margin-top: $spacing * 2;
+  margin-right: 0;
 
-    .MuiSelect-select {
-        min-height: 15px;
-        min-width: 110px;
-        padding: 10px 10px !important;
-    }
+  .MuiSelect-select {
+    min-height: 15px;
+    min-width: 110px;
+    padding: 10px 10px !important;
+  }
 }
 
 .pagination_numbers {
-    margin-top: $spacing*3;
-    width: 100%;
+  margin-top: $spacing * 2.5;
+  width: 100%;
 }
 
 .paginator_container {
-    justify-content: "space-between";
-    height: 70px;
+  justify-content: space-between;
 }
 
-@media only screen and (max-width : map-get($breakpoints, xs)) {
-    .pagination_numbers {
-        margin-top: $spacing*3;
-        width: 100%;
+@media only screen and (max-width: map-get($breakpoints, xs)) {
+  .pagination_numbers {
+    margin-top: $spacing * 3;
+    width: 100%;
 
-        ul {
-            padding: 0;
-            display: table;
-            width: 100%;
-        }
-
-        li {
-            display: table-cell;
-        }
+    ul {
+      padding: 0;
+      display: table;
+      width: 100%;
     }
+
+    li {
+      display: table-cell;
+    }
+  }
 }

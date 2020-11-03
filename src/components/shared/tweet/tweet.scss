@@ -1,0 +1,36 @@
+@import "assets/custom/scss/helpers/_variables";
+
+.MuiCard-root.tweet_card {
+  height: 100%;
+
+  .MuiCardContent-root {
+    height: calc(100% - 70px);
+
+    .MuiGrid-container {
+      height: 100%;
+
+      .MuiGrid-item:last-child {
+        align-self: flex-end;
+      }
+    }
+  }
+}
+.polarity,
+.subjectivity {
+  color: white;
+  font-weight: 400;
+  opacity: 80%;
+  float: right;
+
+  .MuiChip-label {
+    padding: 0px 16px;
+  }
+}
+
+.polarity {
+  background-color: $green;
+}
+
+.subjectivity {
+  background-color: $blue;
+}

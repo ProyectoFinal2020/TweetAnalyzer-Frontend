@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Grid, Tooltip } from "@material-ui/core";
+import { Button, ButtonGroup, Grid, Paper, Tooltip } from "@material-ui/core";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext } from "react";
 import { SelectSimAlgorithmForm } from "./SelectSimAlgorithmForm";
@@ -19,7 +19,7 @@ export const TweetsSelection = ({
 }) => {
   const { selectedData } = useContext(AuthContext);
   return (
-    <>
+    <Paper style={{ padding: 15 }} elevation={3}>
       {selectedData &&
       selectedData.topic &&
       selectedData.algorithms &&
@@ -78,6 +78,6 @@ export const TweetsSelection = ({
           downloadFilename={downloadFilename}
         />
       )}
-    </>
+    </Paper>
   );
 };

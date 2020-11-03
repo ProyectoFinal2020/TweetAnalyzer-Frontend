@@ -224,16 +224,18 @@ export const SimilarityAlgorithms = () => {
               onClick={() => history.push(routes.emotionAnalyzer.path)}
               className="success"
               aria-label="Continuar"
+              startIcon={<NavigateNextIcon />}
             >
-              <NavigateNextIcon /> Continuar
+              Continuar
             </Button>
             <Button
               onClick={handleFabClick}
               className="secondary"
               aria-label="Descargar"
               disabled={!tweetsWithScores || tweetsWithScores.length === 0}
+              startIcon={<CloudDownloadIcon />}
             >
-              <CloudDownloadIcon /> Descargar
+              Descargar
             </Button>
           </Grid>
         </Hidden>

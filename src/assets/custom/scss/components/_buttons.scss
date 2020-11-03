@@ -12,7 +12,7 @@ input[type="file"] {
   font-weight: 500;
   line-height: 1.75;
   letter-spacing: 0.02857em;
-  font-family: $font-family;
+  font-family: $first-font;
   text-transform: uppercase;
   background-color: $primary;
   color: #ffffff;
@@ -95,10 +95,6 @@ button {
     display: block;
     margin: 0 0 5px 10px !important;
     padding: 6px 15px !important;
-
-    svg {
-      font-size: medium;
-    }
   }
 }
 

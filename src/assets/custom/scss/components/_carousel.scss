@@ -1,29 +1,49 @@
 /* PROPIOS DEL CAROUSEL */
 button.slick-arrow.slick-prev,
 button.slick-arrow.slick-next {
-  width: 65px;
-  opacity: 1;
+  top: 50%;
+  display: block;
+  height: 100%;
+  padding: 0;
+  cursor: pointer;
+  width: 50px;
+  z-index: 2;
 
   &::before {
-    opacity: 1;
-    color: $secondary;
+    content: "";
+    border-right: 5px solid $dark-grey;
+    border-bottom: 5px solid $dark-grey;
+    width: 20px;
+    height: 20px;
+    margin: auto;
+  }
+
+  &:hover {
+    background: rgba($light-grey, 0.8);
+  }
+}
+
+button.slick-arrow.slick-next {
+  &::before {
+    transform: rotate(-45deg);
+  }
+}
+
+button.slick-arrow.slick-prev {
+  &::before {
+    transform: rotate(135deg);
   }
 }
 
 .slick-slider {
-  margin-bottom: 60px;
-}
-
-.slick-list {
-  width: calc(100% - 50px);
-  margin: auto;
+  margin-bottom: 30px;
 }
 
 .slick-track {
   height: 380px;
 }
 
-.slick-slide>div {
+.slick-slide > div {
   height: 100%;
 }
 
@@ -47,29 +67,6 @@ button.slick-arrow.slick-next {
   }
 }
 
-/* PANTALLA DE REPORTS */
-.reports_carousel_add_btn {
-  margin: 10px 5px;
-
-  button {
-    float: right;
-  }
-}
-
-.reports_carousel_info_box {
-  width: calc(100% - 50px);
-  margin: auto;
-}
-
-.reports_carousel_title {
-  width: calc(100% - 166px);
-  padding: 0 5px;
-
-  h5 {
-    width: 100%;
-  }
-}
-
 .reports_carousel_selected_title {
   margin: 10px 5px;
   justify-content: flex-end;
@@ -85,23 +82,6 @@ button.slick-arrow.slick-next {
   .MuiCardContent-root {
     p {
       height: 200px !important;
-    }
-  }
-}
-
-@media only screen and (max-width : map-get($breakpoints, sm)) {
-  .reports_carousel_title {
-    width: calc(100% - 60px);
-
-    h5 {
-      width: 100%;
-    }
-  }
-
-  .reports_carousel_add_btn {
-    button {
-      padding: 6px 10px;
-      min-width: fit-content;
     }
   }
 }

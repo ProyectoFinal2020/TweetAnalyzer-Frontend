@@ -54,14 +54,14 @@ const headerLinksStyle = (theme) => ({
   navLink: {
     color: "inherit",
     position: "relative",
-    padding: "0.9375rem",
+    padding: "1rem 2.5rem",
     fontWeight: "400",
     fontSize: "12px",
     textTransform: "uppercase",
     borderRadius: "3px",
     lineHeight: "20px",
     textDecoration: "none",
-    margin: "0px 10px",
+    margin: "0px 3px",
     display: "inline-flex",
     "&:hover,&:focus": {
       color: "inherit",

@@ -13,6 +13,8 @@ export const graphColors = [
 
 export const getOptions = (title) => {
   return {
+    aspectRatio: 1,
+    responsive: true,
     title: {
       text: title,
       display: true,
