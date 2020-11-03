@@ -5,7 +5,8 @@ import { AuthContext } from "contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import { routes } from "utils/routes/routes";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { Box, TextField } from "@material-ui/core";
+import { Box, Grid, TextField } from "@material-ui/core";
+import { HashtagCloud } from "./HashtagCloud";
 
 export const FrequencyAnalyzer = () => {
   const [wordsCount, setWordsCount] = useState(undefined);
@@ -38,7 +39,7 @@ export const FrequencyAnalyzer = () => {
   };
   useEffect(() => {
     if (selectedData && selectedData.topic) {
-      get("/bubbleChart?topicTitle=" + selectedData.topic.title).then(
+      get("/frequencyAnalyzer?topicTitle=" + selectedData.topic.title).then(
         (response) => {
           setRawWords(response.data);
           buildGraph(response.data, 0);
@@ -49,9 +50,12 @@ export const FrequencyAnalyzer = () => {
   }, [selectedData]);
 
   return selectedData ? (
-    <>
+    <Grid container alignItems="center" justify="center">
+      <Grid item xs={6}>
+        <HashtagCloud />
+      </Grid>
       {wordsCount ? (
-        <>
+        <Grid item xs={12}>
           <TextField
             type="number"
             label="Frecuencia mínima"
@@ -93,9 +97,9 @@ export const FrequencyAnalyzer = () => {
             legendClickFun={legendClick}
             data={wordsCount}
           />
-        </>
+        </Grid>
       ) : null}
-    </>
+    </Grid>
   ) : (
     <Box className="no_content_box">
       {NoContentComponent(
