@@ -18,7 +18,7 @@ import { AuthContext } from "contexts/AuthContext";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { routes } from "../../../utils/routes/routes";
-import CustomDropdown from "./customDropdown/CustomDropdown";
+import CustomDropdown from "./CustomDropdown/CustomDropdown";
 
 const useStyles = makeStyles(styles);
 const useNavbarStyles = makeStyles(navbarsStyle);

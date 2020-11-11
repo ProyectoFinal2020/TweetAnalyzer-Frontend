@@ -11,7 +11,7 @@ export const FrequencyAnalyzer = () => {
   const [rawWords, setRawWords] = useState(undefined);
   const { selectedData } = useContext(AuthContext);
   const [threshold, setThreshold] = useState(0);
-  const [setHasTweets] = useState(undefined); //hasTweets
+  const [hasTweets, setHasTweets] = useState(undefined); //hasTweets
 
   //todo: mejorar visualizacion
   const buildGraph = (words, newThreshold) => {
