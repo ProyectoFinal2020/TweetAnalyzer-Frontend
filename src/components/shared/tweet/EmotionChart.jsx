@@ -4,7 +4,7 @@ import { emotionsDictionary } from "../../analyzers/emotionAnalyzer/emotionsDict
 import { Grid } from "@material-ui/core";
 import "./EmotionChart.scss";
 
-export const PieChartView = (props) => {
+export const EmotionChart = (props) => {
   const [hovered, setHovered] = useState(undefined);
   const [data, setData] = useState(undefined);
   const [chartColors, setChartColors] = useState([]);

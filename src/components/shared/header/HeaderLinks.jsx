@@ -15,7 +15,7 @@ import { get } from "utils/api/api";
 import { app } from "../../../utils/firebase/firebase";
 import { logout } from "../../../utils/localStorageManagement/authentication";
 import { routes } from "../../../utils/routes/routes";
-import CustomDropdown from "./CustomDropdown/CustomDropdown";
+import CustomDropdown from "./customDropdown/CustomDropdown";
 import "./HeaderLinks.scss";
 
 const useStyles = makeStyles(styles);

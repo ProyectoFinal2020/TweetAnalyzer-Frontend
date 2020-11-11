@@ -1,6 +1,6 @@
 import charts from "assets/custom/scss/config.scss";
 
-const getEmotions = (emotion) => {
+export const getEmotions = (emotion) => {
   let emotions = [];
   for (let attribute in emotion) {
     if (emotion[attribute] > 0) {

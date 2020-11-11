@@ -11,13 +11,14 @@ import { TweetsSelection } from "components/analyzers/common/TweetsSelection";
 import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { TablePaginator } from "components/shared/paginator/TablePaginator";
+import { EmotionChart } from "components/shared/tweet/EmotionChart";
 import { Tweet } from "components/shared/tweet/Tweet";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { get, post } from "utils/api/api.js";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import "./EmotionAnalyzer.scss";
-import { getTweetAndEmotions } from "./getTweetAndEmotions";
+import { getTweetAndEmotions, getEmotions } from "./getTweetAndEmotions";
 
 export const EmotionAnalyzer = () => {
   const { selectedData, setSelectedData } = useContext(AuthContext);
@@ -27,6 +28,7 @@ export const EmotionAnalyzer = () => {
   const [page, setPage] = useState(1);
   const [tweetsPerPage, setTweetsPerPage] = useState(6);
   const [wasExecuted, setWasExecuted] = useState(false);
+  const [topicEmotions, setTopicEmotions] = useState(undefined);
 
   useEffect(() => {
     if (!wasExecuted && selectedData && selectedData.emotionAnalysis) {
@@ -76,6 +78,18 @@ export const EmotionAnalyzer = () => {
     };
     saveSelectedData(newSelectedData);
     setSelectedData(newSelectedData);
+    get(
+      "/emotionAnalyzer/topic?topicTitle=" +
+        topicTitle +
+        "&reportId=" +
+        reportId +
+        "&algorithm=" +
+        algorithm +
+        "&threshold=" +
+        threshold
+    ).then((response) => {
+      setTopicEmotions(getEmotions(response.data));
+    });
     post("/emotionAnalyzer", {
       reportId: reportId,
       topicTitle: topicTitle,
@@ -103,6 +117,7 @@ export const EmotionAnalyzer = () => {
         handleSubmit={handleSubmit}
         setHasTweets={setHasTweets}
       />
+      {topicEmotions ? <EmotionChart emotion={topicEmotions} /> : null}
       {selectedData && selectedData.emotionAnalysis ? (
         <Card classes={{ root: "emotion-analyzer-container" }}>
           <CardHeader
