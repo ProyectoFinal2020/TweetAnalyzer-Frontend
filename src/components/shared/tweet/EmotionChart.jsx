@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import { emotionsDictionary } from "../../analyzers/emotionAnalyzer/emotionsDictionary.js";
 import { Grid } from "@material-ui/core";
+import "./EmotionChart.scss";
 
 export const PieChartView = (props) => {
   const [hovered, setHovered] = useState(undefined);
@@ -68,6 +69,18 @@ export const PieChartView = (props) => {
           data={data}
           animate
           radius={30}
+          label={({ dataEntry }) =>
+            dataEntry.title !== "none"
+              ? `${Math.round(dataEntry.percentage)} %`
+              : ""
+          }
+          labelStyle={{
+            fontSize: 4,
+            fill: "white",
+            fontFamily: "Roboto",
+            fontWeight: 600,
+          }}
+          labelPosition={72}
           onMouseOver={(_, index) => {
             setHovered(index);
           }}

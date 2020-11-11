@@ -15,6 +15,7 @@ html {
 
 header {
   padding: 0 !important;
+  min-height: 57.5px;
 
   .MuiToolbar-root {
     width: calc(100vw - 8px) !important;
@@ -35,6 +36,7 @@ body {
 
   .body_margin {
     margin-top: 65px;
+    padding-bottom: 50px;
     min-height: calc(100vh - 65px);
   }
 
@@ -88,8 +90,8 @@ body {
 
     .body_margin {
       padding: 10px 3% 50px;
-      margin-top: 50px;
-      min-height: calc(100vh - 50px);
+      margin-top: 57.5px;
+      min-height: calc(100vh - 57.5px);
     }
   }
 }
@@ -128,7 +130,7 @@ body {
 /* PROGRESS BAR */
 .progress_bar {
   position: fixed;
-  top: 50px;
+  top: 57.5px;
   left: 0;
   width: 100%;
 }
@@ -208,13 +210,9 @@ table {
   }
 }
 
-/* SEARCH BAR */
+// /* SEARCH BAR */
 .search_bar {
-  padding: 5px;
-
   .MuiFormControl-root {
-    width: 100%;
-
     .MuiFilledInput-root {
       border-radius: 4px;
       background-color: lighten($light-grey, 4%);
@@ -226,11 +224,11 @@ table {
         border: none !important;
       }
 
-      &:hover {
+      &:hover :not(.Mui-disabled) {
         background-color: lighten($light-grey, 2%);
       }
 
-      &:focus-within {
+      &:focus-within :not(.Mui-disabled) {
         background-color: lighten($light-grey, 3%);
       }
     }
@@ -246,28 +244,29 @@ table {
   }
 }
 
-/* MULTIPLE SELECTOR */
+// /* MULTIPLE SELECTOR */
 .multiple_selector {
-  padding: 5px;
-
   .MuiFormControl-root {
-    width: 100%;
     background-color: lighten($light-grey, 4%);
     border-radius: 4px;
     padding: 3.5px 5px;
 
-    &:hover {
+    &:hover :not(.Mui-disabled) {
       background-color: lighten($light-grey, 2%);
     }
 
-    &:focus-within,
-    .MuiSelect-root:focus {
+    &:focus-within :not(.Mui-disabled),
+    .MuiSelect-root:focus :not(.Mui-disabled) {
       background-color: $light-grey;
     }
 
     .MuiSelect-root {
       color: $dark-grey;
       padding-left: 12px;
+
+      &.Mui-disabled {
+        color: lighten($dark-grey, 40%);
+      }
     }
 
     .MuiInput-underline {

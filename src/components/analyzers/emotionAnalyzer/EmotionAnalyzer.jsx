@@ -1,29 +1,32 @@
-import { Box, Grid, Typography } from "@material-ui/core";
-import { TweetsSelection } from "components/analyzers/TweetsSelection";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  Paper,
+  Typography,
+} from "@material-ui/core";
+import { TweetsSelection } from "components/analyzers/common/TweetsSelection";
+import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { Paginator } from "components/shared/paginator/Paginator";
+import { TablePaginator } from "components/shared/paginator/TablePaginator";
 import { Tweet } from "components/shared/tweet/Tweet";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { get, post } from "utils/api/api.js";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
-import { routes } from "utils/routes/routes";
+import "./EmotionAnalyzer.scss";
 import { getTweetAndEmotions } from "./getTweetAndEmotions";
 
 export const EmotionAnalyzer = () => {
   const { selectedData, setSelectedData } = useContext(AuthContext);
+  const [hasTweets, setHasTweets] = useState(undefined);
   const [tweetAndEmotions, setTweetAndEmotions] = useState(undefined);
-  const [count, setCount] = useState(0);
+  const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [tweetsPerPage, setTweetsPerPage] = useState(6);
-  const [searchBy, setSearchBy] = useState("tweets");
-  const [selectedTweetTopic, setSelectedTweetTopic] = useState(
-    selectedData ? selectedData.topic.title : undefined
-  );
-  const [tweetTopics, setTweetTopics] = useState(undefined);
   const [wasExecuted, setWasExecuted] = useState(false);
-  const history = useHistory();
 
   useEffect(() => {
     if (!wasExecuted && selectedData && selectedData.emotionAnalysis) {
@@ -33,38 +36,28 @@ export const EmotionAnalyzer = () => {
           "&per_page=" +
           6 +
           "&topicTitle=" +
-          selectedData.emotionAnalysis
+          selectedData.emotionAnalysis.topicTitle
       ).then((response) => {
         setResults(response.data);
       });
     }
   }, [selectedData, wasExecuted]);
 
-  useEffect(() => {
-    get("/user/tweets/topics").then((response) => {
-      setTweetTopics(response.data.map((topics) => topics.topic_title));
-      if (response.data.length > 0) {
-        setSelectedTweetTopic(response.data[0].topic_title);
-      }
-    });
-  }, []);
-
   const setResults = (results) => {
     setPage(parseInt(results.page));
     setTweetAndEmotions(getTweetAndEmotions(results.items));
     setTweetsPerPage(parseInt(results.per_page));
-    setCount(parseInt(results.pages));
+    setTotal(parseInt(results.total));
   };
 
   const getTweets = (page, per_page) => {
-    let aux = wasExecuted ? selectedTweetTopic : selectedData.emotionAnalysis;
     get(
       "/emotionAnalyzer?page=" +
         page +
         "&per_page=" +
         per_page +
         "&topicTitle=" +
-        aux
+        selectedData.emotionAnalysis.topicTitle
     ).then((response) => {
       setResults(response.data);
     });
@@ -73,14 +66,16 @@ export const EmotionAnalyzer = () => {
   const handleSubmit = (reportId, topicTitle, algorithm, threshold) => {
     setWasExecuted(true);
     setTweetAndEmotions(undefined);
-    saveSelectedData({
+    const newSelectedData = {
       ...selectedData,
-      emotionAnalysis: topicTitle,
-    });
-    setSelectedData({
-      ...selectedData,
-      emotionAnalysis: topicTitle,
-    });
+      emotionAnalysis: {
+        topicTitle: topicTitle,
+        algorithm: algorithm,
+        threshold: threshold,
+      },
+    };
+    saveSelectedData(newSelectedData);
+    setSelectedData(newSelectedData);
     post("/emotionAnalyzer", {
       reportId: reportId,
       topicTitle: topicTitle,
@@ -98,89 +93,100 @@ export const EmotionAnalyzer = () => {
     });
   };
 
-  return selectedData ? (
+  return (
     <>
-      <Grid
-        container
-        direction="row"
-        justify="flex-end"
-        alignItems="center"
-        className="emotion_analyzer"
-      >
-        <Grid item xs={12}>
-          <Typography component="h1" variant="h1" align="center">
-            Análisis de emociones
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <TweetsSelection
-            sectionName="emociones"
-            searchBy={searchBy}
-            setSearchBy={setSearchBy}
-            setSelectedTweetTopic={setSelectedTweetTopic}
-            disableDownload={!tweetAndEmotions || tweetAndEmotions.length === 0}
-            tweetTopics={tweetTopics}
-            selectedTweetTopic={selectedTweetTopic}
-            handleSubmit={handleSubmit}
-            downloadUrl={
-              "/emotionAnalyzer/download?topicTitle=" + selectedData.topic.title
+      <Typography component="h1" variant="h1" align="center">
+        Análisis de emociones
+      </Typography>
+      <TweetsSelection
+        sectionName="emociones"
+        handleSubmit={handleSubmit}
+        setHasTweets={setHasTweets}
+      />
+      {selectedData && selectedData.emotionAnalysis ? (
+        <Card classes={{ root: "emotion-analyzer-container" }}>
+          <CardHeader
+            title={selectedData.emotionAnalysis.topicTitle}
+            subheader={
+              selectedData.emotionAnalysis.algorithm ? (
+                <div>
+                  <Typography variant="subheader" component="p">
+                    Algoritmo: {selectedData.emotionAnalysis.algorithm}
+                  </Typography>
+                  <Typography variant="subheader" component="p">
+                    Umbral: {selectedData.emotionAnalysis.threshold}
+                  </Typography>
+                </div>
+              ) : null
             }
-            downloadFilename={selectedData.topic.title + "-emotion-analysis"}
-          />
-        </Grid>
-        {/* ToDo KAIT MAGIC  (poner el algoritmo y/o titulo que se ejecuto?)*/}
-        {tweetAndEmotions && !wasExecuted ? (
-          <Typography variant="caption">
-            Esto fue lo último que se ejecutó...
-          </Typography>
-        ) : null}
-        {tweetAndEmotions && tweetAndEmotions.length > 0 ? (
-          <>
-            <Grid container direction="row" alignItems="stretch">
-              {tweetAndEmotions.map((tweetAndEmotions) => (
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  lg={4}
-                  className="card_container"
-                  key={tweetAndEmotions.tweet.id}
-                >
-                  <Tweet
-                    tweet={tweetAndEmotions.tweet}
-                    emotions={tweetAndEmotions.emotions}
-                  />
-                </Grid>
-              ))}
-            </Grid>
-            <Grid item xs={12}>
-              <Paginator
-                count={count}
-                page={page}
-                itemsPerPage={tweetsPerPage}
-                listItemsPerPage={[6, 12, 24, 48]}
-                getItems={getTweets}
-                setPage={setPage}
-                setItemsPerPage={setTweetsPerPage}
+            action={
+              <DownloadButton
+                asIcon={true}
+                url={
+                  "/emotionAnalyzer/download?topicTitle=" +
+                  selectedData.emotionAnalysis.topicTitle
+                }
+                disableDownload={
+                  !tweetAndEmotions || tweetAndEmotions.length === 0
+                }
+                filename={
+                  selectedData.emotionAnalysis.topicTitle + "-emotion-analysis"
+                }
               />
-            </Grid>
-          </>
-        ) : null}
-      </Grid>
+            }
+            classes={{
+              root: "emotion-analyzer-header",
+              action: "emotion-analyzer-header-action",
+            }}
+          />
+          <CardContent>
+            {tweetAndEmotions && tweetAndEmotions.length > 0 ? (
+              <>
+                <Grid
+                  container
+                  direction="row"
+                  alignItems="stretch"
+                  spacing={2}
+                >
+                  {tweetAndEmotions.map((tweetAndEmotions) => (
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      lg={4}
+                      key={tweetAndEmotions.tweet.id}
+                    >
+                      <Tweet
+                        tweet={tweetAndEmotions.tweet}
+                        emotions={tweetAndEmotions.emotions}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+                <TablePaginator
+                  total={total}
+                  page={page}
+                  itemsPerPage={tweetsPerPage}
+                  listItemsPerPage={[6, 12, 24, 48]}
+                  getItems={getTweets}
+                  setPage={setPage}
+                  setItemsPerPage={setTweetsPerPage}
+                />
+              </>
+            ) : null}
+          </CardContent>
+        </Card>
+      ) : hasTweets && (!selectedData || !selectedData.emotionAnalysis) ? (
+        <Paper style={{ padding: 5, marginTop: 15 }}>
+          <Box className="no_content_box">
+            {NoContentComponent(
+              "Aún no realizaste un análisis de emociones",
+              "¡Obtené las emociones del conjunto de tweets que desees!",
+              "#NoSearchResult"
+            )}
+          </Box>
+        </Paper>
+      ) : null}
     </>
-  ) : (
-    <Box className="no_content_box">
-      {NoContentComponent(
-        "No elegiste los datos",
-        "¡Seleccioná una noticia y un conjunto de tweets antes de comenzar!",
-        "#NoSearchResult",
-        [
-          {
-            handleClick: () => history.push(routes.dataSelection.path),
-            buttonText: "Seleccionar datos",
-          },
-        ]
-      )}
-    </Box>
   );
 };

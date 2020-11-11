@@ -1,5 +1,6 @@
 import { Box, Chip, Typography } from "@material-ui/core";
 import config from "assets/custom/scss/config.scss";
+import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMessageResult";
 import { CustomContext } from "contexts/CustomContext";
 import React, { useContext, useEffect, useState } from "react";
 import Slider from "react-slick";
@@ -128,14 +129,10 @@ export const ReportsCarousel = ({
           ))}
         </Slider>
       ) : (
-        <Box className="my_reports_no_content">
-          <Typography component="p" variant="subtitle2" color="textPrimary">
-            Lo sentimos, no encontramos noticias con esas características.
-          </Typography>
-          <Typography component="p" variant="subtitle1" color="textPrimary">
-            ¡Intentá nuevamente con otro filtro!
-          </Typography>
-        </Box>
+        <EmptyMessageResult
+          title="Lo sentimos, no encontramos noticias con esas características."
+          subtitle="¡Intentá nuevamente con otro filtro!"
+        />
       )}
     </>
   );

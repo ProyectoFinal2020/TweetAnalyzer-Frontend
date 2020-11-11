@@ -1,9 +1,10 @@
-import React from "react";
 import { Grid, TextField } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import Pagination from "@material-ui/lab/Pagination";
 import config from "assets/custom/scss/config.scss";
+import React from "react";
+import "./Paginator.scss";
 
 export const Paginator = (props) => {
   const handlePageChange = (e, value) => {

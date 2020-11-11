@@ -6,7 +6,6 @@
 @import "./components/_base";
 @import "./components/_buttons";
 @import "./components/_footer";
-@import "./components/_paginator";
 @import "./components/_customInput";
 
 @import "./components/_tweet";
@@ -15,17 +14,13 @@
 @import "./components/_infoBox";
 @import "./components/_noContent";
 @import "./components/_tweetsWithScoresTable";
-@import "./components/_charts";
 @import "./components/_reportCard";
 @import "./components/_carousel";
 
 @import "./pages/_login";
 @import "./pages/_similarityAlgorithms";
-@import "./pages/analyzers/_emotionAnalyzer";
-@import "./pages/analyzers/_sentimentAnalyzer";
 @import "./pages/_home";
 @import "./pages/_reportForm";
-@import "./pages/_myReports";
 @import "./pages/userMenu/shared";
 @import "./pages/userMenu/_myTweets";
 

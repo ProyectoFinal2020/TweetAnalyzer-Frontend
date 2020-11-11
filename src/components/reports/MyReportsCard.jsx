@@ -1,15 +1,26 @@
-import { Button, Divider, Grid, Tooltip, Typography } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  Grid,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import { Delete } from "@material-ui/icons";
-import { AuthContext } from "contexts/AuthContext";
+import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMessageResult";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { deleteBatch, get } from "utils/api/api";
+import { AuthContext } from "contexts/AuthContext";
 import { CustomContext } from "contexts/CustomContext";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { deleteBatch, get } from "utils/api/api";
 import { languagesDictionary } from "utils/dictionaries/language";
 import { routes } from "utils/routes/routes";
 import { showMsgConfirmation, updateSelectedData } from "./deleteReports";
+import "./MyReportsCard.scss";
 import { ReportCard } from "./ReportCard";
 import { SearchReports } from "./SearchReports";
 
@@ -153,109 +164,111 @@ export const ReportsCard = () => {
     setReports(currentReports);
   };
 
-  return allReports && allReports.length > 0 ? (
-    <Grid container direction="row" alignItems="center" justify="center">
-      <Grid item className="my_reports_title">
-        <Typography component="h1" variant="h1">
-          Noticias
-        </Typography>
-      </Grid>
-      <Grid item>
-        <Button
-          edge="end"
-          aria-label="Agregar noticias"
-          className="success my_reports_add_button"
-          onClick={handleAdd}
-        >
-          Agregar noticias
-        </Button>
-      </Grid>
-      <SearchReports
-        languages={language}
-        handleLanguageChange={handleLanguageChange}
-        handleSearchChange={handleSearchChange}
-      />
-      <Grid item xs={12} className="my_reports_divider">
-        <Divider light />
-      </Grid>
-      <Grid item xs={12}>
-        <Grid container direction="row" justify="flex-end" alignItems="center">
-          <Grid item className="my_reports_select_all">
-            {reports.length > 0 && reports.every((report) => report.checked) ? (
-              <Button
-                aria-label="Deseleccionar todas"
-                onClick={() => handleChangeCheckedAll(false)}
-              >
-                <Typography variant="caption" component="span">
-                  Deseleccionar todas
-                </Typography>
-              </Button>
-            ) : (
-              <Button
-                aria-label="Seleccionar todas"
-                onClick={() => handleChangeCheckedAll(true)}
-                disabled={reports.length === 0}
-              >
-                <Typography variant="caption" component="span">
-                  Seleccionar todas
-                </Typography>
-              </Button>
-            )}
-          </Grid>
-          <Grid item>
-            <Tooltip title="Eliminar noticias seleccionadas">
-              <Button
-                aria-label="Eliminar noticias"
-                className="danger my_reports_delete_button"
-                onClick={handleDelete}
-                disabled={reports.length === 0}
-              >
-                <Delete />
-              </Button>
-            </Tooltip>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={12}>
-        {reports.length > 0 ? (
-          <Grid container direction="row">
-            {reports.map((report, index) => (
-              <Grid item xs={12} sm={6} xl={4} key={index}>
-                <ReportCard
-                  report={report}
-                  deleteCurrentReport={handleSingleDelete}
-                  setCheckedReports={handleReportsCheck}
-                  searchWords={searchWords}
-                  showActionButtons={true}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        ) : (
-          <Box className="my_reports_no_content">
-            <Typography component="p" variant="subtitle2" color="textPrimary">
-              Lo sentimos, no encontramos noticias con esas características.
-            </Typography>
-            <Typography component="p" variant="subtitle1" color="textPrimary">
-              ¡Intentá nuevamente con otro filtro!
-            </Typography>
+  return (
+    <>
+      <Typography component="h1" variant="h1" align="center">
+        Noticias
+      </Typography>
+      <Card style={{ padding: 15, marginBottom: 20 }}>
+        <CardHeader
+          action={
+            <Button
+              aria-label="Agregar noticias"
+              className="success"
+              variant="contained"
+              onClick={handleAdd}
+            >
+              Agregar noticias
+            </Button>
+          }
+        />
+        <CardContent classes={{ root: "my-reports-card-content" }}>
+          <SearchReports
+            languages={language}
+            handleLanguageChange={handleLanguageChange}
+            handleSearchChange={handleSearchChange}
+            disabled={!allReports || allReports.length === 0}
+          />
+          <Box className="my_reports_divider">
+            <Divider light />
           </Box>
-        )}
-      </Grid>
-    </Grid>
-  ) : allReports && allReports.length === 0 ? (
-    <Box className="no_content_box">
-      {NoContentComponent(
-        "No tenés noticias",
-        "¡Agregá nuevas noticias para comenzar!",
-        "#NoDocuments",
-        [
-          {
-            handleClick: handleAdd,
-            buttonText: "Agregar noticias",
-          },
-        ]
-      )}
-    </Box>
-  ) : null;
+          {allReports && allReports.length > 0 ? (
+            <>
+              <Grid
+                container
+                direction="row"
+                justify="flex-end"
+                alignItems="center"
+              >
+                <Grid item className="my_reports_select_all">
+                  {reports.length > 0 &&
+                  reports.every((report) => report.checked) ? (
+                    <Button
+                      aria-label="Deseleccionar todas"
+                      onClick={() => handleChangeCheckedAll(false)}
+                    >
+                      <Typography variant="caption" component="span">
+                        Deseleccionar todas
+                      </Typography>
+                    </Button>
+                  ) : (
+                    <Button
+                      aria-label="Seleccionar todas"
+                      onClick={() => handleChangeCheckedAll(true)}
+                      disabled={reports.length === 0}
+                    >
+                      <Typography variant="caption" component="span">
+                        Seleccionar todas
+                      </Typography>
+                    </Button>
+                  )}
+                </Grid>
+                <Grid item>
+                  <Tooltip title="Eliminar noticias seleccionadas">
+                    <Button
+                      aria-label="Eliminar noticias"
+                      className="danger my_reports_delete_button"
+                      onClick={handleDelete}
+                      disabled={reports.length === 0}
+                    >
+                      <Delete />
+                    </Button>
+                  </Tooltip>
+                </Grid>
+              </Grid>
+
+              {reports.length > 0 ? (
+                <Grid container direction="row">
+                  {reports.map((report, index) => (
+                    <Grid item xs={12} sm={6} lg={4} key={index}>
+                      <ReportCard
+                        report={report}
+                        deleteCurrentReport={handleSingleDelete}
+                        setCheckedReports={handleReportsCheck}
+                        searchWords={searchWords}
+                        showActionButtons={true}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              ) : (
+                <EmptyMessageResult
+                  title="Lo sentimos, no encontramos noticias con esas características."
+                  subtitle="¡Intentá nuevamente con otro filtro!"
+                />
+              )}
+            </>
+          ) : allReports && allReports.length === 0 ? (
+            <Box className="no_content_box">
+              {NoContentComponent(
+                "No tenés noticias",
+                "¡Agregá nuevas noticias para comenzar!",
+                "#NoDocuments"
+              )}
+            </Box>
+          ) : null}
+        </CardContent>
+      </Card>
+    </>
+  );
 };

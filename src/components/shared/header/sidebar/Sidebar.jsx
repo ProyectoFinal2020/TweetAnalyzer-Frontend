@@ -17,7 +17,7 @@ import { get } from "utils/api/api";
 import { SidebarItem } from "./SidebarItem";
 import anonymousUser from "assets/custom/img/anonymousUser.png";
 import { removeUserTour } from "utils/localStorageManagement/userTour";
-import { UserTour } from "./UserTour";
+import { UserTour } from "../userTour/UserTour";
 
 export const Sidebar = ({ ...props }) => {
   const history = useHistory();

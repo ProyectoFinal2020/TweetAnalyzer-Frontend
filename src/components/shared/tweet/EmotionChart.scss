@@ -1,12 +1,9 @@
-@import "../helpers/_mixins";
-
 .pie_chart {
   min-width: 200px;
   max-width: 300px;
   min-height: 200px;
   max-height: 300px;
-  transition: stroke .1s;
-
+  transition: stroke 0.1s;
 }
 
 .color_description_container {

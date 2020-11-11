@@ -18,7 +18,7 @@ import { AuthContext } from "contexts/AuthContext";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { routes } from "../../../utils/routes/routes";
-import CustomDropdown from "./CustomDropdown/CustomDropdown";
+import CustomDropdown from "./customDropdown/CustomDropdown";
 
 const useStyles = makeStyles(styles);
 const useNavbarStyles = makeStyles(navbarsStyle);
@@ -101,7 +101,7 @@ export const CenteredHeaderLinks = (props) => {
           dropdownList={[
             {
               name: "Frecuencias",
-              onClick: () => history.push(routes.bubbleChart.path),
+              onClick: () => history.push(routes.frequencyAnalyzer.path),
             },
             {
               name: "Sentimientos",

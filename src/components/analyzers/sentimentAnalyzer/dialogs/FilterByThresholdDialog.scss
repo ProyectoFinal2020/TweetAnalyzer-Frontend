@@ -1,0 +1,32 @@
+@import "assets/custom/scss/helpers/_variables";
+
+.filter-threshold-dialog {
+  padding: 10px 10px 20px;
+}
+
+.polarity-slider {
+  color: $primary;
+  padding: 30px 0 20px;
+
+  .MuiSlider-thumb {
+    height: 12px;
+    width: 12px;
+    border: 2px solid currentColor;
+    margin-top: -4px;
+  }
+
+  .MuiSlider-track,
+  .MuiSlider-rail {
+    height: 4px;
+    border-radius: 4px;
+  }
+
+  .MuiSlider-valueLabel {
+    left: calc(-50% - 7.5px);
+    top: -20px;
+    & * {
+      background: transparent;
+      color: #000;
+    }
+  }
+}

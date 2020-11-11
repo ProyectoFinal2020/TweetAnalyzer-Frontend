@@ -1,12 +1,13 @@
-import { Button } from "@material-ui/core";
+import { Button, IconButton, Tooltip } from "@material-ui/core";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import React from "react";
 import { get } from "utils/api/api";
 import { downloadFile } from "utils/fileDownloader/downloadFile.js";
-import "./downloadButton.scss";
+import "./DownloadButton.scss";
 
 export const DownloadButton = ({
   disabled = false,
+  asIcon = false,
   url,
   filename,
   ...rest
@@ -15,7 +16,7 @@ export const DownloadButton = ({
     get(url).then((response) => downloadFile(response.data, filename));
   };
 
-  return (
+  return !asIcon ? (
     <Button
       className="btn-download"
       variant="contained"
@@ -26,5 +27,11 @@ export const DownloadButton = ({
     >
       <CloudDownloadIcon /> Descargar
     </Button>
+  ) : (
+    <Tooltip title="Descargar">
+      <IconButton aria-label="settings" onClick={handleDownload}>
+        <CloudDownloadIcon />
+      </IconButton>
+    </Tooltip>
   );
 };

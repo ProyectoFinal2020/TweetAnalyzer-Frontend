@@ -57,12 +57,6 @@
   lg: map-get($breakpoints, lg);
 
   /* COLORES PARA EL ANALISIS DE SENTIMIENTOS */
-  graphBlue: rgb(15, 131, 171);
-  graphOrange: rgb(250, 164, 58);
-  graphRed: rgb(255, 78, 78);
-  graphTeal: rgb(83, 207, 201);
-  graphGreen: rgb(162, 217, 37);
-  graphYellow: rgb(222, 207, 63);
-  graphPurple: rgb(115, 79, 233);
-  graphPink: rgb(205, 130, 173);
+  polarity: lighten($green, 3%);
+  subjectivity: lighten($blue, 3%);
 }

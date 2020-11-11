@@ -1,25 +1,11 @@
 import config from "assets/custom/scss/config.scss";
 
-export const graphColors = [
-  config["graphBlue"],
-  config["graphOrange"],
-  config["graphRed"],
-  config["graphTeal"],
-  config["graphPink"],
-  config["graphGreen"],
-  config["graphPurple"],
-  config["graphYellow"],
-];
+export const graphColors = config["polarity"];
 
-export const getOptions = (title) => {
+export const getOptions = () => {
   return {
-    aspectRatio: 1,
+    aspectRatio: 2,
     responsive: true,
-    title: {
-      text: title,
-      display: true,
-      fontSize: 22,
-    },
     scales: {
       xAxes: [
         {
@@ -29,7 +15,7 @@ export const getOptions = (title) => {
             fontSize: 18,
           },
           gridLines: {
-            color: "rgba(0, 0, 0, 0)",
+            color: "transparent",
           },
         },
       ],

@@ -2,13 +2,6 @@ import { Button, Grid, Typography, Box } from "@material-ui/core";
 import errorIcon from "assets/custom/img/ErrorContent.svg";
 import React from "react";
 
-/* <svg>
-  <use
-    href={errorIcon + "#ShapeTwitter"}
-    className="icon shape-twitter-2"
-  ></use>
-</svg> */
-
 export const NoContentComponent = (title, subtitle, iconId, elements) => {
   return (
     <Box className="no_content">

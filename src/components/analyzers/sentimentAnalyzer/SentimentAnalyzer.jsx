@@ -1,64 +1,59 @@
 import {
   Box,
-  Button,
-  Chip,
-  FormControl,
+  Card,
+  CardContent,
+  CardHeader,
   Grid,
-  InputLabel,
+  IconButton,
   Paper,
-  Slider,
   Typography,
 } from "@material-ui/core";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import InfoIcon from "@material-ui/icons/Info";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { TweetsSelection } from "components/analyzers/TweetsSelection";
+import { TweetsSelection } from "components/analyzers/common/TweetsSelection";
+import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { Paginator } from "components/shared/paginator/Paginator";
+import { TablePaginator } from "components/shared/paginator/TablePaginator";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import { useHistory } from "react-router-dom";
 import { get } from "utils/api/api";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
-import { routes } from "utils/routes/routes";
 import { Tweet } from "../../shared/tweet/Tweet";
+import { FilterByThresholdDialog } from "./dialogs/FilterByThresholdDialog";
 import { getOptions, graphColors } from "./graphAuxStructures";
+import "./SentimentAnalyzer.scss";
 
 export const SentimentAnalyzer = () => {
   const { selectedData, setSelectedData } = useContext(AuthContext);
-  const [polarity, setPolarity] = React.useState([-1, 1]);
+  const [open, setOpen] = React.useState(false);
   const [searchedPolarity, setSearchedPolarity] = React.useState([-1, 1]);
-  const [reportId, setReportId] = React.useState(undefined);
-  const [algorithm, setAlgorithm] = React.useState(undefined);
-  const [threshold, setThreshold] = React.useState(undefined);
   const [graphInfo, setGraphInfo] = useState(undefined);
   const [tweets, setTweets] = useState(undefined);
-  const [count, setCount] = useState(0);
+  const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [tweetsPerPage, setTweetsPerPage] = useState(6);
-  const [searchBy, setSearchBy] = useState("tweets");
-  const [selectedTweetTopic, setSelectedTweetTopic] = useState(
-    selectedData ? selectedData.topic.title : undefined
-  );
-  const [tweetTopics, setTweetTopics] = useState(undefined);
   const [wasExecuted, setWasExecuted] = useState(false);
+  const [hasTweets, setHasTweets] = useState(undefined);
   const STEP_SIZE = 0.25;
-  const history = useHistory();
 
   useEffect(() => {
     if (!wasExecuted && selectedData && selectedData.sentimentAnalysis) {
       get(
-        "/sentimentAnalyzer/graph?topicTitle=" + selectedData.sentimentAnalysis
+        "/sentimentAnalyzer/graph?topicTitle=" +
+          selectedData.sentimentAnalysis.topicTitle
       ).then((response) => {
-        setGraphResults(selectedData.sentimentAnalysis, response.data);
+        setGraphResults(
+          selectedData.sentimentAnalysis.topicTitle,
+          response.data
+        );
       });
       getTweets(
         1,
         6,
-        selectedData.sentimentAnalysis,
-        polarity[0],
-        polarity[1],
+        selectedData.sentimentAnalysis.topicTitle,
+        searchedPolarity[0],
+        searchedPolarity[1],
         0,
         "",
         0
@@ -83,28 +78,21 @@ export const SentimentAnalyzer = () => {
     setGraphInfo(data);
   };
 
-  useEffect(() => {
-    get("/user/tweets/topics").then((response) => {
-      setTweetTopics(response.data.map((topics) => topics.topic_title));
-      if (response.data.length > 0) {
-        setSelectedTweetTopic(response.data[0].topic_title);
-      }
-    });
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    getTweets(
-      page,
-      tweetsPerPage,
-      selectedData.topic.title,
-      polarity[0],
-      polarity[1],
-      reportId,
-      algorithm,
-      threshold
-    );
-  };
+  // To-Do: formulario que viene del modal sin hacer.
+  // * Hacer los skeleton del analisis de emociones y de sentimientos.
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   getTweets(
+  //     page,
+  //     tweetsPerPage,
+  //     selectedData.topic.title,
+  //     polarity[0],
+  //     polarity[1],
+  //     reportId,
+  //     algorithm,
+  //     threshold
+  //   );
+  // };
 
   const getTweets = (
     page,
@@ -143,7 +131,7 @@ export const SentimentAnalyzer = () => {
     setPage(parseInt(results.page));
     setTweets(results.items);
     setTweetsPerPage(parseInt(results.per_page));
-    setCount(parseInt(results.pages));
+    setTotal(parseInt(results.total));
   };
 
   const handleTweetSelectionSubmit = (
@@ -154,23 +142,22 @@ export const SentimentAnalyzer = () => {
   ) => {
     setWasExecuted(true);
     setGraphInfo(undefined);
-    setReportId(reportId);
-    setAlgorithm(algorithm);
-    setThreshold(threshold);
-    saveSelectedData({
+    const newSelectedData = {
       ...selectedData,
-      sentimentAnalysis: topicTitle,
-    });
-    setSelectedData({
-      ...selectedData,
-      sentimentAnalysis: topicTitle,
-    });
+      sentimentAnalysis: {
+        topicTitle: topicTitle,
+        algorithm: algorithm,
+        threshold: threshold,
+      },
+    };
+    saveSelectedData(newSelectedData);
+    setSelectedData(newSelectedData);
     getTweets(
       page,
       tweetsPerPage,
       topicTitle,
-      polarity[0],
-      polarity[1],
+      searchedPolarity[0],
+      searchedPolarity[1],
       reportId,
       algorithm,
       threshold
@@ -185,141 +172,138 @@ export const SentimentAnalyzer = () => {
         "&threshold=" +
         threshold
     ).then((response) => {
-      setGraphResults(selectedData.sentimentAnalysis, response.data);
+      setGraphResults(topicTitle, response.data);
     });
   };
 
-  return selectedData ? (
+  return (
     <>
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item xs={12}>
-          <Typography component="h1" variant="h1" align="center">
-            Análisis de sentimientos
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <TweetsSelection
-            sectionName="sentimientos"
-            searchBy={searchBy}
-            setSearchBy={setSearchBy}
-            setSelectedTweetTopic={setSelectedTweetTopic}
-            disableDownload={!graphInfo}
-            tweetTopics={tweetTopics}
-            selectedTweetTopic={selectedTweetTopic}
-            handleSubmit={handleTweetSelectionSubmit}
-            downloadUrl={
-              "/sentimentAnalyzer/download?topicTitle=" +
-              selectedData.topic.title +
-              "&step_size=" +
-              STEP_SIZE
-            }
-            downloadFilename={selectedData.topic.title + "-sentiment-analysis"}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Paper style={{ padding: 15 }} elevation={3}>
-            <Box width={650} height={400}>
-              {graphInfo && selectedData && selectedData.topic.title ? (
+      <Typography component="h1" variant="h1" align="center">
+        Análisis de sentimientos
+      </Typography>
+      <TweetsSelection
+        sectionName="sentimientos"
+        handleSubmit={handleTweetSelectionSubmit}
+        setHasTweets={setHasTweets}
+      />
+      {selectedData && selectedData.sentimentAnalysis ? (
+        <>
+          <Card style={{ marginTop: 15 }}>
+            <CardHeader
+              title={selectedData.sentimentAnalysis.topicTitle}
+              subheader={
+                selectedData.sentimentAnalysis.algorithm ? (
+                  <div>
+                    <Typography variant="subheader" component="p">
+                      Algoritmo: {selectedData.sentimentAnalysis.algorithm}
+                    </Typography>
+                    <Typography variant="subheader" component="p">
+                      Umbral: {selectedData.sentimentAnalysis.threshold}
+                    </Typography>
+                  </div>
+                ) : null
+              }
+              action={
+                <DownloadButton
+                  asIcon={true}
+                  url={
+                    "/sentimentAnalyzer/download?topicTitle=" +
+                    selectedData.sentimentAnalysis.topicTitle +
+                    "&step_size=" +
+                    STEP_SIZE
+                  }
+                  disableDownload={!graphInfo}
+                  filename={
+                    selectedData.sentimentAnalysis.topicTitle +
+                    "-sentiment-analysis"
+                  }
+                />
+              }
+            />
+            <CardContent style={{ padding: "0 40px 20px" }}>
+              {graphInfo ? (
                 <Bar
+                  height={100}
+                  width={350}
                   data={graphInfo}
-                  height={400}
-                  width={650}
                   legend={{ display: false }}
-                  options={getOptions(selectedData.topic.title)}
+                  options={getOptions()}
                 />
               ) : (
-                <Skeleton height={450} />
+                <Skeleton variant="rect" width="100%" height={310} />
               )}
-            </Box>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography align="center" variant="h5">
-            Filtrado de tweets
-          </Typography>
-          <form onSubmit={handleSubmit}>
-            <FormControl fullWidth={true}>
-              <InputLabel shrink id="polarity-slider">
-                Rango de polaridad <InfoIcon />
-              </InputLabel>
-              <Slider
-                className="polarity-slider"
-                value={polarity}
-                min={-1}
-                step={STEP_SIZE}
-                max={1}
-                onChange={(event, value) => setPolarity(value)}
-                valueLabelDisplay="auto"
-                aria-labelledby="polarity-slider"
-              />
-            </FormControl>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              align="right"
-              startIcon={<FilterListIcon />}
-            >
-              Filtrar
-            </Button>
-          </form>
-          {tweets && tweets.length > 0 ? (
-            <>
-              <Box mb={0.5} align="right">
-                <Chip
-                  label={"Polaridad mínima: " + searchedPolarity[0]}
-                  color="secondary"
-                />
-                <Chip
-                  label={"Polaridad máxima: " + searchedPolarity[1]}
-                  color="secondary"
-                />
-              </Box>
-              <Grid container spacing={2} alignItems="stretch">
-                {tweets.map((tweet) => (
-                  <Grid item xs={12} sm={6} md={4} xl={3} key={tweet.id}>
-                    <Tweet tweet={tweet} showPolarity={true} />
+            </CardContent>
+          </Card>
+          <Card style={{ marginTop: 15 }}>
+            <CardHeader
+              title="Filtrado de tweets"
+              subheader={
+                <div>
+                  <Typography variant="subtitle2" component="p">
+                    Polaridad mínima: {searchedPolarity[0]}. Polaridad máxima:{" "}
+                    {searchedPolarity[1]}.
+                  </Typography>
+                </div>
+              }
+              action={
+                <IconButton onClick={() => setOpen(true)}>
+                  <FilterListIcon />
+                </IconButton>
+              }
+            />
+            <CardContent>
+              {tweets && tweets.length > 0 ? (
+                <>
+                  <Grid container spacing={2} alignItems="stretch">
+                    {tweets.map((tweet) => (
+                      <Grid item xs={12} sm={6} md={4} xl={3} key={tweet.id}>
+                        <Tweet tweet={tweet} showPolarity={true} />
+                      </Grid>
+                    ))}
                   </Grid>
-                ))}
-              </Grid>
-              <Paginator
-                count={count}
-                page={page}
-                itemsPerPage={tweetsPerPage}
-                listItemsPerPage={[6, 12, 24, 48]}
-                getItems={(page, per_page) =>
-                  getTweets(
-                    page,
-                    per_page,
-                    selectedTweetTopic,
-                    polarity[0],
-                    polarity[1],
-                    reportId,
-                    algorithm,
-                    threshold
-                  )
-                }
-                setPage={setPage}
-                setItemsPerPage={setTweetsPerPage}
-              />
-            </>
-          ) : null}
-        </Grid>
-      </Grid>
+                  <TablePaginator
+                    total={total}
+                    page={page}
+                    itemsPerPage={tweetsPerPage}
+                    listItemsPerPage={[6, 12, 24, 48]}
+                    getItems={(page, per_page) =>
+                      getTweets(
+                        page,
+                        per_page,
+                        selectedData.sentimentAnalysis.topicTitle,
+                        searchedPolarity[0],
+                        searchedPolarity[1],
+                        selectedData.report ? selectedData.report.id : 0,
+                        selectedData.sentimentAnalysis.algorithm,
+                        selectedData.sentimentAnalysis.threshold
+                      )
+                    }
+                    setPage={setPage}
+                    setItemsPerPage={setTweetsPerPage}
+                  />
+                </>
+              ) : null}
+            </CardContent>
+          </Card>
+          <FilterByThresholdDialog
+            open={open}
+            setOpen={setOpen}
+            STEP_SIZE={STEP_SIZE}
+            minPolarity={searchedPolarity[0]}
+            maxPolarity={searchedPolarity[1]}
+          />
+        </>
+      ) : hasTweets && (!selectedData || !selectedData.sentimentAnalysis) ? (
+        <Paper style={{ padding: 5, marginTop: 15 }}>
+          <Box className="no_content_box">
+            {NoContentComponent(
+              "Aún no realizaste un análisis de sentimientos",
+              "¡Obtené los sentimientos del conjunto de tweets que desees!",
+              "#NoSearchResult"
+            )}
+          </Box>
+        </Paper>
+      ) : null}
     </>
-  ) : (
-    <Box className="no_content_box">
-      {NoContentComponent(
-        "No elegiste los datos",
-        "¡Seleccioná una noticia y un conjunto de tweets antes de comenzar!",
-        "#NoSearchResult",
-        [
-          {
-            handleClick: () => history.push(routes.dataSelection.path),
-            buttonText: "Seleccionar datos",
-          },
-        ]
-      )}
-    </Box>
   );
 };

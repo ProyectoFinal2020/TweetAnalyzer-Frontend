@@ -11,7 +11,7 @@ import {
 import avatarImage from "assets/custom/img/tweetLogo.svg";
 import React from "react";
 import { PieChartView } from "./EmotionChart";
-import "./tweet.scss";
+import "./Tweet.scss";
 
 export const Tweet = ({ tweet, emotions, showPolarity, ...props }) => {
   const getDateAndTime = (tweet) => {
@@ -65,7 +65,7 @@ export const Tweet = ({ tweet, emotions, showPolarity, ...props }) => {
           ) : null}
           {emotions ? (
             <Grid item xs={12}>
-              <PieChartView className="pie_chart" emotion={emotions} />
+              <PieChartView emotion={emotions} />
             </Grid>
           ) : null}
         </Grid>

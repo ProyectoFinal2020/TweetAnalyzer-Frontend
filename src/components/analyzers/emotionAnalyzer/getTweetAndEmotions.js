@@ -13,7 +13,7 @@ const getEmotions = (emotion) => {
   }
   return emotions.length > 0
     ? emotions
-    : [{ title: "No posee emoción", value: 100, color: charts["none"] }];
+    : [{ title: "none", value: 100, color: charts["none"] }];
 };
 
 export const getTweetAndEmotions = (items) => {

@@ -13,7 +13,7 @@ import tweetLogo from "assets/custom/img/tweetLogo.svg";
 import styles from "assets/custom/jss/material-kit/headerStyle.js";
 import config from "assets/custom/scss/config.scss";
 import classNames from "classnames";
-import { Sidebar } from "components/shared/sidebar/Sidebar";
+import { Sidebar } from "./sidebar/Sidebar";
 import { AuthContext } from "contexts/AuthContext";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";

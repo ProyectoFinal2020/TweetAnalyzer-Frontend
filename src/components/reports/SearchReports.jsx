@@ -18,10 +18,17 @@ export const SearchReports = ({
   languages,
   handleLanguageChange,
   handleSearchChange,
+  disabled = false,
   ...props
 }) => {
   return (
-    <Grid container direction="row" alignItems="center" justify="flex-end">
+    <Grid
+      container
+      direction="row"
+      alignItems="center"
+      justify="flex-end"
+      spacing={1}
+    >
       <Grid item xs={12} sm={8} md={9} xl={10} className="search_bar">
         <TextField
           type="search"
@@ -35,10 +42,12 @@ export const SearchReports = ({
             ),
           }}
           onChange={(e) => handleSearchChange(e.target.value)}
+          disabled={disabled}
+          fullWidth
         />
       </Grid>
       <Grid item xs={12} sm={4} md={3} xl={2} className="multiple_selector">
-        <FormControl>
+        <FormControl fullWidth>
           <Select
             multiple
             displayEmpty
@@ -54,6 +63,7 @@ export const SearchReports = ({
             }}
             value={languages}
             onChange={(e) => handleLanguageChange(e.target.value)}
+            disabled={disabled}
           >
             <MenuItem disabled>
               <ListItemText primary="Idioma" />
