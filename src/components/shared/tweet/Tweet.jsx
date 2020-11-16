@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import avatarImage from "assets/custom/img/tweetLogo.svg";
 import React from "react";
-import { PieChartView } from "./EmotionChart";
+import { EmotionChart } from "./EmotionChart";
 import "./Tweet.scss";
 
 export const Tweet = ({
@@ -71,7 +71,7 @@ export const Tweet = ({
           ) : null}
           {emotions ? (
             <Grid item xs={12}>
-              <PieChartView emotion={emotions} />
+              <EmotionChart emotion={emotions} />
             </Grid>
           ) : null}
           {simAlgorithms ? (
