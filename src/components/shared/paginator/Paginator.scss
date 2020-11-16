@@ -21,7 +21,7 @@
   justify-content: space-between;
 }
 
-@media only screen and (max-width: map-get($breakpoints, xs)) {
+@media only screen and (max-width: map-get($breakpoints, sm)) {
   .pagination_numbers {
     margin-top: $spacing * 3;
     width: 100%;

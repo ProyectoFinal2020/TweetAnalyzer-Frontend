@@ -1,63 +1,41 @@
-.tweets_with_scores_container {
-    max-width: 1170px;
-    margin: auto;
-}
-
 .tweets_with_scores_table {
-    max-width: 1170px;
-    margin: 10px auto auto auto;
-    @include table_head_clickeable_buttons;
+  max-width: 1170px;
+  margin: 10px auto auto auto;
+  @include table_head_clickeable_buttons;
 
-    thead {
-        th {
-            text-align: center;
-            align-items: center;
-            margin-right: 5px;
+  thead {
+    th {
+      text-align: center;
+      align-items: center;
+      margin-right: 5px;
 
-            button {
-                padding: 5px 8px;
-            }
-        }
+      button {
+        padding: 5px 8px;
+      }
     }
+  }
 
-    tbody {
-        max-height: 450px;
+  tbody {
+    max-height: 450px;
 
-        td {
-            vertical-align: middle;
-            text-align: center;
+    td {
+      vertical-align: middle;
+      text-align: center;
 
-            &.tweets_column {
-                text-align: justify !important;
-            }
-        }
+      &.tweets_column {
+        text-align: justify !important;
+      }
     }
+  }
 }
 
 .fake_tweets_with_scores_container {
-    max-width: 950px;
-    padding: 0 3%;
-    margin: auto;
-    margin-top: 20px;
+  max-width: 950px;
+  padding: 0 3%;
+  margin: auto;
+  margin-top: 20px;
 
-    .tweet_with_scores_chips {
-        color: white;
-        font-weight: 400;
-        opacity: 70%;
-
-        .MuiChip-label {
-            padding: 0px 16px;
-        }
-    }
-
-    table {
-        @include table_head_clickeable_buttons;
-    }
-}
-
-@media only screen and (max-width: map-get($breakpoints, md)) {
-    .tweets_with_scores_container {
-        max-width: 950px;
-        padding: 0 3%;
-    }
+  table {
+    @include table_head_clickeable_buttons;
+  }
 }

@@ -5,6 +5,7 @@ import {
   CardHeader,
   Divider,
   Grid,
+  Paper,
   Tooltip,
   Typography,
 } from "@material-ui/core";
@@ -169,30 +170,30 @@ export const ReportsCard = () => {
       <Typography component="h1" variant="h1" align="center">
         Noticias
       </Typography>
-      <Card style={{ padding: 15, marginBottom: 20 }}>
-        <CardHeader
-          action={
-            <Button
-              aria-label="Agregar noticias"
-              className="success"
-              variant="contained"
-              onClick={handleAdd}
-            >
-              Agregar noticias
-            </Button>
-          }
-        />
-        <CardContent classes={{ root: "my-reports-card-content" }}>
-          <SearchReports
-            languages={language}
-            handleLanguageChange={handleLanguageChange}
-            handleSearchChange={handleSearchChange}
-            disabled={!allReports || allReports.length === 0}
+      {allReports && allReports.length > 0 ? (
+        <Card style={{ padding: 15, marginBottom: 20 }}>
+          <CardHeader
+            action={
+              <Button
+                aria-label="Agregar noticias"
+                className="success"
+                variant="contained"
+                onClick={handleAdd}
+              >
+                Agregar noticias
+              </Button>
+            }
           />
-          <Box className="my_reports_divider">
-            <Divider light />
-          </Box>
-          {allReports && allReports.length > 0 ? (
+          <CardContent classes={{ root: "my-reports-card-content" }}>
+            <SearchReports
+              languages={language}
+              handleLanguageChange={handleLanguageChange}
+              handleSearchChange={handleSearchChange}
+              disabled={!allReports || allReports.length === 0}
+            />
+            <Box className="my_reports_divider">
+              <Divider light />
+            </Box>
             <>
               <Grid
                 container
@@ -255,20 +256,29 @@ export const ReportsCard = () => {
                 <EmptyMessageResult
                   title="Lo sentimos, no encontramos noticias con esas características."
                   subtitle="¡Intentá nuevamente con otro filtro!"
+                  style={{ margin: "20px 10px" }}
                 />
               )}
             </>
-          ) : allReports && allReports.length === 0 ? (
-            <Box className="no_content_box">
-              {NoContentComponent(
-                "No tenés noticias",
-                "¡Agregá nuevas noticias para comenzar!",
-                "#NoDocuments"
-              )}
-            </Box>
-          ) : null}
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      ) : allReports && allReports.length === 0 ? (
+        <Paper className="no-content-paper">
+          <Box className="no_content_box">
+            {NoContentComponent(
+              "No tenés noticias",
+              "¡Agregá nuevas noticias para comenzar!",
+              "#NoDocuments",
+              [
+                {
+                  handleClick: () => history.push(routes.createReports.path),
+                  buttonText: "Agregar noticias",
+                },
+              ]
+            )}
+          </Box>
+        </Paper>
+      ) : null}
     </>
   );
 };

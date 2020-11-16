@@ -2,6 +2,10 @@
 
 .filter-threshold-dialog {
   padding: 10px 10px 20px;
+
+  .MuiDialogContent-root {
+    padding: 8px 24px;
+  }
 }
 
 .polarity-slider {

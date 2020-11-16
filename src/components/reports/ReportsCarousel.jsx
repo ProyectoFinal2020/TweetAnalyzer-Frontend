@@ -132,6 +132,7 @@ export const ReportsCarousel = ({
         <EmptyMessageResult
           title="Lo sentimos, no encontramos noticias con esas características."
           subtitle="¡Intentá nuevamente con otro filtro!"
+          style={{ margin: "20px 10px" }}
         />
       )}
     </>

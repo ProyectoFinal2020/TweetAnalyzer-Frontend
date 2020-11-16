@@ -13,7 +13,13 @@ import React from "react";
 import { EmotionChart } from "./EmotionChart";
 import "./Tweet.scss";
 
-export const Tweet = ({ tweet, emotions, showPolarity, ...props }) => {
+export const Tweet = ({
+  tweet,
+  emotions,
+  simAlgorithms,
+  showPolarity,
+  ...props
+}) => {
   const getDateAndTime = (tweet) => {
     const date = new Date(tweet.date);
     return (
@@ -66,6 +72,20 @@ export const Tweet = ({ tweet, emotions, showPolarity, ...props }) => {
           {emotions ? (
             <Grid item xs={12}>
               <EmotionChart emotion={emotions} />
+            </Grid>
+          ) : null}
+          {simAlgorithms ? (
+            <Grid item xs={12}>
+              {simAlgorithms.map((simAlg, index) => (
+                <Chip
+                  key={index}
+                  style={{
+                    backgroundColor: simAlg.color,
+                  }}
+                  label={simAlg.name + ": " + simAlg.value}
+                  classes={{ root: "similarity_algorithms" }}
+                />
+              ))}
             </Grid>
           ) : null}
         </Grid>

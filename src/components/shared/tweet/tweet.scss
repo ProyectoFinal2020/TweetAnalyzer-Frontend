@@ -34,3 +34,13 @@
 .subjectivity {
   background-color: $blue;
 }
+
+.similarity_algorithms {
+  color: white;
+  font-weight: 400;
+  opacity: 70%;
+
+  .MuiChip-label {
+    padding: 0px 16px;
+  }
+}

@@ -1,15 +1,16 @@
 import { Card, CardContent, CardHeader, IconButton } from "@material-ui/core";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { FilterFields } from "components/shared/chips/FilterFields";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import ReactWordcloud from "react-wordcloud";
 import "tippy.js/animations/scale.css";
 import "tippy.js/dist/tippy.css";
 import { get } from "utils/api/api";
-import { HashtagCloudDialog } from "./HashtagCloudDialog";
+import { FrequencyDialog } from "./dialogs/FrequencyDialog";
 
-export const HashtagCloud = () => {
+export const HashtagCloud = ({ className, ...props }) => {
   const { selectedData } = useContext(AuthContext);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [hashtagCount, setHashtagCount] = useState(undefined);
@@ -18,30 +19,28 @@ export const HashtagCloud = () => {
   const [maxAmountWords, setMaxAmountWords] = useState(150);
 
   useEffect(() => {
-    if (selectedData && selectedData.topic) {
-      get(
-        "/frequencyAnalyzer/hashtags?topicTitle=" + selectedData.topic.title
-      ).then((response) => {
-        var aux = Object.keys(response.data).map((key) => {
-          return { text: key, value: response.data[key] };
-        });
-        setHashtagCount(aux);
-        setFilteredHashtagCount(aux);
+    get(
+      "/frequencyAnalyzer/hashtags?topicTitle=" +
+        selectedData.frequencyAnalysis.topicTitle
+    ).then((response) => {
+      var aux = response.data.map((item) => {
+        return { text: item.label, value: item.value };
       });
-    }
+      setHashtagCount(aux);
+      setFilteredHashtagCount(aux);
+    });
   }, [selectedData]);
 
   const save = (maxWords, minFrequency) => {
     setMaxAmountWords(maxWords);
     setMinimumFrequency(minFrequency);
     const filtered = hashtagCount.filter((data) => data.value >= minFrequency);
-    console.log(filtered);
     setFilteredHashtagCount(filtered);
   };
 
   return (
     <>
-      <Card>
+      <Card className={className} variant="outlined">
         <CardHeader
           title="Nube de hashtags"
           action={
@@ -53,25 +52,35 @@ export const HashtagCloud = () => {
               <FilterListIcon />
             </IconButton>
           }
+          className="graph-card-header"
         />
-        <CardContent>
+        <CardContent className="graph-card-container">
           {filteredHashtagCount ? (
-            <ReactWordcloud
-              maxWords={maxAmountWords}
-              words={filteredHashtagCount}
-              options={{
-                rotations: 0,
-                fontSizes: [15, 60],
-                fontFamily: "Roboto",
-                // deterministic: false,
-              }}
-            />
+            <>
+              <FilterFields
+                values={[
+                  "Max. cantidad de hashtags en el gráfico: " + maxAmountWords,
+                  "Total de hashtags: " + hashtagCount.length,
+                ]}
+              />
+              <ReactWordcloud
+                maxWords={maxAmountWords}
+                words={filteredHashtagCount}
+                options={{
+                  rotations: 0,
+                  fontSizes: [15, 60],
+                  fontFamily: "Roboto",
+                  deterministic: true,
+                }}
+              />
+            </>
           ) : (
-            <Skeleton height={300} style={{ width: "100%" }} />
+            <Skeleton height={300} variant="rect" />
           )}
         </CardContent>
       </Card>
-      <HashtagCloudDialog
+      <FrequencyDialog
+        dialogTitle="Nube de hashtags"
         open={dialogOpen}
         setOpen={setDialogOpen}
         maxAmountWords={maxAmountWords}

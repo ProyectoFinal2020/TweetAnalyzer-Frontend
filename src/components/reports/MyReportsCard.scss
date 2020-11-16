@@ -25,9 +25,7 @@
   }
 }
 
-.no_content {
-  margin-top: 10px;
-  .buttons_container {
-    margin-bottom: 0;
-  }
+.no-content-paper {
+  padding-top: 30px;
+  height: calc(100vh - 150px);
 }

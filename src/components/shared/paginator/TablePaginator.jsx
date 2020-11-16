@@ -2,26 +2,35 @@ import { TablePagination } from "@material-ui/core";
 import React from "react";
 import "./TablePaginator.scss";
 
-export const TablePaginator = (props) => {
+export const TablePaginator = ({
+  total,
+  listItemsPerPage,
+  page,
+  setPage,
+  itemsPerPage,
+  setItemsPerPage,
+  getItems,
+  ...props
+}) => {
   const handlePageChange = (e, value) => {
-    props.getItems(value + 1, props.itemsPerPage);
-    props.setPage(value + 1);
+    getItems(value + 1, itemsPerPage);
+    setPage(value + 1);
   };
 
   const handleItemsPerPageChange = (e) => {
-    props.getItems(1, e.target.value);
-    props.setPage(1);
-    props.setItemsPerPage(e.target.value);
+    getItems(1, e.target.value);
+    setPage(1);
+    setItemsPerPage(e.target.value);
   };
 
   return (
     <TablePagination
       component="div"
-      count={props.total}
-      page={props.page - 1}
+      count={total}
+      page={page - 1}
       onChangePage={handlePageChange}
-      rowsPerPage={props.itemsPerPage}
-      rowsPerPageOptions={props.listItemsPerPage}
+      rowsPerPage={itemsPerPage}
+      rowsPerPageOptions={listItemsPerPage}
       onChangeRowsPerPage={handleItemsPerPageChange}
       labelRowsPerPage="Items por página"
       labelDisplayedRows={({ from, to, count }) =>

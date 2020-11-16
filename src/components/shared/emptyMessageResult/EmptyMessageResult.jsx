@@ -2,9 +2,9 @@ import { Box, Typography } from "@material-ui/core";
 import React from "react";
 import "./EmptyMessageResult.scss";
 
-export const EmptyMessageResult = ({ title, subtitle, ...rest }) => {
+export const EmptyMessageResult = ({ title, subtitle, style, ...rest }) => {
   return (
-    <Box className="empty-message-result">
+    <Box className="empty-message-result" style={style}>
       {title ? (
         <Typography component="p" variant="subtitle2" color="textPrimary">
           {title}

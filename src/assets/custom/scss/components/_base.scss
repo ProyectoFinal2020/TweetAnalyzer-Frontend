@@ -135,6 +135,19 @@ body {
   width: 100%;
 }
 
+/* CARDS */
+.card-row {
+  margin-top: 15px;
+}
+
+.graph-card-header {
+  padding-bottom: 0;
+}
+
+.graph-card-container {
+  padding-top: 8px;
+}
+
 /* TABLAS QUE MUESTRAN INFORMACION */
 table {
   thead {
@@ -210,9 +223,13 @@ table {
   }
 }
 
-// /* SEARCH BAR */
+/* SEARCH BAR */
 .search_bar {
+  padding: 5px;
+
   .MuiFormControl-root {
+    width: 100%;
+
     .MuiFilledInput-root {
       border-radius: 4px;
       background-color: lighten($light-grey, 4%);
@@ -224,11 +241,11 @@ table {
         border: none !important;
       }
 
-      &:hover :not(.Mui-disabled) {
+      &:hover {
         background-color: lighten($light-grey, 2%);
       }
 
-      &:focus-within :not(.Mui-disabled) {
+      &:focus-within {
         background-color: lighten($light-grey, 3%);
       }
     }
@@ -244,29 +261,28 @@ table {
   }
 }
 
-// /* MULTIPLE SELECTOR */
+/* MULTIPLE SELECTOR */
 .multiple_selector {
+  padding: 5px;
+
   .MuiFormControl-root {
+    width: 100%;
     background-color: lighten($light-grey, 4%);
     border-radius: 4px;
     padding: 3.5px 5px;
 
-    &:hover :not(.Mui-disabled) {
+    &:hover {
       background-color: lighten($light-grey, 2%);
     }
 
-    &:focus-within :not(.Mui-disabled),
-    .MuiSelect-root:focus :not(.Mui-disabled) {
+    &:focus-within,
+    .MuiSelect-root:focus {
       background-color: $light-grey;
     }
 
     .MuiSelect-root {
       color: $dark-grey;
       padding-left: 12px;
-
-      &.Mui-disabled {
-        color: lighten($dark-grey, 40%);
-      }
     }
 
     .MuiInput-underline {

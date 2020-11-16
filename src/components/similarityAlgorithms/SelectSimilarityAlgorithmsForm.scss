@@ -1,0 +1,29 @@
+@import "assets/custom/scss/helpers/_variables";
+
+.similarity-algorithms-form-control {
+  margin-bottom: $spacing;
+  width: 100%;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+}
+
+.sim-chip {
+  background-color: lighten($primary, 8%);
+  color: white;
+  font-weight: 500;
+  font-family: $third-font;
+}
+
+.select-form {
+  margin: 0 10px 10px;
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

@@ -1,69 +1,36 @@
 @import "../helpers/variables";
 
 .info_box {
-    border: 1px solid;
-    margin: auto auto auto auto;
-    border-radius: 5px;
-    border-color: rgba($color: $light, $alpha: 0.5);
-    box-shadow: 1px 1.5px $light;
-    padding: 10px;
+  border: 1px solid;
+  margin: auto auto auto auto;
+  border-radius: 5px;
+  border-color: rgba($color: $light, $alpha: 0.5);
+  box-shadow: 1px 1.5px $light;
+  padding: 10px;
 }
 
 .info_box_container {
-
-    &,
-    .center_box {
-        display: flex;
-        justify-content: center;
-    }
+  &,
+  .center_box {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .info_box_info_margin {
-    display: inline-block;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 10px;
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
 }
 
 /* BOX EN MIS TWEETS */
 .space_available_box {
-    max-width: 380px;
+  max-width: 380px;
 }
 
-@media only screen and (max-width : map-get($breakpoints, sm)) {
-    .space_available_box {
-        margin-bottom: 40px;
-    }
-}
-
-
-/* BOX EN ALGORITMOS DE SIMILITUD */
-.selected_data_container {
-    margin: auto;
-    float: right;
-
-    td {
-        border-top: none;
-    }
-
-    .selected_data_box {
-        width: 235px;
-        border: 1px;
-        border-radius: 5px;
-        border-color: transparent;
-        padding: 8px 5px;
-        color: white;
-        background-color: $light;
-
-        span,
-        p {
-            @include add_enters();
-        }
-    }
-}
-
-@media only screen and (max-width : map-get($breakpoints, xs)) {
-    .selected_data_box {
-        width: 265px;
-    }
+@media only screen and (max-width: map-get($breakpoints, sm)) {
+  .space_available_box {
+    margin-bottom: 40px;
+  }
 }

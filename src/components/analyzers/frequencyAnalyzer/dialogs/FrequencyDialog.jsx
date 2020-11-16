@@ -7,9 +7,10 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import React, { useState } from "react";
-import "./HashtagCloudDialog.scss";
+import "./FrequencyDialog.scss";
 
-export const HashtagCloudDialog = ({
+export const FrequencyDialog = ({
+  dialogTitle,
   open,
   setOpen,
   maxAmountWords,
@@ -37,7 +38,7 @@ export const HashtagCloudDialog = ({
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">Nube de hashtags</DialogTitle>
+      <DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
       <DialogContent>
         <DialogContentText classes={{ root: "hashtag-cloud-dialog-text" }}>
           Ingrese la cantidad máxima de palabras que se pueden ubicar en el

@@ -7,25 +7,17 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandLess";
+import Skeleton from "@material-ui/lab/Skeleton";
 import avatarImage from "assets/custom/img/tweetLogo.svg";
-import { Paginator } from "components/shared/paginator/Paginator";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import React, { useState } from "react";
 import { Tweet } from "react-fake-tweet";
 import { SimilarityAlgorithmsKeys } from "./SimilarityAlgorithmsNames";
-import Skeleton from "@material-ui/lab/Skeleton";
 
 export const TweetsWithScoresTable = ({
-  listTweetsPerPage = [10, 25, 50, 100],
   className,
   tweetsWithScores,
   setTweetsWithScores,
-  count,
-  tweetsPerPage,
-  setTweetsPerPage,
-  getTweets,
-  page,
-  setPage,
   sortDirections,
   setSortDirections,
   sortByProp,
@@ -189,20 +181,9 @@ export const TweetsWithScoresTable = ({
         renderChipsView()
       )}
       <Hidden lgUp>{renderChipsView()}</Hidden>
-      <Box className="tweets_with_scores_container">
-        <Paginator
-          count={count}
-          page={page}
-          itemsPerPage={tweetsPerPage}
-          listItemsPerPage={listTweetsPerPage}
-          getItems={getTweets}
-          setPage={setPage}
-          setItemsPerPage={setTweetsPerPage}
-        />
-      </Box>
     </>
   ) : (
-    <Box className="tweets_with_scores_container">
+    <Box>
       <Skeleton variant="text" height="70px" />
       <Skeleton variant="rect" height="450px" />
       <Skeleton variant="text" height="56px" />
