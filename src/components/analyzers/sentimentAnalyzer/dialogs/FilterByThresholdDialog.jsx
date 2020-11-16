@@ -25,6 +25,7 @@ export const FilterByThresholdDialog = ({
 
   const handleSave = () => {
     setOpen(false);
+    handleSubmit(polarity);
   };
 
   return (
@@ -35,7 +36,7 @@ export const FilterByThresholdDialog = ({
       classes={{ paper: "filter-threshold-dialog" }}
     >
       <DialogTitle id="form-dialog-title">Rango a evaluar</DialogTitle>
-      <form onSubmit={handleSubmit}>
+      <form>
         <DialogContent>
           <DialogContentText>
             Ingrese el rango de polaridades que quiere obtener.

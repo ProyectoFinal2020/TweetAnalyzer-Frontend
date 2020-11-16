@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import { emotionsDictionary } from "../../analyzers/emotionAnalyzer/emotionsDictionary.js";
+import { ChartLegend } from "../charts/common/ChartLegend";
 import { Grid } from "@material-ui/core";
 import "./EmotionChart.scss";
 
@@ -47,18 +48,7 @@ export const PieChartView = (props) => {
               className="color_description_item"
               key={value.emotion}
             >
-              <p>
-                <svg width="22" height="15">
-                  <rect
-                    rx="5"
-                    ry="5"
-                    width="20"
-                    height="15"
-                    style={{ fill: value.color }}
-                  />
-                </svg>
-                <span>{value.title}</span>
-              </p>
+              <ChartLegend label={value.title} color={value.color} />
             </Grid>
           ))}
         </Grid>

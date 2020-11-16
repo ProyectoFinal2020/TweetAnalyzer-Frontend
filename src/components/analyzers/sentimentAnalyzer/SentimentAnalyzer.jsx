@@ -12,8 +12,9 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { TweetsSelection } from "components/analyzers/common/TweetsSelection";
 import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
+import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMessageResult";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { TablePaginator } from "components/shared/paginator/TablePaginator";
+import { ResponsiveTablePaginator } from "components/shared/paginator/ResponsiveTablePaginator";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
@@ -31,6 +32,7 @@ export const SentimentAnalyzer = () => {
   const [graphInfo, setGraphInfo] = useState(undefined);
   const [tweets, setTweets] = useState(undefined);
   const [total, setTotal] = useState(0);
+  const [count, setCount] = useState(0);
   const [page, setPage] = useState(1);
   const [tweetsPerPage, setTweetsPerPage] = useState(6);
   const [wasExecuted, setWasExecuted] = useState(false);
@@ -78,21 +80,19 @@ export const SentimentAnalyzer = () => {
     setGraphInfo(data);
   };
 
-  // To-Do: formulario que viene del modal sin hacer.
-  // * Hacer los skeleton del analisis de emociones y de sentimientos.
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   getTweets(
-  //     page,
-  //     tweetsPerPage,
-  //     selectedData.topic.title,
-  //     polarity[0],
-  //     polarity[1],
-  //     reportId,
-  //     algorithm,
-  //     threshold
-  //   );
-  // };
+  const handleSubmit = (polarity) => {
+    setSearchedPolarity(polarity);
+    getTweets(
+      page,
+      tweetsPerPage,
+      selectedData.sentimentAnalysis.topicTitle,
+      polarity[0],
+      polarity[1],
+      selectedData.report ? selectedData.report.id : 0,
+      selectedData.sentimentAnalysis.algorithm,
+      selectedData.sentimentAnalysis.threshold
+    );
+  };
 
   const getTweets = (
     page,
@@ -132,6 +132,7 @@ export const SentimentAnalyzer = () => {
     setTweets(results.items);
     setTweetsPerPage(parseInt(results.per_page));
     setTotal(parseInt(results.total));
+    setCount(parseInt(results.pages));
   };
 
   const handleTweetSelectionSubmit = (
@@ -178,7 +179,7 @@ export const SentimentAnalyzer = () => {
 
   return (
     <>
-      <Typography component="h1" variant="h1" align="center">
+      <Typography component="h1" variant="h1" align="center" className="title">
         Análisis de sentimientos
       </Typography>
       <TweetsSelection
@@ -256,12 +257,13 @@ export const SentimentAnalyzer = () => {
                 <>
                   <Grid container spacing={2} alignItems="stretch">
                     {tweets.map((tweet) => (
-                      <Grid item xs={12} sm={6} md={4} xl={3} key={tweet.id}>
+                      <Grid item xs={12} sm={6} lg={4} key={tweet.id}>
                         <Tweet tweet={tweet} showPolarity={true} />
                       </Grid>
                     ))}
                   </Grid>
-                  <TablePaginator
+                  <ResponsiveTablePaginator
+                    count={count}
                     total={total}
                     page={page}
                     itemsPerPage={tweetsPerPage}
@@ -282,7 +284,28 @@ export const SentimentAnalyzer = () => {
                     setItemsPerPage={setTweetsPerPage}
                   />
                 </>
-              ) : null}
+              ) : !tweets ? (
+                <Grid
+                  container
+                  direction="row"
+                  alignItems="stretch"
+                  spacing={2}
+                >
+                  {[1, 2, 3, 4, 5, 6].map((key) => (
+                    <Grid item xs={12} sm={6} lg={4} key={key}>
+                      <Skeleton height={300} variant="rect" />
+                    </Grid>
+                  ))}
+                  <Grid item xs={12}>
+                    <Skeleton height={52} variant="rect" />
+                  </Grid>
+                </Grid>
+              ) : (
+                <EmptyMessageResult
+                  title="Lo sentimos, no se encontraron tweets con esas características."
+                  subtitle="¡Intentá nuevamente con otro filtro!"
+                />
+              )}
             </CardContent>
           </Card>
           <FilterByThresholdDialog
@@ -291,6 +314,7 @@ export const SentimentAnalyzer = () => {
             STEP_SIZE={STEP_SIZE}
             minPolarity={searchedPolarity[0]}
             maxPolarity={searchedPolarity[1]}
+            handleSubmit={handleSubmit}
           />
         </>
       ) : hasTweets && (!selectedData || !selectedData.sentimentAnalysis) ? (

@@ -7,10 +7,11 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
+import Skeleton from "@material-ui/lab/Skeleton";
 import { TweetsSelection } from "components/analyzers/common/TweetsSelection";
 import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { TablePaginator } from "components/shared/paginator/TablePaginator";
+import { ResponsiveTablePaginator } from "components/shared/paginator/ResponsiveTablePaginator";
 import { Tweet } from "components/shared/tweet/Tweet";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
@@ -26,6 +27,7 @@ export const EmotionAnalyzer = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [tweetsPerPage, setTweetsPerPage] = useState(6);
+  const [count, setCount] = useState(0);
   const [wasExecuted, setWasExecuted] = useState(false);
 
   useEffect(() => {
@@ -47,6 +49,7 @@ export const EmotionAnalyzer = () => {
     setPage(parseInt(results.page));
     setTweetAndEmotions(getTweetAndEmotions(results.items));
     setTweetsPerPage(parseInt(results.per_page));
+    setCount(parseInt(results.pages));
     setTotal(parseInt(results.total));
   };
 
@@ -95,7 +98,7 @@ export const EmotionAnalyzer = () => {
 
   return (
     <>
-      <Typography component="h1" variant="h1" align="center">
+      <Typography component="h1" variant="h1" align="center" className="title">
         Análisis de emociones
       </Typography>
       <TweetsSelection
@@ -163,7 +166,8 @@ export const EmotionAnalyzer = () => {
                     </Grid>
                   ))}
                 </Grid>
-                <TablePaginator
+                <ResponsiveTablePaginator
+                  count={count}
                   total={total}
                   page={page}
                   itemsPerPage={tweetsPerPage}
@@ -173,7 +177,25 @@ export const EmotionAnalyzer = () => {
                   setItemsPerPage={setTweetsPerPage}
                 />
               </>
-            ) : null}
+            ) : (
+              <>
+                <Grid
+                  container
+                  direction="row"
+                  alignItems="stretch"
+                  spacing={2}
+                >
+                  {[1, 2, 3, 4, 5, 6].map((key) => (
+                    <Grid item xs={12} sm={6} lg={4} key={key}>
+                      <Skeleton height={530} variant="rect" />
+                    </Grid>
+                  ))}
+                  <Grid item xs={12}>
+                    <Skeleton height={52} variant="rect" />
+                  </Grid>
+                </Grid>
+              </>
+            )}
           </CardContent>
         </Card>
       ) : hasTweets && (!selectedData || !selectedData.emotionAnalysis) ? (

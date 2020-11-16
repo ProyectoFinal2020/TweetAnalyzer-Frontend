@@ -1,0 +1,23 @@
+@import "assets/custom/scss/helpers/_variables";
+
+.chip-chart {
+  min-width: 50px;
+  margin-right: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.top-legend {
+  display: inline-flex;
+  align-items: center;
+}
+
+.top-legend-width {
+  width: 100%;
+}
+
+@media only screen and (max-width: map-get($breakpoints, lg)) {
+  .top-legend-width {
+    width: 50%;
+  }
+}
