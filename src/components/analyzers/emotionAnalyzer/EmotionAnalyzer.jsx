@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -11,14 +12,14 @@ import { TweetsSelection } from "components/analyzers/common/TweetsSelection";
 import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { TablePaginator } from "components/shared/paginator/TablePaginator";
-import { EmotionChart } from "components/shared/tweet/EmotionChart";
 import { Tweet } from "components/shared/tweet/Tweet";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { get, post } from "utils/api/api.js";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import "./EmotionAnalyzer.scss";
-import { getTweetAndEmotions, getEmotions } from "./getTweetAndEmotions";
+import { getTweetAndEmotions } from "./getTweetAndEmotions";
+import { SummaryChartDialog } from "./SummaryChartDialog";
 
 export const EmotionAnalyzer = () => {
   const { selectedData, setSelectedData } = useContext(AuthContext);
@@ -28,7 +29,8 @@ export const EmotionAnalyzer = () => {
   const [page, setPage] = useState(1);
   const [tweetsPerPage, setTweetsPerPage] = useState(6);
   const [wasExecuted, setWasExecuted] = useState(false);
-  const [topicEmotions, setTopicEmotions] = useState(undefined);
+  const [savedData, setSavedData] = useState(undefined);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
     if (!wasExecuted && selectedData && selectedData.emotionAnalysis) {
@@ -78,18 +80,7 @@ export const EmotionAnalyzer = () => {
     };
     saveSelectedData(newSelectedData);
     setSelectedData(newSelectedData);
-    get(
-      "/emotionAnalyzer/topic?topicTitle=" +
-        topicTitle +
-        "&reportId=" +
-        reportId +
-        "&algorithm=" +
-        algorithm +
-        "&threshold=" +
-        threshold
-    ).then((response) => {
-      setTopicEmotions(getEmotions(response.data));
-    });
+    setSavedData({ ...newSelectedData.emotionAnalysis, reportId: reportId });
     post("/emotionAnalyzer", {
       reportId: reportId,
       topicTitle: topicTitle,
@@ -117,7 +108,6 @@ export const EmotionAnalyzer = () => {
         handleSubmit={handleSubmit}
         setHasTweets={setHasTweets}
       />
-      {topicEmotions ? <EmotionChart emotion={topicEmotions} /> : null}
       {selectedData && selectedData.emotionAnalysis ? (
         <Card classes={{ root: "emotion-analyzer-container" }}>
           <CardHeader
@@ -135,19 +125,31 @@ export const EmotionAnalyzer = () => {
               ) : null
             }
             action={
-              <DownloadButton
-                asIcon={true}
-                url={
-                  "/emotionAnalyzer/download?topicTitle=" +
-                  selectedData.emotionAnalysis.topicTitle
-                }
-                disableDownload={
-                  !tweetAndEmotions || tweetAndEmotions.length === 0
-                }
-                filename={
-                  selectedData.emotionAnalysis.topicTitle + "-emotion-analysis"
-                }
-              />
+              <>
+                <DownloadButton
+                  asIcon={true}
+                  url={
+                    "/emotionAnalyzer/download?topicTitle=" +
+                    selectedData.emotionAnalysis.topicTitle
+                  }
+                  disableDownload={
+                    !tweetAndEmotions || tweetAndEmotions.length === 0
+                  }
+                  filename={
+                    selectedData.emotionAnalysis.topicTitle +
+                    "-emotion-analysis"
+                  }
+                />
+                {savedData ? (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => setDialogOpen(true)}
+                  >
+                    Ver resumen
+                  </Button>
+                ) : null}
+              </>
             }
             classes={{
               root: "emotion-analyzer-header",
@@ -186,6 +188,11 @@ export const EmotionAnalyzer = () => {
                   getItems={getTweets}
                   setPage={setPage}
                   setItemsPerPage={setTweetsPerPage}
+                />
+                <SummaryChartDialog
+                  open={dialogOpen}
+                  setOpen={setDialogOpen}
+                  savedData={savedData}
                 />
               </>
             ) : null}
