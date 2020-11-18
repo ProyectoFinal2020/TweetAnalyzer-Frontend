@@ -13,14 +13,19 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import Skeleton from "@material-ui/lab/Skeleton";
 import BubbleChart from "@weknow/react-bubble-chart-d3";
 import { FilterFields } from "components/shared/chips/FilterFields";
+import { SimilarityAlgorithmsKeys } from "components/similarityAlgorithms/SimilarityAlgorithmsNames";
 import { AuthContext } from "contexts/AuthContext";
+import * as d3 from "d3";
 import React, { useContext, useEffect, useState } from "react";
 import ReactWordcloud from "react-wordcloud";
 import "tippy.js/animations/scale.css";
 import "tippy.js/dist/tippy.css";
 import { get } from "utils/api/api";
+import { CardSubheader } from "../common/CardSubheader";
 import { FrequencyDialog } from "./dialogs/FrequencyDialog";
 import "./FrequencyBubbleChart.scss";
+
+const colors = d3.scaleOrdinal(d3["schemeCategory20c"]);
 
 export const FrequencyBubbleChart = ({ className, ...props }) => {
   const { selectedData } = useContext(AuthContext);
@@ -33,7 +38,13 @@ export const FrequencyBubbleChart = ({ className, ...props }) => {
   useEffect(() => {
     get(
       "/frequencyAnalyzer?topicTitle=" +
-        selectedData.frequencyAnalysis.topicTitle
+        selectedData.frequencyAnalysis.topicTitle +
+        "&reportId=" +
+        selectedData.report?.Id +
+        "&algorithm=" +
+        selectedData.frequencyAnalysis.algorithm +
+        "&threshold=" +
+        selectedData.frequencyAnalysis.threshold
     ).then((response) => {
       setWordsCount(response.data);
       setFilteredWordsCount(response.data);
@@ -48,11 +59,11 @@ export const FrequencyBubbleChart = ({ className, ...props }) => {
     );
   };
 
-  const TopRow = ({ value, label, className }) => {
+  const TopRow = ({ value, label, color, className }) => {
     return (
       <Box className={"top-legend " + className}>
         <Box className="chip-chart">
-          <Chip label={value} color="primary" size="small" />
+          <Chip label={value} style={{ backgroundColor: color }} size="small" />
         </Box>
         <Typography variant="subtitle2" component="span">
           {label}
@@ -66,6 +77,36 @@ export const FrequencyBubbleChart = ({ className, ...props }) => {
       <Card className={className} variant="outlined">
         <CardHeader
           title="Frecuencia de palabras"
+          subheader={
+            <CardSubheader
+              labels={
+                selectedData.frequencyAnalysis.algorithm
+                  ? [
+                      {
+                        title: "Tweets",
+                        value: selectedData.frequencyAnalysis.topicTitle,
+                      },
+                      {
+                        title: "Algoritmo",
+                        value:
+                          SimilarityAlgorithmsKeys[
+                            selectedData.frequencyAnalysis.algorithm
+                          ].name,
+                      },
+                      {
+                        title: "Umbral",
+                        value: selectedData.frequencyAnalysis.threshold,
+                      },
+                    ]
+                  : [
+                      {
+                        title: "Tweets",
+                        value: selectedData.frequencyAnalysis.topicTitle,
+                      },
+                    ]
+              }
+            />
+          }
           action={
             <IconButton
               aria-label="filtrar"
@@ -75,7 +116,7 @@ export const FrequencyBubbleChart = ({ className, ...props }) => {
               <FilterListIcon />
             </IconButton>
           }
-          className="graph-card-header"
+          className="pdg-btm-0"
         />
         <CardContent className="graph-card-container">
           {filteredWordsCount ? (
@@ -104,6 +145,7 @@ export const FrequencyBubbleChart = ({ className, ...props }) => {
                               key={index}
                               label={wordCount.label}
                               value={wordCount.value}
+                              color={colors(index)}
                               className="top-legend-width"
                             />
                           ))}

@@ -6,6 +6,7 @@ import {
   Grid,
   IconButton,
   Paper,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
 import FilterListIcon from "@material-ui/icons/FilterList";
@@ -15,12 +16,14 @@ import { DownloadButton } from "components/shared/downloadButton/DownloadButton"
 import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMessageResult";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { ResponsiveTablePaginator } from "components/shared/paginator/ResponsiveTablePaginator";
+import { SimilarityAlgorithmsKeys } from "components/similarityAlgorithms/SimilarityAlgorithmsNames";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { get } from "utils/api/api";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { Tweet } from "../../shared/tweet/Tweet";
+import { CardSubheader } from "../common/CardSubheader";
 import { FilterByThresholdDialog } from "./dialogs/FilterByThresholdDialog";
 import { getOptions, graphColors } from "./graphAuxStructures";
 import "./SentimentAnalyzer.scss";
@@ -193,15 +196,22 @@ export const SentimentAnalyzer = () => {
             <CardHeader
               title={selectedData.sentimentAnalysis.topicTitle}
               subheader={
-                selectedData.sentimentAnalysis.algorithm ? (
-                  <div>
-                    <Typography variant="subheader" component="p">
-                      Algoritmo: {selectedData.sentimentAnalysis.algorithm}
-                    </Typography>
-                    <Typography variant="subheader" component="p">
-                      Umbral: {selectedData.sentimentAnalysis.threshold}
-                    </Typography>
-                  </div>
+                selectedData.frequencyAnalysis.algorithm ? (
+                  <CardSubheader
+                    labels={[
+                      {
+                        title: "Algoritmo",
+                        value:
+                          SimilarityAlgorithmsKeys[
+                            selectedData.frequencyAnalysis.algorithm
+                          ].name,
+                      },
+                      {
+                        title: "Umbral",
+                        value: selectedData.frequencyAnalysis.threshold,
+                      },
+                    ]}
+                  />
                 ) : null
               }
               action={
@@ -239,17 +249,25 @@ export const SentimentAnalyzer = () => {
             <CardHeader
               title="Filtrado de tweets"
               subheader={
-                <div>
-                  <Typography variant="subtitle2" component="p">
-                    Polaridad mínima: {searchedPolarity[0]}. Polaridad máxima:{" "}
-                    {searchedPolarity[1]}.
-                  </Typography>
-                </div>
+                <CardSubheader
+                  labels={[
+                    {
+                      title: "Polaridad mínima",
+                      value: searchedPolarity[0],
+                    },
+                    {
+                      title: "Polaridad máxima",
+                      value: searchedPolarity[1],
+                    },
+                  ]}
+                />
               }
               action={
-                <IconButton onClick={() => setOpen(true)}>
-                  <FilterListIcon />
-                </IconButton>
+                <Tooltip title="Filtrar">
+                  <IconButton onClick={() => setOpen(true)}>
+                    <FilterListIcon />
+                  </IconButton>
+                </Tooltip>
               }
             />
             <CardContent>

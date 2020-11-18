@@ -5,6 +5,10 @@
   margin-right: 8px;
   display: flex;
   justify-content: center;
+  .MuiChip-label {
+    color: white;
+    font-weight: 500;
+  }
 }
 
 .top-legend {

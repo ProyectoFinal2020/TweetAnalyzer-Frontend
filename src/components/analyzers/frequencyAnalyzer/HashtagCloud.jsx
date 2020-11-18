@@ -2,12 +2,14 @@ import { Card, CardContent, CardHeader, IconButton } from "@material-ui/core";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { FilterFields } from "components/shared/chips/FilterFields";
+import { SimilarityAlgorithmsKeys } from "components/similarityAlgorithms/SimilarityAlgorithmsNames";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import ReactWordcloud from "react-wordcloud";
 import "tippy.js/animations/scale.css";
 import "tippy.js/dist/tippy.css";
 import { get } from "utils/api/api";
+import { CardSubheader } from "../common/CardSubheader";
 import { FrequencyDialog } from "./dialogs/FrequencyDialog";
 
 export const HashtagCloud = ({ className, ...props }) => {
@@ -19,9 +21,16 @@ export const HashtagCloud = ({ className, ...props }) => {
   const [maxAmountWords, setMaxAmountWords] = useState(150);
 
   useEffect(() => {
+    /* To-Do: Hacerlo desde el backend. idem el bubbleChart */
     get(
       "/frequencyAnalyzer/hashtags?topicTitle=" +
-        selectedData.frequencyAnalysis.topicTitle
+        selectedData.frequencyAnalysis.topicTitle +
+        "&reportId=" +
+        selectedData.report?.Id +
+        "&algorithm=" +
+        selectedData.frequencyAnalysis.algorithm +
+        "&threshold=" +
+        selectedData.frequencyAnalysis.threshold
     ).then((response) => {
       var aux = response.data.map((item) => {
         return { text: item.label, value: item.value };
@@ -42,7 +51,37 @@ export const HashtagCloud = ({ className, ...props }) => {
     <>
       <Card className={className} variant="outlined">
         <CardHeader
-          title="Nube de hashtags"
+          title={"Nube de hashtags"}
+          subheader={
+            <CardSubheader
+              labels={
+                selectedData.frequencyAnalysis.algorithm
+                  ? [
+                      {
+                        title: "Tweets",
+                        value: selectedData.frequencyAnalysis.topicTitle,
+                      },
+                      {
+                        title: "Algoritmo",
+                        value:
+                          SimilarityAlgorithmsKeys[
+                            selectedData.frequencyAnalysis.algorithm
+                          ].name,
+                      },
+                      {
+                        title: "Umbral",
+                        value: selectedData.frequencyAnalysis.threshold,
+                      },
+                    ]
+                  : [
+                      {
+                        title: "Tweets",
+                        value: selectedData.frequencyAnalysis.topicTitle,
+                      },
+                    ]
+              }
+            />
+          }
           action={
             <IconButton
               aria-label="filtrar"
@@ -52,7 +91,7 @@ export const HashtagCloud = ({ className, ...props }) => {
               <FilterListIcon />
             </IconButton>
           }
-          className="graph-card-header"
+          className="pdg-btm-0"
         />
         <CardContent className="graph-card-container">
           {filteredHashtagCount ? (

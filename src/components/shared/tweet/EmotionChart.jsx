@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { PieChart } from "react-minimal-pie-chart";
+import { Grid } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
 import { emotionsDictionary } from "../../analyzers/emotionAnalyzer/emotionsDictionary.js";
 import { ChartLegend } from "../charts/common/ChartLegend";
-import { Grid } from "@material-ui/core";
+import { PieChart } from "../charts/pieChart/PieChart.jsx";
 import "./EmotionChart.scss";
 
-export const EmotionChart = (props) => {
-  const [hovered, setHovered] = useState(undefined);
+export const EmotionChart = ({
+  className,
+  fontSize = 6,
+  height = 180,
+  ...props
+}) => {
   const [data, setData] = useState(undefined);
+  const [hovered, setHovered] = useState(undefined);
   const [chartColors, setChartColors] = useState([]);
 
   useEffect(() => {
@@ -33,50 +38,33 @@ export const EmotionChart = (props) => {
   }, [props.emotion, hovered]);
 
   return (
-    <Grid container justify="center" alignItems="flex-end">
-      <Grid item xs={12}>
+    <Grid
+      container
+      direction="row-reverse"
+      justify="center"
+      alignItems="flex-start"
+      style={{ maxWidth: height * 2, margin: "auto" }}
+    >
+      <Grid item xs={5}>
         <Grid
           container
-          justify="flex-end"
-          alignItems="flex-end"
-          className="color_description_container"
+          justify="center"
+          alignItems="flex-start"
+          className={"color_description_container " + className}
         >
-          {chartColors.map((value) => (
-            <Grid
-              item
-              xs="auto"
-              className="color_description_item"
-              key={value.emotion}
-            >
+          {chartColors.map((value, index) => (
+            <Grid item xs={12} className="color_description_item" key={index}>
               <ChartLegend label={value.title} color={value.color} />
             </Grid>
           ))}
         </Grid>
       </Grid>
-      <Grid item xs="auto" className="chart_container">
+      <Grid item xs={7} className="mgn-top-10">
         <PieChart
-          className="pie_chart"
           data={data}
-          animate
-          radius={30}
-          label={({ dataEntry }) =>
-            dataEntry.title !== "none"
-              ? `${Math.round(dataEntry.percentage)} %`
-              : ""
-          }
-          labelStyle={{
-            fontSize: 4,
-            fill: "white",
-            fontFamily: "Roboto",
-            fontWeight: 600,
-          }}
-          labelPosition={72}
-          onMouseOver={(_, index) => {
-            setHovered(index);
-          }}
-          onMouseOut={() => {
-            setHovered(undefined);
-          }}
+          fontSize={fontSize}
+          setHovered={setHovered}
+          height={height}
         />
       </Grid>
     </Grid>

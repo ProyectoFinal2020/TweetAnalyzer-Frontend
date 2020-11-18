@@ -140,10 +140,6 @@ body {
   margin-top: 15px;
 }
 
-.graph-card-header {
-  padding-bottom: 0;
-}
-
 .graph-card-container {
   padding-top: 8px;
 }
@@ -310,4 +306,17 @@ table {
 
 .all_width {
   width: 100%;
+}
+
+/* PADDINGS */
+.pdg-btm-0 {
+  padding-bottom: 0;
+}
+
+.pdg-top-0 {
+  padding-top: 0;
+}
+
+.mgn-top-10 {
+  margin-top: 10px;
 }

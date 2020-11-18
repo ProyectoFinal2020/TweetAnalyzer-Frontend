@@ -24,7 +24,6 @@ import { routes } from "utils/routes/routes";
 import { SelectSimilarityAlgorithmsForm } from "./SelectSimilarityAlgorithmsForm";
 import "./SimilarityAlgorithms.scss";
 import { TweetsWithScores } from "./TweetsWithScores";
-import { TweetsWithScoresTable } from "./TweetsWithScoresTable";
 
 export const SimilarityAlgorithms = () => {
   const { selectedData, setSelectedData } = useContext(AuthContext);
@@ -34,8 +33,8 @@ export const SimilarityAlgorithms = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [tweetsPerPage, setTweetsPerPage] = useState(10);
-  const [sortDirections, setSortDirections] = useState({});
-  const [selectedProp, setSelectedProp] = useState("Tweet");
+  const [sortDirections] = useState({}); //setSortDirections
+  const [selectedProp] = useState("Tweet"); //setSelectedProp
   const [isExecuting, setIsExecuting] = useState(false);
 
   const setResults = (results) => {
@@ -86,13 +85,14 @@ export const SimilarityAlgorithms = () => {
     });
   };
 
-  const sortByProp = (prop) => {
-    setSelectedProp(prop);
-    let dict = { ...sortDirections };
-    dict[prop] = dict[prop] ? false : true;
-    getData(selectedData.algorithms, page, tweetsPerPage, !dict[prop], prop);
-    setSortDirections(dict);
-  };
+  /* To-Do: Usarlo */
+  // const sortByProp = (prop) => {
+  //   setSelectedProp(prop);
+  //   let dict = { ...sortDirections };
+  //   dict[prop] = dict[prop] ? false : true;
+  //   getData(selectedData.algorithms, page, tweetsPerPage, !dict[prop], prop);
+  //   setSortDirections(dict);
+  // };
 
   const handleSubmit = (algorithms) => {
     saveSelectedData({ ...selectedData, algorithms: algorithms });
