@@ -7,6 +7,7 @@ import {
   Grid,
   Hidden,
   IconButton,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
 import FilterListIcon from "@material-ui/icons/FilterList";
@@ -36,6 +37,7 @@ export const FrequencyBubbleChart = ({ className, ...props }) => {
   const [wordsCount, setWordsCount] = useState(undefined);
 
   useEffect(() => {
+    setFilteredWordsCount(undefined);
     get(
       "/frequencyAnalyzer?topicTitle=" +
         selectedData.frequencyAnalysis.topicTitle +
@@ -108,13 +110,15 @@ export const FrequencyBubbleChart = ({ className, ...props }) => {
             />
           }
           action={
-            <IconButton
-              aria-label="filtrar"
-              disabled={!filteredWordsCount}
-              onClick={() => setDialogOpen(true)}
-            >
-              <FilterListIcon />
-            </IconButton>
+            <Tooltip title="Filtrar">
+              <IconButton
+                aria-label="filtrar"
+                disabled={!filteredWordsCount}
+                onClick={() => setDialogOpen(true)}
+              >
+                <FilterListIcon />
+              </IconButton>
+            </Tooltip>
           }
           className="pdg-btm-0"
         />

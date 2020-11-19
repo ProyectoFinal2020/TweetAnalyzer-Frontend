@@ -1,4 +1,10 @@
-import { Card, CardContent, CardHeader, IconButton } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  IconButton,
+  Tooltip,
+} from "@material-ui/core";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { FilterFields } from "components/shared/chips/FilterFields";
@@ -22,6 +28,7 @@ export const HashtagCloud = ({ className, ...props }) => {
 
   useEffect(() => {
     /* To-Do: Hacerlo desde el backend. idem el bubbleChart */
+    setFilteredHashtagCount(undefined);
     get(
       "/frequencyAnalyzer/hashtags?topicTitle=" +
         selectedData.frequencyAnalysis.topicTitle +
@@ -83,13 +90,15 @@ export const HashtagCloud = ({ className, ...props }) => {
             />
           }
           action={
-            <IconButton
-              aria-label="filtrar"
-              disabled={!hashtagCount}
-              onClick={() => setDialogOpen(true)}
-            >
-              <FilterListIcon />
-            </IconButton>
+            <Tooltip title="Filtrar">
+              <IconButton
+                aria-label="filtrar"
+                disabled={!hashtagCount}
+                onClick={() => setDialogOpen(true)}
+              >
+                <FilterListIcon />
+              </IconButton>
+            </Tooltip>
           }
           className="pdg-btm-0"
         />
