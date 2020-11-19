@@ -11,3 +11,9 @@
   transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
+
+.no-content-paper {
+  margin-top: 15;
+  padding: 50px 5px 5px;
+  height: calc(100vh - 183px);
+}

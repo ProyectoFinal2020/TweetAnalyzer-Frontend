@@ -12,11 +12,12 @@ export const SummaryChart = () => {
 
   useEffect(() => {
     if (selectedData.emotionAnalysis) {
+      setTopicEmotions(undefined);
       get(
         "/emotionAnalyzer/topic?topicTitle=" +
           selectedData.emotionAnalysis.topicTitle +
           "&reportId=" +
-          selectedData.report?.Id +
+          selectedData.report?.id +
           "&algorithm=" +
           selectedData.emotionAnalysis.algorithm +
           "&threshold=" +
@@ -30,6 +31,6 @@ export const SummaryChart = () => {
   return topicEmotions ? (
     <EmotionChart emotion={topicEmotions} height={250} fontSize={5} />
   ) : (
-    <Skeleton height={370} variant="rect" />
+    <Skeleton height={260} variant="rect" />
   );
 };

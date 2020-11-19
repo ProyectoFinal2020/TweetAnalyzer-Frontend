@@ -1,18 +1,19 @@
 import {
   Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
+  FormControl,
   Grid,
+  MenuItem,
   Paper,
   Typography,
 } from "@material-ui/core";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { CardSubheader } from "components/analyzers/common/CardSubheader";
 import { FilterFields } from "components/shared/chips/FilterFields";
 import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
+import { Dropdown } from "components/shared/dropdown/Dropdown";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { ResponsiveTablePaginator } from "components/shared/paginator/ResponsiveTablePaginator";
 import { AuthContext } from "contexts/AuthContext";
@@ -23,6 +24,7 @@ import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { routes } from "utils/routes/routes";
 import { SelectSimilarityAlgorithmsForm } from "./SelectSimilarityAlgorithmsForm";
 import "./SimilarityAlgorithms.scss";
+import { SimilarityAlgorithmsKeys } from "./SimilarityAlgorithmsNames";
 import { TweetsWithScores } from "./TweetsWithScores";
 
 export const SimilarityAlgorithms = () => {
@@ -33,8 +35,8 @@ export const SimilarityAlgorithms = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [tweetsPerPage, setTweetsPerPage] = useState(10);
-  const [sortDirections] = useState({}); //setSortDirections
-  const [selectedProp] = useState("Tweet"); //setSelectedProp
+  const [sortDirections, setSortDirections] = useState({});
+  const [selectedProp, setSelectedProp] = useState("");
   const [isExecuting, setIsExecuting] = useState(false);
 
   const setResults = (results) => {
@@ -63,6 +65,7 @@ export const SimilarityAlgorithms = () => {
     desc = false,
     orderBy = "Tweet"
   ) => {
+    setIsExecuting(true);
     get(
       "/similarityAlgorithms" +
         "?page=" +
@@ -85,14 +88,14 @@ export const SimilarityAlgorithms = () => {
     });
   };
 
-  /* To-Do: Usarlo */
-  // const sortByProp = (prop) => {
-  //   setSelectedProp(prop);
-  //   let dict = { ...sortDirections };
-  //   dict[prop] = dict[prop] ? false : true;
-  //   getData(selectedData.algorithms, page, tweetsPerPage, !dict[prop], prop);
-  //   setSortDirections(dict);
-  // };
+  const sortByProp = (prop) => {
+    // To-Do: ver sort directions
+    let dict = { ...sortDirections };
+    setSelectedProp(prop);
+    dict[prop] = dict[prop] ? false : true;
+    getData(selectedData.algorithms, page, tweetsPerPage, !dict[prop], prop);
+    setSortDirections(dict);
+  };
 
   const handleSubmit = (algorithms) => {
     saveSelectedData({ ...selectedData, algorithms: algorithms });
@@ -149,8 +152,22 @@ export const SimilarityAlgorithms = () => {
           {selectedData.algorithms ? (
             <Card className="card-row">
               <CardHeader
-                title={selectedData.topic.title}
-                subheader={selectedData.algorithms.join(", ")}
+                title="Similitudes"
+                subheader={
+                  <CardSubheader
+                    labels={[
+                      {
+                        title: "Algoritmos",
+                        value: selectedData.algorithms
+                          .map(
+                            (algorithm) =>
+                              SimilarityAlgorithmsKeys[algorithm].name
+                          )
+                          .join(", "),
+                      },
+                    ]}
+                  />
+                }
                 action={
                   <DownloadButton
                     asIcon={true}
@@ -172,8 +189,32 @@ export const SimilarityAlgorithms = () => {
                     }
                   />
                 }
+                className="pdg-btm-0"
               />
-              <CardContent>
+              <CardContent className="pdg-top-0">
+                <FormControl
+                  variant="outlined"
+                  style={{ minWidth: 200, float: "right" }}
+                  margin="dense"
+                >
+                  <Dropdown
+                    value={selectedProp}
+                    onChange={(e) => sortByProp(e.target.value)}
+                    label="Ordenar por"
+                    noneValue={true}
+                    menuItems={[
+                      <MenuItem value="Tweet" key={0}>
+                        Tweet
+                      </MenuItem>,
+                    ].concat(
+                      selectedData.algorithms.map((algorithm, index) => (
+                        <MenuItem value={algorithm} key={index + 1}>
+                          {SimilarityAlgorithmsKeys[algorithm].name}
+                        </MenuItem>
+                      ))
+                    )}
+                  />
+                </FormControl>
                 {tweetsWithScores && tweetsWithScores.length > 0 ? (
                   <>
                     <TweetsWithScores tweetsWithScores={tweetsWithScores} />
@@ -197,7 +238,7 @@ export const SimilarityAlgorithms = () => {
                   >
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((key) => (
                       <Grid item xs={12} md={6} xl={4} key={key}>
-                        <Skeleton height={300} variant="rect" />
+                        <Skeleton height={280} variant="rect" />
                       </Grid>
                     ))}
                     <Grid item xs={12}>
@@ -206,17 +247,6 @@ export const SimilarityAlgorithms = () => {
                   </Grid>
                 ) : null}
               </CardContent>
-              <CardActions style={{ justifyContent: "flex-end" }}>
-                <Button
-                  className="success"
-                  aria-label="Continuar"
-                  variant="contained"
-                  startIcon={<NavigateNextIcon />}
-                  onClick={() => history.push(routes.emotionAnalyzer.path)}
-                >
-                  Continuar
-                </Button>
-              </CardActions>
             </Card>
           ) : (
             <Paper style={{ padding: 5, marginTop: 15 }}>
@@ -231,12 +261,12 @@ export const SimilarityAlgorithms = () => {
           )}
         </>
       ) : (
-        <Paper style={{ padding: 5, marginTop: 15 }}>
-          <Box className="no_content_box">
+        <Paper className="no-content-paper">
+          <Box>
             {NoContentComponent(
               "No elegiste los datos",
               "¡Seleccioná una noticia y un conjunto de tweets antes de comenzar!",
-              "#NoSearchResult",
+              "#Error",
               [
                 {
                   handleClick: () => history.push(routes.dataSelection.path),

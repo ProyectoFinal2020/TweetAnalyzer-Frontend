@@ -8,6 +8,7 @@ import {
   MenuItem,
   Select,
 } from "@material-ui/core";
+import { SimilarityAlgorithmsKeys } from "components/similarityAlgorithms/SimilarityAlgorithmsNames";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
@@ -89,7 +90,7 @@ export const SelectSimAlgorithmForm = ({
             >
               {selectedData.algorithms.map((algorithm, key) => (
                 <MenuItem key={key} value={algorithm}>
-                  {algorithm}
+                  {SimilarityAlgorithmsKeys[algorithm].name}
                 </MenuItem>
               ))}
             </Select>

@@ -192,27 +192,38 @@ export const SentimentAnalyzer = () => {
       />
       {selectedData && selectedData.sentimentAnalysis ? (
         <>
-          <Card style={{ marginTop: 15 }}>
+          <Card className="card-row">
             <CardHeader
-              title={selectedData.sentimentAnalysis.topicTitle}
+              title="Sentimientos"
               subheader={
-                selectedData.frequencyAnalysis.algorithm ? (
-                  <CardSubheader
-                    labels={[
-                      {
-                        title: "Algoritmo",
-                        value:
-                          SimilarityAlgorithmsKeys[
-                            selectedData.frequencyAnalysis.algorithm
-                          ].name,
-                      },
-                      {
-                        title: "Umbral",
-                        value: selectedData.frequencyAnalysis.threshold,
-                      },
-                    ]}
-                  />
-                ) : null
+                <CardSubheader
+                  labels={
+                    selectedData.sentimentAnalysis.algorithm
+                      ? [
+                          {
+                            title: "Tweets",
+                            value: selectedData.sentimentAnalysis.topicTitle,
+                          },
+                          {
+                            title: "Algoritmo",
+                            value:
+                              SimilarityAlgorithmsKeys[
+                                selectedData.sentimentAnalysis.algorithm
+                              ].name,
+                          },
+                          {
+                            title: "Umbral",
+                            value: selectedData.sentimentAnalysis.threshold,
+                          },
+                        ]
+                      : [
+                          {
+                            title: "Tweets",
+                            value: selectedData.sentimentAnalysis.topicTitle,
+                          },
+                        ]
+                  }
+                />
               }
               action={
                 <DownloadButton
