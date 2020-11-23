@@ -34,7 +34,7 @@ export const SimilarityAlgorithms = () => {
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  const [tweetsPerPage, setTweetsPerPage] = useState(10);
+  const [tweetsPerPage, setTweetsPerPage] = useState(6);
   const [sortDirections, setSortDirections] = useState({});
   const [selectedProp, setSelectedProp] = useState("");
   const [isExecuting, setIsExecuting] = useState(false);
@@ -61,7 +61,7 @@ export const SimilarityAlgorithms = () => {
   const getData = (
     algorithms = selectedData.algorithms,
     pageNum = 1,
-    perPage = 10,
+    perPage = 6,
     desc = false,
     orderBy = "Tweet"
   ) => {
@@ -223,7 +223,7 @@ export const SimilarityAlgorithms = () => {
                       total={total}
                       page={page}
                       itemsPerPage={tweetsPerPage}
-                      listItemsPerPage={[10, 25, 50, 100]}
+                      listItemsPerPage={[6, 12, 24, 48]}
                       getItems={getTweets}
                       setPage={setPage}
                       setItemsPerPage={setTweetsPerPage}

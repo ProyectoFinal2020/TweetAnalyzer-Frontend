@@ -16,7 +16,7 @@ import { Tweet } from "components/shared/tweet/Tweet";
 import { SimilarityAlgorithmsKeys } from "components/similarityAlgorithms/SimilarityAlgorithmsNames";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
-import { get, post } from "utils/api/api.js";
+import { get } from "utils/api/api.js";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { CardSubheader } from "../common/CardSubheader";
 import "./EmotionAnalyzer.scss";
@@ -82,20 +82,19 @@ export const EmotionAnalyzer = () => {
     };
     saveSelectedData(newSelectedData);
     setSelectedData(newSelectedData);
-    post("/emotionAnalyzer", {
-      reportId: reportId,
-      topicTitle: topicTitle,
-      algorithm: algorithm,
-      threshold: threshold,
-    }).then(() => {
-      get(
-        "/emotionAnalyzer?page=1&per_page=" +
-          tweetsPerPage +
-          "&topicTitle=" +
-          topicTitle
-      ).then((response) => {
-        setResults(response.data);
-      });
+    get(
+      "/emotionAnalyzer?page=1&per_page=" +
+        tweetsPerPage +
+        "&topicTitle=" +
+        topicTitle +
+        "&reportId=" +
+        reportId +
+        "&algorithm=" +
+        algorithm +
+        "&threshold=" +
+        threshold
+    ).then((response) => {
+      setResults(response.data);
     });
   };
 

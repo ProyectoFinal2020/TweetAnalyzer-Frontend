@@ -152,6 +152,9 @@ export const TweetFetcher = () => {
       .then((response) => {
         setQueryResult(response.data);
         setLoadingQuery(false);
+        post("/emotionAnalyzer", {
+          topicTitle: title,
+        });
       })
       .catch((error) => setLoadingQuery(false));
   };
