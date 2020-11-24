@@ -2,12 +2,6 @@
   margin: 0 5px;
 }
 
-.summary-chart-dialog-actions {
-  padding: 10px 24px 24px;
-}
-
-.summary-chart-dialog-text {
-  font-size: 0.9rem;
-  font-weight: 400;
-  text-align: justify;
+.no-content-box {
+  height: calc(100vh - 400px);
 }
