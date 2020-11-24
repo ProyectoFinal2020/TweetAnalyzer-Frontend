@@ -203,7 +203,7 @@ export const EmotionAnalyzer = () => {
           </Card>
         </>
       ) : hasTweets && !selectedData ? (
-        <Paper className="card-row" style={{ padding: 5 }}>
+        <Paper>
           <Box className="no-content-box">
             {NoContentComponent(
               "Aún no realizaste un análisis de emociones",

@@ -1,26 +1,22 @@
 import { Box, Paper, Typography } from "@material-ui/core";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { AuthContext } from "contexts/AuthContext";
-import React, { useContext, useState } from "react";
-import { saveSelectedData } from "utils/localStorageManagement/selectedData";
+import React, { useState } from "react";
 import { TweetsSelection } from "../common/TweetsSelection";
 import { FrequencyBubbleChart } from "./FrequencyBubbleChart";
 import { HashtagCloud } from "./HashtagCloud";
+import "./FrequencyAnalyzer.scss";
 
 export const FrequencyAnalyzer = () => {
-  const { selectedData, setSelectedData } = useContext(AuthContext);
   const [hasTweets, setHasTweets] = useState(undefined);
+  const [selectedData, setSelectedData] = useState(undefined);
 
   const handleSubmit = (reportId, topicTitle, algorithm, threshold) => {
     const newSelectedData = {
-      ...selectedData,
-      frequencyAnalysis: {
-        topicTitle: topicTitle,
-        algorithm: algorithm,
-        threshold: threshold,
-      },
+      topicTitle: topicTitle,
+      reportId: reportId,
+      algorithm: algorithm,
+      threshold: threshold,
     };
-    saveSelectedData(newSelectedData);
     setSelectedData(newSelectedData);
   };
 
@@ -34,14 +30,17 @@ export const FrequencyAnalyzer = () => {
         handleSubmit={handleSubmit}
         setHasTweets={setHasTweets}
       />
-      {selectedData && selectedData.frequencyAnalysis ? (
+      {selectedData ? (
         <>
-          <HashtagCloud className="card-row" />
-          <FrequencyBubbleChart className="card-row" />
+          <HashtagCloud className="card-row" selectedData={selectedData} />
+          <FrequencyBubbleChart
+            className="card-row"
+            selectedData={selectedData}
+          />
         </>
-      ) : hasTweets && (!selectedData || !selectedData.frequencyAnalysis) ? (
-        <Paper className="card-row">
-          <Box className="no_content_box">
+      ) : hasTweets && !selectedData ? (
+        <Paper>
+          <Box className="no-content-box">
             {NoContentComponent(
               "Aún no realizaste un análisis de frecuencias",
               "¡Obtené el gráfico de hashtags y el gráfico de contenido del conjunto de tweets que desees!",

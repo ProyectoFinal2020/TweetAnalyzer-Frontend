@@ -15,9 +15,8 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import BubbleChart from "@weknow/react-bubble-chart-d3";
 import { FilterFields } from "components/shared/chips/FilterFields";
 import { SimilarityAlgorithmsKeys } from "components/similarityAlgorithms/SimilarityAlgorithmsNames";
-import { AuthContext } from "contexts/AuthContext";
 import * as d3 from "d3";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactWordcloud from "react-wordcloud";
 import "tippy.js/animations/scale.css";
 import "tippy.js/dist/tippy.css";
@@ -28,8 +27,7 @@ import "./FrequencyBubbleChart.scss";
 
 const colors = d3.scaleOrdinal(d3["schemeCategory20c"]);
 
-export const FrequencyBubbleChart = ({ className, ...props }) => {
-  const { selectedData } = useContext(AuthContext);
+export const FrequencyBubbleChart = ({ className, selectedData, ...props }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [minimumFrequency, setMinimumFrequency] = useState(1);
   const [maxAmountWords, setMaxAmountWords] = useState(200);
@@ -40,13 +38,13 @@ export const FrequencyBubbleChart = ({ className, ...props }) => {
     setFilteredWordsCount(undefined);
     get(
       "/frequencyAnalyzer?topicTitle=" +
-        selectedData.frequencyAnalysis.topicTitle +
+        selectedData.topicTitle +
         "&reportId=" +
-        selectedData.report?.id +
+        selectedData.reportId +
         "&algorithm=" +
-        selectedData.frequencyAnalysis.algorithm +
+        selectedData.algorithm +
         "&threshold=" +
-        selectedData.frequencyAnalysis.threshold
+        selectedData.threshold
     ).then((response) => {
       setWordsCount(response.data);
       setFilteredWordsCount(response.data);
@@ -74,7 +72,7 @@ export const FrequencyBubbleChart = ({ className, ...props }) => {
     );
   };
 
-  return selectedData && selectedData.frequencyAnalysis ? (
+  return selectedData ? (
     <>
       <Card className={className} variant="outlined">
         <CardHeader
@@ -82,28 +80,26 @@ export const FrequencyBubbleChart = ({ className, ...props }) => {
           subheader={
             <CardSubheader
               labels={
-                selectedData.frequencyAnalysis.algorithm
+                selectedData.algorithm
                   ? [
                       {
                         title: "Tweets",
-                        value: selectedData.frequencyAnalysis.topicTitle,
+                        value: selectedData.topicTitle,
                       },
                       {
                         title: "Algoritmo",
                         value:
-                          SimilarityAlgorithmsKeys[
-                            selectedData.frequencyAnalysis.algorithm
-                          ].name,
+                          SimilarityAlgorithmsKeys[selectedData.algorithm].name,
                       },
                       {
                         title: "Umbral",
-                        value: selectedData.frequencyAnalysis.threshold,
+                        value: selectedData.threshold,
                       },
                     ]
                   : [
                       {
                         title: "Tweets",
-                        value: selectedData.frequencyAnalysis.topicTitle,
+                        value: selectedData.topicTitle,
                       },
                     ]
               }
