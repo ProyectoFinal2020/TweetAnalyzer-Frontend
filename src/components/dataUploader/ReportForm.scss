@@ -1,0 +1,72 @@
+@import "assets/custom/scss/helpers/_variables";
+
+.report_panel {
+  padding-top: 15px;
+  box-shadow: none;
+}
+
+.reports-card {
+  padding: 0 20px 25px 20px;
+}
+
+.action-btn {
+  margin-right: 0;
+  button {
+    border-radius: 5px;
+    padding: 7px 15px;
+  }
+}
+
+.report_box_form {
+  .edit_content {
+    border: 1px solid #c3c3c3;
+    border-radius: 5px;
+    padding: 0;
+
+    &:hover {
+      border: 1px solid black;
+      border-radius: 5px;
+    }
+
+    &:active,
+    &:focus,
+    &:focus-within {
+      border-width: 2px;
+      border-color: $primary;
+
+      .edit_label {
+        color: $primary;
+      }
+    }
+
+    &[aria-invalid="true"] {
+      &,
+      &:hover,
+      &:focus {
+        border-color: red !important;
+      }
+
+      label {
+        color: red !important;
+      }
+    }
+
+    textarea {
+      min-height: 200px;
+      margin-top: 0;
+      border-top: none;
+      height: unset;
+      resize: none;
+    }
+
+    .edit_label {
+      margin-bottom: 0;
+      transform: translate(13px, -14px) scale(0.85);
+      background: white;
+      padding-right: 5px;
+      padding-left: 5px;
+      height: 14px;
+      color: rgba(black, 0.6);
+    }
+  }
+}

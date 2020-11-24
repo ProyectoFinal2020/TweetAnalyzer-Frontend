@@ -2,15 +2,14 @@ import {
   Checkbox,
   FormControl,
   Grid,
-  Input,
   InputAdornment,
   ListItemText,
   MenuItem,
-  Select,
   TextField,
   Typography,
 } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
+import { Dropdown } from "components/shared/dropdown/Dropdown";
 import React from "react";
 import { languagesDictionary } from "utils/dictionaries/language";
 
@@ -48,53 +47,50 @@ export const SearchReports = ({
       </Grid>
       <Grid item xs={12} sm={4} md={3} xl={2} className="multiple_selector">
         <FormControl fullWidth>
-          <Select
-            multiple
-            displayEmpty
-            input={<Input />}
+          <Dropdown
+            multiple={true}
+            displayEmpty={true}
             renderValue={(selected) =>
               selected.length > 0
                 ? selected.map((value) => languagesDictionary[value]).join(", ")
                 : "Idioma"
             }
-            MenuProps={{
-              /* hace que el dropdown no haga saltitos al seleccionar */
-              getContentAnchorEl: null,
-            }}
             value={languages}
             onChange={(e) => handleLanguageChange(e.target.value)}
             disabled={disabled}
-          >
-            <MenuItem disabled>
-              <ListItemText primary="Idioma" />
-            </MenuItem>
-            <MenuItem value="all">
-              <ListItemText
-                primary={
-                  <Typography
-                    align="center"
-                    color="textPrimary"
-                    style={{ fontWeight: 500 }}
-                  >
-                    {languages.length ===
-                    Object.keys(languagesDictionary).length
-                      ? "Deseleccionar todos"
-                      : "Seleccionar todos"}
-                  </Typography>
-                }
-              />
-            </MenuItem>
-            {Object.keys(languagesDictionary).map((key) => (
-              <MenuItem
-                key={key}
-                value={key}
-                classes={{ selected: "multiple_selector_selected" }}
-              >
-                <Checkbox checked={languages.includes(key)} />
-                <ListItemText primary={languagesDictionary[key]} />
-              </MenuItem>
-            ))}
-          </Select>
+            menuItems={[
+              <MenuItem disabled key={0}>
+                <ListItemText primary="Idioma" />
+              </MenuItem>,
+              <MenuItem value="all" key={1}>
+                <ListItemText
+                  primary={
+                    <Typography
+                      align="center"
+                      color="textPrimary"
+                      style={{ fontWeight: 500 }}
+                    >
+                      {languages.length ===
+                      Object.keys(languagesDictionary).length
+                        ? "Deseleccionar todos"
+                        : "Seleccionar todos"}
+                    </Typography>
+                  }
+                />
+              </MenuItem>,
+            ].concat(
+              Object.keys(languagesDictionary).map((key) => (
+                <MenuItem
+                  key={key}
+                  value={key}
+                  classes={{ selected: "multiple_selector_selected" }}
+                >
+                  <Checkbox checked={languages.includes(key)} />
+                  <ListItemText primary={languagesDictionary[key]} />
+                </MenuItem>
+              ))
+            )}
+          />
         </FormControl>
       </Grid>
     </Grid>

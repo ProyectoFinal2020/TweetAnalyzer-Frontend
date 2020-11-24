@@ -111,13 +111,15 @@ export const FrequencyBubbleChart = ({ className, ...props }) => {
           }
           action={
             <Tooltip title="Filtrar">
-              <IconButton
-                aria-label="filtrar"
-                disabled={!filteredWordsCount}
-                onClick={() => setDialogOpen(true)}
-              >
-                <FilterListIcon />
-              </IconButton>
+              <span>
+                <IconButton
+                  aria-label="filtrar"
+                  disabled={!filteredWordsCount}
+                  onClick={() => setDialogOpen(true)}
+                >
+                  <FilterListIcon />
+                </IconButton>
+              </span>
             </Tooltip>
           }
           className="pdg-btm-0"

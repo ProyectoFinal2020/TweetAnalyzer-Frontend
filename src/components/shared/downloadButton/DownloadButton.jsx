@@ -6,7 +6,7 @@ import { downloadFile } from "utils/fileDownloader/downloadFile.js";
 import "./DownloadButton.scss";
 
 export const DownloadButton = ({
-  disabled = false,
+  disableDownload = false,
   asIcon = false,
   url,
   filename,
@@ -23,15 +23,21 @@ export const DownloadButton = ({
       color="secondary"
       aria-label="Descargar"
       onClick={handleDownload}
-      disabled={disabled}
+      disabled={disableDownload}
     >
       <CloudDownloadIcon /> Descargar
     </Button>
   ) : (
     <Tooltip title="Descargar">
-      <IconButton aria-label="settings" onClick={handleDownload}>
-        <CloudDownloadIcon />
-      </IconButton>
+      <span>
+        <IconButton
+          aria-label="settings"
+          onClick={handleDownload}
+          disabled={disableDownload}
+        >
+          <CloudDownloadIcon />
+        </IconButton>
+      </span>
     </Tooltip>
   );
 };

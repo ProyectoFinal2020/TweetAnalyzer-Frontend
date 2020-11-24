@@ -4,10 +4,9 @@ import {
   FormControl,
   FormHelperText,
   Grid,
-  InputLabel,
   MenuItem,
-  Select,
 } from "@material-ui/core";
+import { Dropdown } from "components/shared/dropdown/Dropdown";
 import { SimilarityAlgorithmsKeys } from "components/similarityAlgorithms/SimilarityAlgorithmsNames";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
@@ -80,20 +79,16 @@ export const SelectSimAlgorithmForm = ({
       <Grid container alignItems="center" justify="center">
         <Grid item xs={9} sm={10} lg={11} style={{ paddingRight: "8px" }}>
           <FormControl fullWidth margin="normal">
-            <InputLabel shrink id="report-label">
-              Seleccione un algoritmo
-            </InputLabel>
-            <Select
-              labelid="report-label"
+            <Dropdown
+              label="Seleccione un algoritmo"
               value={selectedAlgorithm}
               onChange={(e) => setSelectedAlgorithm(e.target.value)}
-            >
-              {selectedData.algorithms.map((algorithm, key) => (
+              menuItems={selectedData.algorithms.map((algorithm, key) => (
                 <MenuItem key={key} value={algorithm}>
                   {SimilarityAlgorithmsKeys[algorithm].name}
                 </MenuItem>
               ))}
-            </Select>
+            />
             <FormHelperText>Seleccione un conjunto de tweets</FormHelperText>
           </FormControl>
         </Grid>

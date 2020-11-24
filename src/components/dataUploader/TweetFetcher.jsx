@@ -328,6 +328,7 @@ export const TweetFetcher = () => {
                   setLanguage={setLanguage}
                   topicsWithLanguage={topicsWithLanguage}
                   title={title}
+                  style={{ marginTop: 10 }}
                 />
               </Grid>
             </Grid>

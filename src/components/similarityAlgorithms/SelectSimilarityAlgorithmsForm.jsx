@@ -2,32 +2,18 @@ import {
   Box,
   Button,
   FormControl,
-  FormHelperText,
-  Input,
-  InputLabel,
   MenuItem,
-  Select,
   Typography,
 } from "@material-ui/core";
 import Checkbox from "@material-ui/core/Checkbox";
 import Chip from "@material-ui/core/Chip";
 import ListItemText from "@material-ui/core/ListItemText";
+import { Dropdown } from "components/shared/dropdown/Dropdown";
+import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { ValidatorForm } from "react-material-ui-form-validator";
-import { SimilarityAlgorithmsNames } from "./SimilarityAlgorithmsNames";
 import "./SelectSimilarityAlgorithmsForm.scss";
-import { AuthContext } from "contexts/AuthContext";
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+import { SimilarityAlgorithmsNames } from "./SimilarityAlgorithmsNames";
 
 export const SelectSimilarityAlgorithmsForm = ({
   handleSubmit,
@@ -39,7 +25,7 @@ export const SelectSimilarityAlgorithmsForm = ({
     "Word2Vec",
     "Doc2Vec",
   ]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(undefined);
   const [wasExecuted, setWasExecuted] = useState(false);
 
   useEffect(() => {
@@ -51,6 +37,15 @@ export const SelectSimilarityAlgorithmsForm = ({
 
   const handleChange = (event) => {
     setSimilarityAlgorithms(event.target.value);
+    validateSelectedAlgorithms(event.target.value);
+  };
+
+  const validateSelectedAlgorithms = (selectedAlgorithms) => {
+    if (selectedAlgorithms && selectedAlgorithms.length > 0) {
+      setError(undefined);
+    } else {
+      setError("Debes seleccionar al menos un algoritmo");
+    }
   };
 
   const getAlgorithms = () => {
@@ -62,28 +57,22 @@ export const SelectSimilarityAlgorithmsForm = ({
   };
 
   const submit = () => {
-    setWasExecuted(true);
-    let algorithms = getAlgorithms();
-    if (algorithms && algorithms.length > 0) {
-      setError("");
-      handleSubmit(algorithms);
-    } else {
-      setError("Debes seleccionar al menos un algoritmo");
+    if (!error) {
+      setWasExecuted(true);
+      let selectedAlgorithms = getAlgorithms();
+      handleSubmit(selectedAlgorithms);
     }
   };
 
   return (
     <ValidatorForm onSubmit={submit} className="select-form">
-      <FormControl fullWidth>
-        <InputLabel id="similarity-algorithms-label">
-          Algoritmos de similitud
-        </InputLabel>
-        <Select
-          labelId="similarity-algorithms-label"
-          multiple
+      <FormControl fullWidth aria-invalid={error ? true : false}>
+        <Dropdown
+          label="Algoritmos de similitud"
+          multiple={true}
           value={similarityAlgorithms}
           onChange={handleChange}
-          input={<Input />}
+          error={error}
           renderValue={(selected) => (
             <Box className="chips">
               {selected.map((value) => (
@@ -96,21 +85,16 @@ export const SelectSimilarityAlgorithmsForm = ({
               ))}
             </Box>
           )}
-          MenuProps={MenuProps}
-        >
-          {Object.keys(SimilarityAlgorithmsNames).map((name) => (
+          menuItems={Object.keys(SimilarityAlgorithmsNames).map((name) => (
             <MenuItem key={name} value={name}>
               <Checkbox checked={similarityAlgorithms.indexOf(name) > -1} />
               <ListItemText primary={name} />
             </MenuItem>
           ))}
-        </Select>
-        {error !== "" ? (
-          <Typography color="error" variant="caption">
-            {error}
-          </Typography>
-        ) : null}
-        <FormHelperText>Seleccione los algoritmos a analizar</FormHelperText>
+        />
+        <Typography color="error" variant="caption" style={{ minHeight: 20 }}>
+          {error}
+        </Typography>
       </FormControl>
       <Box classes={{ root: "submit" }}>
         <Button type="submit" variant="contained" color="primary">

@@ -3,10 +3,9 @@ import {
   Button,
   FormControl,
   FormHelperText,
-  InputLabel,
   MenuItem,
-  Select,
 } from "@material-ui/core";
+import { Dropdown } from "components/shared/dropdown/Dropdown";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { ValidatorForm } from "react-material-ui-form-validator";
@@ -43,26 +42,21 @@ export const SelectTweetTopics = ({ handleSubmit, setHasTweets, ...rest }) => {
   return (
     <ValidatorForm onSubmit={submit} className="select-form">
       <FormControl fullWidth margin="normal">
-        <InputLabel
-          shrink={tweetTopics && tweetTopics.length > 0}
-          id="selected-tweet-topic"
-        >
-          Tweets
-        </InputLabel>
-        <Select
-          labelId="selected-tweet-topic"
+        <Dropdown
+          label="Tweets"
           disabled={!tweetTopics || tweetTopics.length === 0}
           value={selectedTweetTopic}
           onChange={(e) => setSelectedTweetTopic(e.target.value)}
-        >
-          {tweetTopics && tweetTopics.length > 0
-            ? tweetTopics.map((tweetTopic, key) => (
-                <MenuItem key={key} value={tweetTopic}>
-                  {tweetTopic}
-                </MenuItem>
-              ))
-            : null}
-        </Select>
+          menuItems={
+            tweetTopics && tweetTopics.length > 0
+              ? tweetTopics.map((tweetTopic, key) => (
+                  <MenuItem key={key} value={tweetTopic}>
+                    {tweetTopic}
+                  </MenuItem>
+                ))
+              : null
+          }
+        />
         <FormHelperText>Seleccione un conjunto de tweets</FormHelperText>
       </FormControl>
       <Box classes={{ root: "submit" }}>

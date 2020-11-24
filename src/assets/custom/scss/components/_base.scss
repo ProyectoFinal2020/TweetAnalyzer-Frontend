@@ -137,7 +137,7 @@ body {
 
 /* CARDS */
 .card-row {
-  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .graph-card-container {
@@ -216,6 +216,24 @@ table {
     input {
       color: red;
     }
+  }
+}
+
+/* INPUTS ERROR */
+.MuiFormControl-root[aria-invalid="true"] {
+  .MuiInput-root::before {
+    border-color: red !important;
+  }
+
+  input,
+  input:hover,
+  input:focus,
+  input:focus-within {
+    color: red;
+  }
+  .MuiSelect-root,
+  label {
+    color: red;
   }
 }
 

@@ -15,6 +15,7 @@ export const LanguageButtons = ({
   setLanguage,
   title = "",
   topicsWithLanguage = [],
+  style,
   ...rest
 }) => {
   useEffect(() => {
@@ -24,7 +25,7 @@ export const LanguageButtons = ({
   }, [title, topicsWithLanguage, setLanguage]);
 
   return (
-    <Box className="language_buttons">
+    <Box className="language_buttons" style={style}>
       <FormLabel component="legend">
         <Typography variant="caption" component="p">
           Idioma

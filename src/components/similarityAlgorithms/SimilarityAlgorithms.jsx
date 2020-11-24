@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -7,6 +8,7 @@ import {
   Grid,
   MenuItem,
   Paper,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -35,8 +37,8 @@ export const SimilarityAlgorithms = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [tweetsPerPage, setTweetsPerPage] = useState(10);
-  const [sortDirections, setSortDirections] = useState({});
-  const [selectedProp, setSelectedProp] = useState("");
+  const [sortDescending, setSortDescending] = useState(false);
+  const [selectedProp, setSelectedProp] = useState("Tweet");
   const [isExecuting, setIsExecuting] = useState(false);
 
   const setResults = (results) => {
@@ -89,12 +91,13 @@ export const SimilarityAlgorithms = () => {
   };
 
   const sortByProp = (prop) => {
-    // To-Do: ver sort directions
-    let dict = { ...sortDirections };
     setSelectedProp(prop);
-    dict[prop] = dict[prop] ? false : true;
-    getData(selectedData.algorithms, page, tweetsPerPage, !dict[prop], prop);
-    setSortDirections(dict);
+    getData(selectedData.algorithms, page, tweetsPerPage, sortDescending, prop);
+  };
+
+  const changeSortDirection = (desc) => {
+    setSortDescending(desc);
+    getData(selectedData.algorithms, page, tweetsPerPage, desc, selectedProp);
   };
 
   const handleSubmit = (algorithms) => {
@@ -123,7 +126,7 @@ export const SimilarityAlgorithms = () => {
       selectedData.algorithms,
       page,
       per_page,
-      sortDirections[selectedProp],
+      sortDescending,
       selectedProp
     );
   };
@@ -135,7 +138,7 @@ export const SimilarityAlgorithms = () => {
       </Typography>
       {selectedData && selectedData.topic && selectedData.report ? (
         <>
-          <Card>
+          <Card className="card-row">
             <CardContent>
               <FilterFields
                 values={[
@@ -192,29 +195,59 @@ export const SimilarityAlgorithms = () => {
                 className="pdg-btm-0"
               />
               <CardContent className="pdg-top-0">
-                <FormControl
-                  variant="outlined"
-                  style={{ minWidth: 200, float: "right" }}
-                  margin="dense"
-                >
-                  <Dropdown
-                    value={selectedProp}
-                    onChange={(e) => sortByProp(e.target.value)}
-                    label="Ordenar por"
-                    noneValue={true}
-                    menuItems={[
-                      <MenuItem value="Tweet" key={0}>
-                        Tweet
-                      </MenuItem>,
-                    ].concat(
-                      selectedData.algorithms.map((algorithm, index) => (
-                        <MenuItem value={algorithm} key={index + 1}>
-                          {SimilarityAlgorithmsKeys[algorithm].name}
-                        </MenuItem>
-                      ))
-                    )}
-                  />
-                </FormControl>
+                <Box style={{ float: "right" }}>
+                  <FormControl
+                    variant="outlined"
+                    style={{ minWidth: 200, marginRight: 10 }}
+                    margin="dense"
+                  >
+                    <Dropdown
+                      value={selectedProp}
+                      onChange={(e) => sortByProp(e.target.value)}
+                      label="Ordenar por"
+                      disabled={!tweetsWithScores}
+                      menuItems={[
+                        <MenuItem value="Tweet" key={0}>
+                          Tweet
+                        </MenuItem>,
+                      ].concat(
+                        selectedData.algorithms.map((algorithm, index) => (
+                          <MenuItem value={algorithm} key={index + 1}>
+                            {SimilarityAlgorithmsKeys[algorithm].name}
+                          </MenuItem>
+                        ))
+                      )}
+                    />
+                  </FormControl>
+                  <Tooltip
+                    title={
+                      sortDescending
+                        ? "Ordenar ascendente"
+                        : "Ordenar descendente"
+                    }
+                  >
+                    <span>
+                      <Button
+                        style={{ marginTop: 7, height: 42, minWidth: 50 }}
+                        onClick={() => changeSortDirection(!sortDescending)}
+                        disabled={!tweetsWithScores}
+                      >
+                        <i
+                          style={{ fontSize: "18px" }}
+                          className={
+                            selectedProp !== "Tweet"
+                              ? sortDescending
+                                ? "fas fa-sort-amount-up"
+                                : "fas fa-sort-amount-down"
+                              : sortDescending
+                              ? "fas fa-sort-alpha-up"
+                              : "fas fa-sort-alpha-down"
+                          }
+                        ></i>
+                      </Button>
+                    </span>
+                  </Tooltip>
+                </Box>
                 {tweetsWithScores && tweetsWithScores.length > 0 ? (
                   <>
                     <TweetsWithScores tweetsWithScores={tweetsWithScores} />

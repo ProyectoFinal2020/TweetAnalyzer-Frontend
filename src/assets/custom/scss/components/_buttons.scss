@@ -60,10 +60,20 @@ button {
     color: white;
   }
 
+  &.danger-outlined {
+    border: 1px solid $danger;
+    color: red;
+
+    &:hover {
+      background-color: rgba($danger, 0.07);
+    }
+  }
+
   &.primary:disabled,
   &.secondary:disabled,
   &.success:disabled,
-  &.danger:disabled {
+  &.danger:disabled,
+  &.danger-outlined:disabled {
     color: rgba(0, 0, 0, 0.26) !important;
     box-shadow: none;
     background-color: rgba(0, 0, 0, 0.12) !important;

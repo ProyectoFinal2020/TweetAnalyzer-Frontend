@@ -27,7 +27,7 @@ export const TweetsSelection = ({
 
   return (
     <>
-      <Paper style={{ padding: 15 }}>
+      <Paper style={{ padding: 15 }} className="card-row">
         {selectedData &&
         selectedData.topic &&
         selectedData.algorithms &&

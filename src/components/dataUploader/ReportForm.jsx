@@ -1,15 +1,19 @@
 import {
   Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Divider,
   Grid,
-  Paper,
   TextareaAutosize,
+  TextField,
   Tooltip,
   Typography,
-  TextField,
 } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
-import AddIcon from "@material-ui/icons/Add";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { CustomContext } from "contexts/CustomContext";
 import React, { useContext, useEffect, useState } from "react";
@@ -17,6 +21,7 @@ import { useHistory } from "react-router-dom";
 import { get, post, put } from "utils/api/api";
 import { routes } from "utils/routes/routes";
 import { LanguageButtons } from "./LanguageButtons";
+import "./ReportForm.scss";
 
 export const ReportForm = (props) => {
   const [allReports, setAllReports] = useState(undefined);
@@ -236,141 +241,143 @@ export const ReportForm = (props) => {
           >
             {isEditing ? "Editar noticia" : "Crear noticias"}
           </Typography>
+
           <form autoComplete="off" onSubmit={handleSaveClick}>
-            {editingReports.map((editingReport, index) => (
-              <Paper
-                className="edit_report_panel_form"
-                key={index}
-                elevation={2}
+            <Card className="card-row" classes={{ root: "reports-card" }}>
+              {editingReports.map((editingReport, index) => (
+                <span key={index}>
+                  <Card className="card-row report_panel">
+                    <CardHeader
+                      action={
+                        editingReports.length > 1 ? (
+                          <Tooltip title="Eliminar">
+                            <span>
+                              <IconButton
+                                aria-label="eliminar"
+                                onClick={() => handleDeleteReport(index)}
+                                className="danger-outlined"
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </span>
+                          </Tooltip>
+                        ) : null
+                      }
+                      classes={{ action: "action-btn" }}
+                      className="pdg-btm-0"
+                    />
+                    <CardContent style={{ paddingBottom: 5 }}>
+                      <Grid container className="report_box_form" spacing={2}>
+                        <Grid
+                          item
+                          xs={12}
+                          md={8}
+                          lg={9}
+                          style={{ paddingRight: 10 }}
+                        >
+                          <TextField
+                            fullWidth
+                            value={editingReport.title}
+                            onChange={(e) => {
+                              resetTitleValidator(index);
+                              validateTitle(e.target.value, index);
+                              handleEditReportTitleChange(
+                                e.target.value,
+                                index
+                              );
+                            }}
+                            label="Titulo"
+                            type="text"
+                            variant="outlined"
+                            aria-invalid={
+                              errors[index].title.required ||
+                              errors[index].title.maxLength ||
+                              errors[index].title.isDuplicate
+                            }
+                          />
+                          {errors[index].title.required ||
+                          errors[index].title.maxLength ||
+                          errors[index].title.isDuplicate ? (
+                            <Typography color="error" variant="caption">
+                              {errors[index].title.required
+                                ? "El título de la noticia es requerido"
+                                : errors[index].title.maxLength
+                                ? "El título no puede superar los 30 caracteres"
+                                : "Ya existe una noticia con ese título"}
+                            </Typography>
+                          ) : null}
+                        </Grid>
+                        <Grid item xs={9} md={4} lg={3}>
+                          <LanguageButtons
+                            language={editingReport.language}
+                            setLanguage={(value) =>
+                              handleEditReportLanguageChange(value, index)
+                            }
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Box
+                            className="edit_content"
+                            aria-invalid={errors[index].content.required}
+                          >
+                            <label className="edit_label">Contenido</label>
+                            <TextareaAutosize
+                              value={editingReport.content}
+                              onChange={(e) => {
+                                resetContentValidator(index);
+                                validateContent(e.target.value, index);
+                                handleEditReportContentChange(
+                                  e.target.value,
+                                  index
+                                );
+                              }}
+                              label="Contenido"
+                              type="text"
+                              variant="outlined"
+                            />
+                          </Box>
+                          {errors[index].content.required ? (
+                            <Typography
+                              className="error"
+                              color="error"
+                              variant="caption"
+                            >
+                              El contenido de la noticia es requerido
+                            </Typography>
+                          ) : null}
+                        </Grid>
+                      </Grid>
+                    </CardContent>
+                  </Card>
+                  {index !== editingReports.length - 1 ? (
+                    <Divider variant="middle" />
+                  ) : null}
+                </span>
+              ))}
+              <CardActions
+                style={{ float: "right", paddingRight: 16, paddingLeft: 16 }}
               >
-                {editingReports.length > 1 ? (
+                {!isEditing ? (
                   <Button
-                    className="danger"
-                    style={{ float: "right" }}
-                    onClick={() => handleDeleteReport(index)}
+                    onClick={handleAddNewReport}
+                    className="success"
+                    aria-label={"Nueva noticia"}
+                    variant="contained"
                   >
-                    <Typography variant="caption" component="p">
-                      Eliminar
-                    </Typography>
+                    Nueva noticia
                   </Button>
                 ) : null}
-                <Grid
-                  container
-                  direction="row"
-                  alignItems="center"
-                  justify="flex-start"
-                  className="report_box_form"
-                >
-                  <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={8}
-                    lg={9}
-                    style={{ paddingRight: 10 }}
-                  >
-                    <TextField
-                      value={editingReport.title}
-                      onChange={(e) => {
-                        resetTitleValidator(index);
-                        validateTitle(e.target.value, index);
-                        handleEditReportTitleChange(e.target.value, index);
-                      }}
-                      label="Titulo"
-                      type="text"
-                      variant="outlined"
-                      aria-invalid={
-                        errors[index].title.required ||
-                        errors[index].title.maxLength ||
-                        errors[index].title.isDuplicate
-                      }
-                    />
-                    <Typography
-                      style={{ padding: 5, height: 25 }}
-                      color="error"
-                      variant="caption"
-                      component="p"
-                    >
-                      {errors[index].title.required ||
-                      errors[index].title.maxLength ||
-                      errors[index].title.isDuplicate
-                        ? errors[index].title.required
-                          ? "El título de la noticia es requerido"
-                          : errors[index].title.maxLength
-                          ? "El título no puede superar los 30 caracteres"
-                          : "Ya existe una noticia con ese título"
-                        : null}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={9} md={4} lg={3}>
-                    <LanguageButtons
-                      language={editingReport.language}
-                      setLanguage={(value) =>
-                        handleEditReportLanguageChange(value, index)
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Box
-                      className="edit_content"
-                      aria-invalid={errors[index].content.required}
-                    >
-                      <label className="edit_label">Contenido</label>
-                      <TextareaAutosize
-                        value={editingReport.content}
-                        onChange={(e) => {
-                          resetContentValidator(index);
-                          validateContent(e.target.value, index);
-                          handleEditReportContentChange(e.target.value, index);
-                        }}
-                        label="Contenido"
-                        type="text"
-                        variant="outlined"
-                      />
-                    </Box>
-                    <Typography
-                      className="error"
-                      color="error"
-                      variant="caption"
-                    >
-                      {errors[index].content.required
-                        ? "El contenido de la noticia es requerido"
-                        : null}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Paper>
-            ))}
-            {!isEditing ? (
-              <Box className="add_new_report">
-                <Tooltip title="Nueva noticia">
-                  <IconButton
-                    aria-label="Nueva noticia"
-                    onClick={handleAddNewReport}
-                  >
-                    <AddIcon />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            ) : null}
-            <Grid
-              container
-              direction="row"
-              justify="flex-end"
-              alignItems="center"
-              style={{ marginTop: isEditing ? 15 : 0 }}
-            >
-              <Grid item className="action_btn_group">
                 <Button
                   onClick={handleSaveClick}
                   type="submit"
                   className="secondary"
                   aria-label={isEditing ? "Guardar cambios" : "Crear noticias"}
+                  variant="contained"
                 >
                   {isEditing ? "Guardar noticia" : "Crear noticias"}
                 </Button>
-              </Grid>
-            </Grid>
+              </CardActions>
+            </Card>
           </form>
         </>
       ) : allReports ? (

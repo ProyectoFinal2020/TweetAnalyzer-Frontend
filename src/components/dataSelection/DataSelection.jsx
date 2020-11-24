@@ -7,8 +7,6 @@ import {
   FormControl,
   Grid,
   Hidden,
-  InputLabel,
-  Select,
   Typography,
 } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -17,6 +15,7 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import SaveIcon from "@material-ui/icons/Save";
 import { TweetsByTopicTable } from "components/myTweets/TweetsByTopicTable";
 import { ReportsCarousel } from "components/reports/ReportsCarousel";
+import { Dropdown } from "components/shared/dropdown/Dropdown";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { AuthContext } from "contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
@@ -197,26 +196,22 @@ export const DataSelection = () => {
               classes={{ action: "card-action" }}
             />
             <CardContent classes={{ root: "card-content" }}>
-              <FormControl fullWidth={true}>
-                <InputLabel
-                  shrink={selectedTweetsTopic?.topic_title ? true : false}
-                  id="selected-tweet-topic"
-                >
-                  Seleccione un conjunto de tweets
-                </InputLabel>
-                <Select
-                  labelId="selected-tweet-topic"
+              <FormControl
+                fullWidth={true}
+                aria-invalid={errors.language || errors.required}
+              >
+                <Dropdown
+                  label="Seleccione un conjunto de tweets"
                   value={
                     selectedTweetsTopic ? selectedTweetsTopic.topic_title : ""
                   }
                   onChange={handleTopicSelection}
-                >
-                  {tweetsTopic.map((topic, key) => (
+                  menuItems={tweetsTopic.map((topic, key) => (
                     <MenuItem key={key} value={topic.topic_title}>
                       {topic.topic_title + " (" + topic.language + ")"}
                     </MenuItem>
                   ))}
-                </Select>
+                />
                 <Typography
                   component="p"
                   variant="caption"

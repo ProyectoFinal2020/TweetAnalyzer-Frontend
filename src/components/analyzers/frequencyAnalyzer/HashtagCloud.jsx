@@ -91,13 +91,15 @@ export const HashtagCloud = ({ className, ...props }) => {
           }
           action={
             <Tooltip title="Filtrar">
-              <IconButton
-                aria-label="filtrar"
-                disabled={!hashtagCount}
-                onClick={() => setDialogOpen(true)}
-              >
-                <FilterListIcon />
-              </IconButton>
+              <span>
+                <IconButton
+                  aria-label="filtrar"
+                  disabled={!hashtagCount}
+                  onClick={() => setDialogOpen(true)}
+                >
+                  <FilterListIcon />
+                </IconButton>
+              </span>
             </Tooltip>
           }
           className="pdg-btm-0"
