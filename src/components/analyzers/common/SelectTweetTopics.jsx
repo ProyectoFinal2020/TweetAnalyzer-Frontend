@@ -6,14 +6,12 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { Dropdown } from "components/shared/dropdown/Dropdown";
-import { AuthContext } from "contexts/AuthContext";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { get } from "utils/api/api";
 import "./TweetsSelectionForms.scss";
 
 export const SelectTweetTopics = ({ handleSubmit, setHasTweets, ...rest }) => {
-  const { selectedData } = useContext(AuthContext);
   const [tweetTopics, setTweetTopics] = useState(undefined);
   const [selectedTweetTopic, setSelectedTweetTopic] = useState("");
 
@@ -21,11 +19,7 @@ export const SelectTweetTopics = ({ handleSubmit, setHasTweets, ...rest }) => {
     get("/user/tweets/topics").then((response) => {
       setTweetTopics(response.data.map((topics) => topics.topic_title));
       if (response.data.length > 0) {
-        setSelectedTweetTopic(
-          selectedData && selectedData.topic
-            ? selectedData.topic.title
-            : response.data[0].topic_title
-        );
+        setSelectedTweetTopic(response.data[0].topic_title);
         setHasTweets(true);
       } else {
         setHasTweets(false);

@@ -17,11 +17,9 @@ import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMe
 import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { ResponsiveTablePaginator } from "components/shared/paginator/ResponsiveTablePaginator";
 import { SimilarityAlgorithmsKeys } from "components/similarityAlgorithms/SimilarityAlgorithmsNames";
-import { AuthContext } from "contexts/AuthContext";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { get } from "utils/api/api";
-import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { Tweet } from "../../shared/tweet/Tweet";
 import { CardSubheader } from "../common/CardSubheader";
 import { FilterByThresholdDialog } from "./dialogs/FilterByThresholdDialog";
@@ -29,7 +27,6 @@ import { getOptions, graphColors } from "./graphAuxStructures";
 import "./SentimentAnalyzer.scss";
 
 export const SentimentAnalyzer = () => {
-  const { selectedData, setSelectedData } = useContext(AuthContext);
   const [open, setOpen] = React.useState(false);
   const [searchedPolarity, setSearchedPolarity] = React.useState([-1, 1]);
   const [graphInfo, setGraphInfo] = useState(undefined);
@@ -38,64 +35,9 @@ export const SentimentAnalyzer = () => {
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(1);
   const [tweetsPerPage, setTweetsPerPage] = useState(6);
-  const [wasExecuted, setWasExecuted] = useState(false);
   const [hasTweets, setHasTweets] = useState(undefined);
+  const [selectedData, setSelectedData] = useState(undefined);
   const STEP_SIZE = 0.25;
-
-  useEffect(() => {
-    if (!wasExecuted && selectedData && selectedData.sentimentAnalysis) {
-      get(
-        "/sentimentAnalyzer/graph?topicTitle=" +
-          selectedData.sentimentAnalysis.topicTitle
-      ).then((response) => {
-        setGraphResults(
-          selectedData.sentimentAnalysis.topicTitle,
-          response.data
-        );
-      });
-      getTweets(
-        1,
-        6,
-        selectedData.sentimentAnalysis.topicTitle,
-        searchedPolarity[0],
-        searchedPolarity[1],
-        0,
-        "",
-        0
-      );
-    }
-    // eslint-disable-next-line
-  }, [selectedData, wasExecuted]);
-
-  const setGraphResults = (topicTitle, result) => {
-    const data = {
-      labels: result.map((e) => e.min_value + " a " + e.max_value),
-      datasets: [
-        {
-          label: topicTitle,
-          backgroundColor: graphColors,
-          borderColor: graphColors,
-          borderWidth: 1,
-          data: result.map((e) => e.tweets_amount),
-        },
-      ],
-    };
-    setGraphInfo(data);
-  };
-
-  const handleSubmit = (polarity) => {
-    setSearchedPolarity(polarity);
-    getTweets(
-      page,
-      tweetsPerPage,
-      selectedData.sentimentAnalysis.topicTitle,
-      polarity[0],
-      polarity[1],
-      selectedData.report ? selectedData.report.id : 0,
-      selectedData.sentimentAnalysis.algorithm,
-      selectedData.sentimentAnalysis.threshold
-    );
-  };
 
   const getTweets = (
     page,
@@ -138,24 +80,49 @@ export const SentimentAnalyzer = () => {
     setCount(parseInt(results.pages));
   };
 
+  const setGraphResults = (topicTitle, result) => {
+    const data = {
+      labels: result.map((e) => e.min_value + " a " + e.max_value),
+      datasets: [
+        {
+          label: topicTitle,
+          backgroundColor: graphColors,
+          borderColor: graphColors,
+          borderWidth: 1,
+          data: result.map((e) => e.tweets_amount),
+        },
+      ],
+    };
+    setGraphInfo(data);
+  };
+
+  const handleSubmit = (polarity) => {
+    setSearchedPolarity(polarity);
+    getTweets(
+      page,
+      tweetsPerPage,
+      selectedData.topicTitle,
+      polarity[0],
+      polarity[1],
+      selectedData.reportId,
+      selectedData.algorithm,
+      selectedData.threshold
+    );
+  };
+
   const handleTweetSelectionSubmit = (
     reportId,
     topicTitle,
     algorithm,
     threshold
   ) => {
-    setWasExecuted(true);
     setGraphInfo(undefined);
-    const newSelectedData = {
-      ...selectedData,
-      sentimentAnalysis: {
-        topicTitle: topicTitle,
-        algorithm: algorithm,
-        threshold: threshold,
-      },
-    };
-    saveSelectedData(newSelectedData);
-    setSelectedData(newSelectedData);
+    setSelectedData({
+      topicTitle: topicTitle,
+      reportId: reportId,
+      algorithm: algorithm,
+      threshold: threshold,
+    });
     getTweets(
       page,
       tweetsPerPage,
@@ -190,7 +157,7 @@ export const SentimentAnalyzer = () => {
         handleSubmit={handleTweetSelectionSubmit}
         setHasTweets={setHasTweets}
       />
-      {selectedData && selectedData.sentimentAnalysis ? (
+      {selectedData ? (
         <>
           <Card className="card-row">
             <CardHeader
@@ -198,28 +165,27 @@ export const SentimentAnalyzer = () => {
               subheader={
                 <CardSubheader
                   labels={
-                    selectedData.sentimentAnalysis.algorithm
+                    selectedData.algorithm
                       ? [
                           {
                             title: "Tweets",
-                            value: selectedData.sentimentAnalysis.topicTitle,
+                            value: selectedData.topicTitle,
                           },
                           {
                             title: "Algoritmo",
                             value:
-                              SimilarityAlgorithmsKeys[
-                                selectedData.sentimentAnalysis.algorithm
-                              ].name,
+                              SimilarityAlgorithmsKeys[selectedData.algorithm]
+                                .name,
                           },
                           {
                             title: "Umbral",
-                            value: selectedData.sentimentAnalysis.threshold,
+                            value: selectedData.threshold,
                           },
                         ]
                       : [
                           {
                             title: "Tweets",
-                            value: selectedData.sentimentAnalysis.topicTitle,
+                            value: selectedData.topicTitle,
                           },
                         ]
                   }
@@ -230,15 +196,12 @@ export const SentimentAnalyzer = () => {
                   asIcon={true}
                   url={
                     "/sentimentAnalyzer/download?topicTitle=" +
-                    selectedData.sentimentAnalysis.topicTitle +
+                    selectedData.topicTitle +
                     "&step_size=" +
                     STEP_SIZE
                   }
                   disableDownload={!graphInfo}
-                  filename={
-                    selectedData.sentimentAnalysis.topicTitle +
-                    "-sentiment-analysis"
-                  }
+                  filename={selectedData.topicTitle + "-sentiment-analysis"}
                 />
               }
             />
@@ -301,12 +264,12 @@ export const SentimentAnalyzer = () => {
                       getTweets(
                         page,
                         per_page,
-                        selectedData.sentimentAnalysis.topicTitle,
+                        selectedData.topicTitle,
                         searchedPolarity[0],
                         searchedPolarity[1],
-                        selectedData.report ? selectedData.report.id : 0,
-                        selectedData.sentimentAnalysis.algorithm,
-                        selectedData.sentimentAnalysis.threshold
+                        selectedData.reportId,
+                        selectedData.algorithm,
+                        selectedData.threshold
                       )
                     }
                     setPage={setPage}
@@ -346,9 +309,9 @@ export const SentimentAnalyzer = () => {
             handleSubmit={handleSubmit}
           />
         </>
-      ) : hasTweets && (!selectedData || !selectedData.sentimentAnalysis) ? (
-        <Paper style={{ padding: 5, marginTop: 15 }}>
-          <Box className="no_content_box">
+      ) : hasTweets && !selectedData ? (
+        <Paper>
+          <Box className="no-content-box">
             {NoContentComponent(
               "Aún no realizaste un análisis de sentimientos",
               "¡Obtené los sentimientos del conjunto de tweets que desees!",
