@@ -63,7 +63,7 @@ export const SimilarityAlgorithms = () => {
   const getData = (
     algorithms = selectedData.algorithms,
     pageNum = 1,
-    perPage = 10,
+    perPage = 6,
     desc = false,
     orderBy = "Tweet"
   ) => {
@@ -256,7 +256,7 @@ export const SimilarityAlgorithms = () => {
                       total={total}
                       page={page}
                       itemsPerPage={tweetsPerPage}
-                      listItemsPerPage={[10, 25, 50, 100]}
+                      listItemsPerPage={[6, 12, 24, 48]}
                       getItems={getTweets}
                       setPage={setPage}
                       setItemsPerPage={setTweetsPerPage}

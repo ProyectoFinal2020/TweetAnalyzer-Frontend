@@ -42,7 +42,7 @@ export const FrequencyBubbleChart = ({ className, ...props }) => {
       "/frequencyAnalyzer?topicTitle=" +
         selectedData.frequencyAnalysis.topicTitle +
         "&reportId=" +
-        selectedData.report?.Id +
+        selectedData.report?.id +
         "&algorithm=" +
         selectedData.frequencyAnalysis.algorithm +
         "&threshold=" +
