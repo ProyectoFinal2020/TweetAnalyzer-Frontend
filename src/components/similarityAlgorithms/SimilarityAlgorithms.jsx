@@ -36,7 +36,7 @@ export const SimilarityAlgorithms = () => {
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  const [tweetsPerPage, setTweetsPerPage] = useState(10);
+  const [tweetsPerPage, setTweetsPerPage] = useState(6);
   const [sortDescending, setSortDescending] = useState(false);
   const [selectedProp, setSelectedProp] = useState("Tweet");
   const [isExecuting, setIsExecuting] = useState(false);

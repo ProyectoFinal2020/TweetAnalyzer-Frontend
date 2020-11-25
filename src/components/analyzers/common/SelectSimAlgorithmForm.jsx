@@ -76,7 +76,7 @@ export const SelectSimAlgorithmForm = ({
 
   return (
     <ValidatorForm onSubmit={submit} className="select-form">
-      <Grid container alignItems="center" justify="center">
+      <Grid container justify="center">
         <Grid item xs={9} sm={10} lg={11} style={{ paddingRight: "8px" }}>
           <FormControl fullWidth margin="normal">
             <Dropdown
@@ -89,10 +89,20 @@ export const SelectSimAlgorithmForm = ({
                 </MenuItem>
               ))}
             />
-            <FormHelperText>Seleccione un conjunto de tweets</FormHelperText>
+            <FormHelperText>
+              Noticia seleccionada: <strong>{selectedData.report.title}</strong>
+              . Conjunto de tweets seleccionado:{" "}
+              <strong>{selectedData.topic.title}</strong>.
+            </FormHelperText>
           </FormControl>
         </Grid>
-        <Grid item xs={3} sm={2} lg={1} style={{ paddingLeft: "8px" }}>
+        <Grid
+          item
+          xs={3}
+          sm={2}
+          lg={1}
+          style={{ paddingLeft: "8px", marginTop: 16 }}
+        >
           <TextValidator
             fullWidth
             margin="dense"
