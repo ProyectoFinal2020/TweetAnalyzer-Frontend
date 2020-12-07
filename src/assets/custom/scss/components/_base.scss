@@ -63,7 +63,7 @@ body {
   }
 
   .title {
-    margin-bottom: 15px;
+    margin: 5px 0 10px;
   }
 
   ::-moz-selection {
@@ -265,7 +265,7 @@ table {
     }
 
     .MuiFilledInput-input {
-      padding: 10px 12px;
+      padding: 12px 12px;
     }
 
     .MuiInputAdornment-root {
@@ -309,21 +309,25 @@ table {
   }
 }
 
-.multiple_selector_selected {
-  background-color: transparent !important;
-
-  &:hover {
-    background-color: lighten($light-grey, 4%) !important;
-  }
-}
-
 /* MODAL/DIALOG */
 .modal_text {
   @include add_enters();
 }
 
-.all_width {
+.all_width,
+.w-100 {
   width: 100%;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.justify-right {
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* PADDINGS */
@@ -337,4 +341,12 @@ table {
 
 .mgn-top-10 {
   margin-top: 10px;
+}
+
+.mgn-top-20 {
+  margin-top: 20px;
+}
+
+.mgn-btm-20 {
+  margin-bottom: 20px;
 }

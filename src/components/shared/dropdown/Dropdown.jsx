@@ -10,6 +10,7 @@ export const Dropdown = ({
   multiple = false,
   renderValue,
   menuItems,
+  displayEmpty = false,
   style,
   ...props
 }) => {
@@ -17,6 +18,7 @@ export const Dropdown = ({
     <>
       {label ? <InputLabel id="select">{label}</InputLabel> : null}
       <Select
+        displayEmpty={displayEmpty}
         labelId={label ? "select" : null}
         value={value}
         onChange={onChange}

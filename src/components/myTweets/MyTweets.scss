@@ -1,0 +1,17 @@
+@import "assets/custom/scss/helpers/_variables";
+
+.no-tweets-paper {
+  padding-top: 50px;
+  height: calc(100vh - 185px);
+}
+
+.download-tweets-btn {
+  height: 30px;
+  width: 30px;
+  margin: 2px 5px;
+
+  svg {
+    height: 16px;
+    width: 16px;
+  }
+}

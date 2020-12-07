@@ -6,13 +6,12 @@ import { PasswordReset } from "components/auth/views/PasswordReset";
 import { SignUpPage } from "components/auth/views/SignUpPage";
 import { VerifyEmail } from "components/auth/views/VerifyEmail";
 import { ReportForm } from "components/dataUploader/ReportForm";
+import { MyTweets } from "components/myTweets/MyTweets";
 import { ReportsCard } from "components/reports/MyReportsCard";
-import { ReportsList } from "components/reports/MyReportsList";
 import { EmotionAnalyzer } from "../../components/analyzers/emotionAnalyzer/EmotionAnalyzer";
 import { DataSelection } from "../../components/dataSelection/DataSelection";
 import { TweetFetcher } from "../../components/dataUploader/TweetFetcher";
 import { Home } from "../../components/home/Home";
-import { MyTweets } from "../../components/myTweets/MyTweets";
 import { SimilarityAlgorithms } from "../../components/similarityAlgorithms/SimilarityAlgorithms";
 
 export const routes = {
@@ -30,11 +29,6 @@ export const routes = {
     name: "Mis noticias",
     path: "/reports",
     component: ReportsCard,
-  },
-  reportsList: {
-    name: "Noticias",
-    path: "/reportsList",
-    component: ReportsList,
   },
   editReport: {
     name: "Editar noticia",

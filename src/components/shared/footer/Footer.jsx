@@ -2,6 +2,7 @@ import { Divider, Grid, Tooltip, Typography } from "@material-ui/core";
 import { MDBFooter } from "mdbreact";
 import React from "react";
 import { footerLinks } from "./FooterLinks";
+import "./Footer.scss";
 
 export const Footer = () => {
   return (

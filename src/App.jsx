@@ -96,10 +96,6 @@ const App = () => {
                     component={routes.reports.component}
                   />
                   <PrivateRoute
-                    path={routes.reportsList.path}
-                    component={routes.reportsList.component}
-                  />
-                  <PrivateRoute
                     path={routes.similarityAlgorithms.path}
                     component={routes.similarityAlgorithms.component}
                   />

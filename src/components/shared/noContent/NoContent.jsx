@@ -1,6 +1,7 @@
 import { Button, Grid, Typography, Box } from "@material-ui/core";
 import errorIcon from "assets/custom/img/ErrorContent.svg";
 import React from "react";
+import "./NoContent.scss";
 
 export const NoContentComponent = (title, subtitle, iconId, elements) => {
   return (

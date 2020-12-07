@@ -13,7 +13,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { Add } from "@material-ui/icons";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import SaveIcon from "@material-ui/icons/Save";
-import { TweetsByTopicTable } from "components/myTweets/TweetsByTopicTable";
 import { ReportsCarousel } from "components/reports/ReportsCarousel";
 import { Dropdown } from "components/shared/dropdown/Dropdown";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
@@ -24,6 +23,7 @@ import { get } from "utils/api/api";
 import { saveSelectedData } from "utils/localStorageManagement/selectedData";
 import { routes } from "utils/routes/routes";
 import "./DataSelection.scss";
+import { TweetsByTopicTable } from "./TweetsByTopicTable";
 
 export const DataSelection = () => {
   const [reports, setReports] = useState(undefined);
