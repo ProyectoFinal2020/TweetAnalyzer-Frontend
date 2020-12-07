@@ -56,6 +56,7 @@ export const PasswordReset = () => {
               </CardHeader>
               <CardBody>
                 <CustomTextValidator
+                  fullWidth={true}
                   label="Email"
                   id="email"
                   name="email"
@@ -66,7 +67,6 @@ export const PasswordReset = () => {
                     "El formato de mail no es correcto",
                   ]}
                   onChange={(e) => setEmail(e.target.value)}
-                  formControlProps={{ className: "all_width" }}
                   margin="normal"
                   InputProps={{
                     type: "email",

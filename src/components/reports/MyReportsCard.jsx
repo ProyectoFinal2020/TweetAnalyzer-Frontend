@@ -5,12 +5,14 @@ import {
   CardHeader,
   Divider,
   Grid,
+  IconButton,
   Paper,
   Tooltip,
   Typography,
 } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import { Delete } from "@material-ui/icons";
+import AddIcon from "@material-ui/icons/Add";
 import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMessageResult";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { AuthContext } from "contexts/AuthContext";
@@ -127,20 +129,9 @@ export const ReportsCard = () => {
     }
   };
 
-  const handleLanguageChange = (languages) => {
-    if (languages.includes("all")) {
-      if (
-        Object.keys(languagesDictionary).every((language) =>
-          languages.find((lang) => lang === language)
-        )
-      ) {
-        languages = [];
-      } else {
-        languages = Object.keys(languagesDictionary);
-      }
-    }
-    setLanguage(languages);
-    filterReports(searchWords, languages);
+  const handleLanguageChange = (language) => {
+    setLanguage(language);
+    filterReports(searchWords, language);
   };
 
   const handleSearchChange = (searchWords) => {
@@ -167,33 +158,36 @@ export const ReportsCard = () => {
 
   return (
     <>
-      <Typography component="h1" variant="h1" align="center">
-        Noticias
+      <Typography component="h1" variant="h1" align="center" className="title">
+        Mis noticias
       </Typography>
       {allReports && allReports.length > 0 ? (
         <Card style={{ padding: 15, marginBottom: 20 }}>
           <CardHeader
             action={
-              <Button
-                aria-label="Agregar noticias"
-                className="success"
-                variant="contained"
-                onClick={handleAdd}
-              >
-                Agregar noticias
-              </Button>
+              <Tooltip title="Agregar noticias">
+                <Button
+                  aria-label="Agregar noticias"
+                  className="success squared-icon-btn"
+                  variant="contained"
+                  onClick={handleAdd}
+                >
+                  <AddIcon />
+                </Button>
+              </Tooltip>
             }
+            style={{ padding: "16px 24px" }}
           />
-          <CardContent classes={{ root: "my-reports-card-content" }}>
+          <CardContent
+            className="pdg-top-0"
+            classes={{ root: "my-reports-card-content" }}
+          >
             <SearchReports
               languages={language}
               handleLanguageChange={handleLanguageChange}
               handleSearchChange={handleSearchChange}
-              disabled={!allReports || allReports.length === 0}
             />
-            <Box className="my_reports_divider">
-              <Divider light />
-            </Box>
+            <Divider light className="mgn-top-10 mgn-btm-20" />
             <>
               <Grid
                 container
@@ -226,14 +220,19 @@ export const ReportsCard = () => {
                 </Grid>
                 <Grid item>
                   <Tooltip title="Eliminar noticias seleccionadas">
-                    <Button
-                      aria-label="Eliminar noticias"
-                      className="danger my_reports_delete_button"
-                      onClick={handleDelete}
-                      disabled={reports.length === 0}
-                    >
-                      <Delete />
-                    </Button>
+                    <span>
+                      <IconButton
+                        aria-label="Eliminar noticias"
+                        onClick={handleDelete}
+                        disabled={
+                          reports.length === 0 ||
+                          !reports.find((r) => r.checked)
+                        }
+                        style={{ margin: "0 10px" }}
+                      >
+                        <Delete />
+                      </IconButton>
+                    </span>
                   </Tooltip>
                 </Grid>
               </Grid>

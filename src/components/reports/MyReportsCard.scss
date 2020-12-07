@@ -2,16 +2,6 @@
   padding: 7px 15px;
 }
 
-.my_reports_divider {
-  margin: 5px 0 20px;
-}
-
-.my_reports_delete_button {
-  padding: 5px 12px;
-  min-width: 50px;
-  margin: 0 10px;
-}
-
 .my_reports_select_all {
   button {
     height: 34px;
@@ -19,7 +9,6 @@
 }
 
 .my-reports-card-content {
-  padding: 0;
   &:last-child {
     padding-bottom: 0px;
   }

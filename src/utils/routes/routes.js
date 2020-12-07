@@ -6,8 +6,8 @@ import { PasswordReset } from "components/auth/views/PasswordReset";
 import { SignUpPage } from "components/auth/views/SignUpPage";
 import { VerifyEmail } from "components/auth/views/VerifyEmail";
 import { ReportForm } from "components/dataUploader/ReportForm";
+import { TweetsList } from "components/myTweets/MyTweetsList";
 import { ReportsCard } from "components/reports/MyReportsCard";
-import { ReportsList } from "components/reports/MyReportsList";
 import { EmotionAnalyzer } from "../../components/analyzers/emotionAnalyzer/EmotionAnalyzer";
 import { DataSelection } from "../../components/dataSelection/DataSelection";
 import { TweetFetcher } from "../../components/dataUploader/TweetFetcher";
@@ -26,15 +26,15 @@ export const routes = {
     path: "/tweets",
     component: MyTweets,
   },
+  tweetsList: {
+    name: "Mis tweets",
+    path: "/tweetsList",
+    component: TweetsList,
+  },
   reports: {
     name: "Mis noticias",
     path: "/reports",
     component: ReportsCard,
-  },
-  reportsList: {
-    name: "Noticias",
-    path: "/reportsList",
-    component: ReportsList,
   },
   editReport: {
     name: "Editar noticia",

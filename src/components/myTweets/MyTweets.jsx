@@ -133,7 +133,6 @@ export const MyTweets = () => {
     }).then((response) => {
       initializeAuxStructures(response);
       uncheckBoxes(checkboxes);
-      // To-Do: Chequearlo para todos los nuevos de frecuencia, emociones y sentimientos.
       if (
         selectedData &&
         selectedData.topic &&

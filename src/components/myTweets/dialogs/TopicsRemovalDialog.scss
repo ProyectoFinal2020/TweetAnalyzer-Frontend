@@ -1,0 +1,9 @@
+@import "assets/custom/scss/helpers/_variables";
+
+.list-header-title {
+  .MuiTypography-root {
+    font-family: $second-font;
+    font-weight: 600;
+    color: $dark-grey;
+  }
+}

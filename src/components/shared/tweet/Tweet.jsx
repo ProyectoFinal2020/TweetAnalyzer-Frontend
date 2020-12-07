@@ -4,8 +4,10 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Checkbox,
   Chip,
   Grid,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
 import avatarImage from "assets/custom/img/tweetLogo.svg";
@@ -18,6 +20,7 @@ export const Tweet = ({
   emotions,
   simAlgorithms,
   showPolarity,
+  setCheckedTweet,
   ...props
 }) => {
   const getDateAndTime = (tweet) => {
@@ -48,6 +51,16 @@ export const Tweet = ({
           </a>
         }
         subheader={getDateAndTime(tweet)}
+        action={
+          tweet.checked !== undefined ? (
+            <Tooltip title="Seleccionar">
+              <Checkbox
+                checked={tweet.checked}
+                onClick={() => setCheckedTweet()}
+              />
+            </Tooltip>
+          ) : null
+        }
       />
       <CardContent>
         <Grid container>
@@ -69,25 +82,21 @@ export const Tweet = ({
               />
             </Grid>
           ) : null}
-          {emotions ? (
-            <Grid item xs={12}>
-              <EmotionChart emotion={emotions} />
-            </Grid>
-          ) : null}
-          {simAlgorithms ? (
-            <Grid item xs={12}>
-              {simAlgorithms.map((simAlg, index) => (
-                <Chip
-                  key={index}
-                  style={{
-                    backgroundColor: simAlg.color,
-                  }}
-                  label={simAlg.name + ": " + simAlg.value}
-                  classes={{ root: "similarity_algorithms" }}
-                />
-              ))}
-            </Grid>
-          ) : null}
+          <Grid item xs={12}>
+            {emotions ? <EmotionChart emotion={emotions} /> : null}
+            {simAlgorithms
+              ? simAlgorithms.map((simAlg, index) => (
+                  <Chip
+                    key={index}
+                    style={{
+                      backgroundColor: simAlg.color,
+                    }}
+                    label={simAlg.name + ": " + simAlg.value}
+                    classes={{ root: "similarity_algorithms" }}
+                  />
+                ))
+              : null}
+          </Grid>
         </Grid>
       </CardContent>
     </Card>

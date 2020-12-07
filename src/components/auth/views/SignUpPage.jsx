@@ -324,9 +324,12 @@ export const SignUpPage = () => {
                 <FormControl
                   className="form_control_file"
                   aria-invalid={imageAsFile && !isImage()}
+                  margin="normal"
+                  fullWidth
                 >
                   <InputLabel
                     htmlFor="foto_perfil"
+                    shrink
                     className="file_input_label"
                   >
                     Foto de perfil
