@@ -1,359 +1,380 @@
 import {
+  Box,
   Button,
-  Checkbox,
-  Fab,
+  Card,
+  CardContent,
+  CardHeader,
   Grid,
-  Hidden,
+  IconButton,
+  Paper,
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import Box from "@material-ui/core/Box";
-import Tab from "@material-ui/core/Tab";
-import Tabs from "@material-ui/core/Tabs";
+import { Delete } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { AuthContext } from "contexts/AuthContext";
+import DeleteSweepIcon from "@material-ui/icons/DeleteSweep";
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import { CardSubheader } from "components/analyzers/common/CardSubheader";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { get, deleteBatch } from "utils/api/api";
-import PropTypes from "prop-types";
-import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "contexts/AuthContext";
+import { CustomContext } from "contexts/CustomContext";
+import { default as React, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import swal from "sweetalert";
+import { deleteBatch, get } from "utils/api/api";
+import { languagesDictionary } from "utils/dictionaries/language";
 import { removeSelectedData } from "utils/localStorageManagement/selectedData";
 import { routes } from "utils/routes/routes";
-import { SpaceAvailableInfo } from "./SpaceAvailableInfo";
-import { TweetsByTopicTable } from "./TweetsByTopicTable";
-import { CloudDownload } from "@material-ui/icons";
-import { downloadFile } from "utils/fileDownloader/downloadFile.js";
-
-const TabPanel = (props) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box p={3}>{children}</Box>}
-    </div>
-  );
-};
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-const a11yProps = (index) => {
-  return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
-  };
-};
+import { SpaceInfoDialog } from "./dialogs/SpaceInfoDialog";
+import { TopicsRemovalDialog } from "./dialogs/TopicsRemovalDialog";
+import "./MyTweets.scss";
+import { SearchTweets } from "./SearchTweets";
+import { TweetsTable } from "./TweetsTable";
+import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
 
 export const MyTweets = () => {
-  const [value, setValue] = useState(0);
-  const [tweetsTopics, setTweetsTopics] = useState(undefined);
-  const [spaceInfo, setSpaceInfo] = useState(undefined);
-  const [additionalInfo, setAdditionalInfo] = useState(undefined);
-  const [selectedTopic, setSelectedTopic] = useState(undefined);
-  const [selectedSpaceUsed, setSelectedSpaceUsed] = useState(undefined);
-  const [dictionary, setDictionary] = useState({});
   const history = useHistory();
+  const [count, setCount] = useState(0);
+  const [totalTweets, setTotalTweets] = useState(0);
+  const [page, setPage] = useState(1);
+  const [tweetsPerPage, setTweetsPerPage] = useState(12);
+  const [tweets, setTweets] = useState(undefined);
+  const [tweetsTopics, setTweetsTopics] = useState(undefined);
+  const [selectedTweetTopic, setSelectedTweetTopic] = useState({
+    topic_title: null,
+    language: null,
+    spaceUsed: null,
+  });
+  const [spaceInfoDialogOpen, setSpaceInfoDialogOpen] = useState(false);
+  const [tweetsRemovalDialogOpen, setTweetsRemovalDialogOpen] = useState(false);
   const { selectedData, setSelectedData } = useContext(AuthContext);
-
-  const initializeAuxStructures = (response) => {
-    setTweetsTopics(
-      response.data.additionalInformation.map((item) => item.topic)
-    );
-    setSpaceInfo(response.data);
-    if (response.data.additionalInformation.length > 0) {
-      let dict = [];
-      let dictAux = {};
-      let i = 0;
-      Object.values(response.data.additionalInformation).forEach((item) => {
-        dict[item.topic] = item.spaceUsed;
-        dictAux[i++] = item.topic;
-      });
-      setDictionary(dictAux);
-      setAdditionalInfo(dict);
-      setSelectedTopic(response.data.additionalInformation[0].topic);
-      setSelectedSpaceUsed(dict[response.data.additionalInformation[0].topic]);
-      return () => {
-        dict = [];
-        dictAux = {};
-      };
-    }
-  };
+  const { setSnackbarItem, setShowSnackbar } = useContext(CustomContext);
 
   useEffect(() => {
     get("/user/info").then((response) => {
-      initializeAuxStructures(response);
+      const topics = response.data.additionalInformation;
+      setTweetsTopics(topics);
+      setSelectedTweetTopic(topics[0]);
+      getTweets(page, tweetsPerPage, topics[0]?.topic_title);
     });
+    // eslint-disable-next-line
   }, []);
 
-  const handleChange = (_event, newValue) => {
-    setValue(newValue);
-    setSelectedTopic(dictionary[newValue]);
-    setSelectedSpaceUsed(additionalInfo[dictionary[newValue]]);
+  const handleTweetsTopicChange = (selectedTopic) => {
+    const selected = tweetsTopics.find((t) => t.topic_title === selectedTopic);
+    setSelectedTweetTopic(
+      selected
+        ? selected
+        : { topic_title: null, spaceUsed: null, language: null }
+    );
+    getTweets(page, tweetsPerPage, selectedTopic);
   };
 
-  const uncheckBoxes = (checkboxes) => {
-    checkboxes.forEach((checkbox) => {
-      if (checkbox.checked) {
-        checkbox.click();
-      }
+  const getTweets = (page, per_page, tweetTopic) => {
+    setTweets(undefined);
+    get(
+      "/user/tweets/paginated?page=" +
+        page +
+        "&per_page=" +
+        per_page +
+        "&topic_title=" +
+        tweetTopic
+    ).then((response) => {
+      setResults(response.data);
     });
   };
 
-  const getTopicsToDelete = () => {
-    let topicsToDelete = [];
-    let checkboxes = [];
-    tweetsTopics.forEach((topic) => {
-      let checkbox = document.getElementById("topicId:" + topic);
-      checkboxes.push(checkbox);
-      if (checkbox.checked) {
-        topicsToDelete.push(topic);
-      }
-    });
-    return { topicsToDelete, checkboxes };
+  const setResults = (results) => {
+    setPage(parseInt(results.page));
+    setTweets(
+      results.items.map((tweet) => {
+        tweet.checked = false;
+        return tweet;
+      })
+    );
+    setTweetsPerPage(parseInt(results.per_page));
+    setCount(parseInt(results.pages));
+    setTotalTweets(parseInt(results.total));
+  };
+
+  const updateTweetChecked = (id) => {
+    const index = tweets.findIndex((t) => t.id === id);
+    const tweetsAux = [...tweets];
+    tweetsAux[index].checked = !tweetsAux[index].checked;
+    setTweets(tweetsAux);
   };
 
   const handleAddClick = () => {
     history.push(routes.tweetFetcher.path);
   };
 
-  const handleDelete = (topicsToDelete, checkboxes) => {
-    deleteBatch("/user/tweets/topics", {
-      topics: JSON.parse(JSON.stringify(topicsToDelete)),
-    }).then((response) => {
-      initializeAuxStructures(response);
-      uncheckBoxes(checkboxes);
-      if (
-        selectedData &&
-        selectedData.topic &&
-        topicsToDelete.includes(selectedData.topic.title)
-      ) {
-        removeSelectedData();
-        setSelectedData(undefined);
-      }
-    });
+  const handleChangeCheckedAll = (allSelected) => {
+    setTweets(
+      tweets.map((t) => {
+        t.checked = allSelected;
+        return t;
+      })
+    );
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    let { topicsToDelete, checkboxes } = getTopicsToDelete();
-    if (topicsToDelete.length > 0) {
-      swal({
-        title: "¿Estás seguro?",
-        text: "Una vez borrados, no podrás recuperar estos tweets",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      }).then((willDelete) => {
-        if (willDelete) {
-          handleDelete(topicsToDelete, checkboxes);
-          if (!topicsToDelete.includes(selectedTopic)) {
-            document
-              .getElementById("delete-selected-tweets-without-modal")
-              .click();
-          }
-        }
-      });
+  const handleDelete = () => {
+    const tweetsChecked = tweets.filter((t) => t.checked).map((t) => t.id);
+    if (tweetsChecked.length === parseInt(selectedTweetTopic.spaceUsed)) {
+      deleteTweetsTopics([selectedTweetTopic.topic_title]);
     } else {
-      document.getElementById("delete-selected-tweets").click();
+      deleteTweets(tweetsChecked);
     }
   };
 
-  const handleDeleteTopicClick = (e) => {
-    e.preventDefault();
-    let { topicsToDelete, checkboxes } = getTopicsToDelete();
-    if (topicsToDelete.length > 0) {
-      swal({
-        title: "¿Estás seguro?",
-        text: "Una vez borrados, no podrás recuperar estos tweets",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      }).then((willDelete) => {
-        if (willDelete) {
-          handleDelete(topicsToDelete, checkboxes);
-        }
+  const deleteTweetsTopics = (tweetsTopics) => {
+    const count = tweetsTopics.length;
+    deleteBatch("/user/tweets/topics", {
+      topics: JSON.parse(JSON.stringify(tweetsTopics)),
+    })
+      .then((response) => {
+        updateSelectedData(tweetsTopics);
+        handleTweetsTopicsDeletion(response.data.additionalInformation);
+        setSnackbarItem({
+          severity: "success",
+          message:
+            count === 1
+              ? "El tema ha sido eliminado con éxito"
+              : "Los temas han sido eliminados con éxito.",
+        });
+        setShowSnackbar(true);
+      })
+      .catch((error) => {
+        setSnackbarItem({
+          severity: "error",
+          message:
+            count === 1
+              ? "Lo sentimos. Hubo un error al intentar eliminar el tema."
+              : "Lo sentimos. Hubo un error al intentar eliminar los temas.",
+        });
+        setShowSnackbar(true);
       });
+  };
+
+  const updateSelectedData = (deletedTweetsTopic) => {
+    if (
+      selectedData &&
+      selectedData.topic &&
+      deletedTweetsTopic.includes(selectedData.topic.title)
+    ) {
+      removeSelectedData();
+      setSelectedData(undefined);
     }
   };
 
-  const handleDownloadTweets = () => {
-    get("/user/tweets?topic_title=" + selectedTopic).then((response) => {
-      downloadFile(response.data, selectedTopic + "-tweets");
+  const handleTweetsTopicsDeletion = (updatedTweetsTopics) => {
+    setTweetsTopics(updatedTweetsTopics);
+    if (
+      !updatedTweetsTopics.includes(
+        (t) => t.topic_title === selectedTweetTopic.topic_title
+      ) &&
+      updatedTweetsTopics.length > 0
+    ) {
+      setSelectedTweetTopic(updatedTweetsTopics[0]);
+      getTweets(page, tweetsPerPage, updatedTweetsTopics[0]?.topic_title);
+    }
+  };
+
+  const deleteTweets = (tweetsIds) => {
+    deleteBatch("/user/tweets", {
+      tweets: JSON.parse(JSON.stringify(tweetsIds)),
+    }).then(() => {
+      /* To-Do: actualizar el spaceused */
+      const lastPage =
+        (selectedTweetTopic.spaceUsed - tweetsIds.length) / tweetsPerPage;
+      const newPage = lastPage > page ? page : lastPage;
+      getTweets(
+        Math.ceil(newPage),
+        tweetsPerPage,
+        selectedTweetTopic.topic_title
+      );
     });
   };
 
-  return tweetsTopics && tweetsTopics.length > 0 ? (
+  return (
     <>
       <Typography component="h1" variant="h1" align="center" className="title">
         Mis tweets
       </Typography>
-      <Grid container direction="row" justify="center" alignItems="flex-start">
-        <Grid item xs={12} sm={12} md={12} lg={3}>
-          <SpaceAvailableInfo
-            spaceInfo={spaceInfo}
-            topic={{ title: selectedTopic, spaceUsed: selectedSpaceUsed }}
-          />
-          <Grid item xs={12} sm={12} md={12} lg={12} className="user_menu_tabs">
-            <Tabs
-              orientation="vertical"
-              variant="scrollable"
-              value={value}
-              onChange={handleChange}
-              aria-label="Temas"
-            >
-              <Tab
-                key="title-tab"
-                disabled
-                label={
-                  <Grid container>
-                    <Grid item xs={11} sm={11} md={11} lg={11}>
-                      <Typography variant="h6" align="center">
-                        Títulos
-                      </Typography>
+      {tweetsTopics && tweetsTopics.length > 0 ? (
+        <>
+          <Card className="card-row" style={{ padding: 15, marginBottom: 20 }}>
+            <CardHeader
+              action={
+                <Box>
+                  <Tooltip title="Agregar tweets">
+                    <Button
+                      className="success squared-icon-btn"
+                      variant="contained"
+                      onClick={handleAddClick}
+                    >
+                      <AddIcon />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip title="Eliminar temas">
+                    <Button
+                      className="danger squared-icon-btn"
+                      variant="contained"
+                      onClick={() => setTweetsRemovalDialogOpen(true)}
+                    >
+                      <DeleteSweepIcon />
+                    </Button>
+                  </Tooltip>
+                </Box>
+              }
+              style={{ padding: "16px 24px" }}
+            />
+            <CardContent className="pdg-top-0">
+              <SearchTweets
+                tweetsTopics={tweetsTopics}
+                handleTweetsTopicChange={handleTweetsTopicChange}
+                selectedTweetTopic={selectedTweetTopic.topic_title}
+              />
+              {selectedTweetTopic.topic_title ? (
+                <>
+                  <Grid
+                    container
+                    direction="row"
+                    justify="space-between"
+                    alignItems="flex-end"
+                  >
+                    <Grid item>
+                      <CardHeader
+                        title={
+                          <>
+                            {selectedTweetTopic.topic_title}
+                            {/* To-Do: Decidir donde poner el descargar */}
+                            {/* <DownloadButton
+                              asIcon={true}
+                              url={
+                                "/user/tweets?topic_title=" + selectedTweetTopic.topic_title
+                              }
+                              disableDownload={!tweets}
+                              filename={selectedTweetTopic.topic_title + "-tweets"}
+                            /> */}
+                          </>
+                        }
+                        subheader={
+                          <CardSubheader
+                            labels={[
+                              {
+                                title: "Idioma",
+                                value:
+                                  languagesDictionary[
+                                    selectedTweetTopic.language
+                                  ],
+                              },
+                              {
+                                title: "Espacio utilizado",
+                                value: totalTweets,
+                                actionButton: {
+                                  tooltip: "Ver espacio de almacenamiento",
+                                  icon: <InfoOutlinedIcon />,
+                                  onClick: () => setSpaceInfoDialogOpen(true),
+                                },
+                              },
+                            ]}
+                          />
+                        }
+                        style={{ padding: "0 0 10px" }}
+                      />
                     </Grid>
-                    <Grid item xs={1} sm={1} md={1} lg={1}>
-                      <span
-                        typeof="button"
-                        onClick={handleDeleteTopicClick}
-                        className="user_menu_delete_topics_button"
-                      >
-                        <Tooltip title="Eliminar temas">
-                          <DeleteIcon />
-                        </Tooltip>
-                      </span>
+                    <Grid
+                      item
+                      xs={12}
+                      sm="auto"
+                      className="justify-right"
+                      style={{ marginBottom: 10 }}
+                    >
+                      {tweets &&
+                      tweets.length > 0 &&
+                      tweets.every((tweet) => tweet.checked) ? (
+                        <Button
+                          aria-label="Deseleccionar todas"
+                          onClick={() => handleChangeCheckedAll(false)}
+                        >
+                          <Typography variant="caption" component="span">
+                            Deseleccionar todas
+                          </Typography>
+                        </Button>
+                      ) : (
+                        <Button
+                          aria-label="Seleccionar todas"
+                          onClick={() => handleChangeCheckedAll(true)}
+                          disabled={!tweets || tweets.length === 0}
+                        >
+                          <Typography variant="caption" component="span">
+                            Seleccionar todas
+                          </Typography>
+                        </Button>
+                      )}
+                      <Tooltip title="Eliminar tweets">
+                        <span>
+                          <IconButton
+                            aria-label="Eliminar tweets"
+                            onClick={handleDelete}
+                            disabled={
+                              !tweets ||
+                              tweets.length === 0 ||
+                              !tweets.some((t) => t.checked)
+                            }
+                            style={{ margin: "0 0 0 10px" }}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </span>
+                      </Tooltip>
                     </Grid>
                   </Grid>
-                }
-              ></Tab>
-              {tweetsTopics.map((topic, key) => (
-                <Tab
-                  key={key}
-                  label={
-                    <Grid container>
-                      <Grid item xs={11} sm={11} md={11} lg={11}>
-                        <Typography variant="body1">{topic}</Typography>
-                        {additionalInfo ? (
-                          <Typography
-                            variant="caption"
-                            color="secondary"
-                            id={"topic-space-used-tabs" + topic}
-                          >
-                            {"Espacio usado:" + additionalInfo[topic]}
-                          </Typography>
-                        ) : null}
-                      </Grid>
-                      <Grid item xs={1} sm={1} md={1} lg={1}>
-                        <Checkbox
-                          id={"topicId:" + topic}
-                          value={topic}
-                          onClick={(e) => e.stopPropagation()}
-                          onFocus={(e) => e.stopPropagation()}
-                        />
-                      </Grid>
-                    </Grid>
-                  }
-                  {...a11yProps(topic)}
-                  value={tweetsTopics.indexOf(topic)}
-                />
-              ))}
-            </Tabs>
-          </Grid>
-          <Hidden smDown>
-            <Box className="btn-group_fab">
-              <Tooltip title="Descargar tweets">
-                <Fab
-                  onClick={handleDownloadTweets}
-                  aria-label="Download"
-                  className="secondary"
-                >
-                  <CloudDownload />
-                </Fab>
-              </Tooltip>
-              <Tooltip title="Agregar tweets">
-                <Fab
-                  onClick={handleAddClick}
-                  aria-label="Agregar"
-                  className="success"
-                >
-                  <AddIcon />
-                </Fab>
-              </Tooltip>
-              <Tooltip title="Eliminar temas y tweets">
-                <Fab
-                  onClick={handleClick}
-                  aria-label="Eliminar"
-                  className="danger"
-                >
-                  <DeleteIcon />
-                </Fab>
-              </Tooltip>
-            </Box>
-          </Hidden>
-          <Hidden mdUp>
-            <Box className="action_btn_group user_menu_add_delete_btn_box">
-              <Button
-                onClick={handleClick}
-                aria-label="Eliminar temas y tweets individuales"
-                className="danger"
-                startIcon={<DeleteIcon />}
-              >
-                Eliminar
-              </Button>
-              <Button
-                onClick={handleAddClick}
-                aria-label="Agregar tweets"
-                className="success"
-                startIcon={<AddIcon />}
-              >
-                Agregar
-              </Button>
-            </Box>
-          </Hidden>
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={9}>
-          {tweetsTopics.map((topic, key) => (
-            <TabPanel
-              key={key}
-              value={value}
-              index={tweetsTopics.indexOf(topic)}
-              className="my_tweets_tab_panel"
-            >
-              <TweetsByTopicTable
-                className="my_tweet_tweets_by_topic"
-                topicTitle={topic}
-                deleteable={true}
-                reloadTopics={initializeAuxStructures}
-                setTopicValue={setValue}
-              />
-            </TabPanel>
-          ))}
-        </Grid>
-      </Grid>
+                  <TweetsTable
+                    tweets={tweets}
+                    count={count}
+                    total={totalTweets}
+                    page={page}
+                    setPage={setPage}
+                    tweetsPerPage={tweetsPerPage}
+                    setTweetsPerPage={setTweetsPerPage}
+                    selectable={true}
+                    getTweets={(page, perPage) =>
+                      getTweets(page, perPage, selectedTweetTopic.topic_title)
+                    }
+                    updateTweetChecked={updateTweetChecked}
+                  />
+                </>
+              ) : null}
+            </CardContent>
+          </Card>
+          <SpaceInfoDialog
+            open={spaceInfoDialogOpen}
+            setOpen={setSpaceInfoDialogOpen}
+          />
+          <TopicsRemovalDialog
+            handleDelete={deleteTweetsTopics}
+            tweetsTopics={tweetsTopics}
+            open={tweetsRemovalDialogOpen}
+            setOpen={setTweetsRemovalDialogOpen}
+          />
+        </>
+      ) : tweetsTopics ? (
+        <Paper className="no-tweets-paper">
+          <Box className="no_content_box">
+            {NoContentComponent(
+              "No tenés tweets",
+              "¡Agregá nuevos tweets para comenzar!",
+              "#NoSearchResult",
+              [
+                {
+                  handleClick: handleAddClick,
+                  buttonText: "Agregar tweets",
+                },
+              ]
+            )}
+          </Box>
+        </Paper>
+      ) : null}
     </>
-  ) : tweetsTopics ? (
-    <Box className="no_content_box">
-      {NoContentComponent(
-        "No tenés tweets",
-        "¡Agregá nuevos tweets para comenzar!",
-        "#NoSearchResult",
-        [
-          {
-            handleClick: handleAddClick,
-            buttonText: "Agregar tweets",
-          },
-        ]
-      )}
-    </Box>
-  ) : null;
+  );
 };

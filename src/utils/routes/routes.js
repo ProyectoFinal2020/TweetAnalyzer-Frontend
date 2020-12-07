@@ -6,13 +6,12 @@ import { PasswordReset } from "components/auth/views/PasswordReset";
 import { SignUpPage } from "components/auth/views/SignUpPage";
 import { VerifyEmail } from "components/auth/views/VerifyEmail";
 import { ReportForm } from "components/dataUploader/ReportForm";
-import { TweetsList } from "components/myTweets/MyTweetsList";
+import { MyTweets } from "components/myTweets/MyTweets";
 import { ReportsCard } from "components/reports/MyReportsCard";
 import { EmotionAnalyzer } from "../../components/analyzers/emotionAnalyzer/EmotionAnalyzer";
 import { DataSelection } from "../../components/dataSelection/DataSelection";
 import { TweetFetcher } from "../../components/dataUploader/TweetFetcher";
 import { Home } from "../../components/home/Home";
-import { MyTweets } from "../../components/myTweets/MyTweets";
 import { SimilarityAlgorithms } from "../../components/similarityAlgorithms/SimilarityAlgorithms";
 
 export const routes = {
@@ -25,11 +24,6 @@ export const routes = {
     name: "Mis tweets",
     path: "/tweets",
     component: MyTweets,
-  },
-  tweetsList: {
-    name: "Mis tweets",
-    path: "/tweetsList",
-    component: TweetsList,
   },
   reports: {
     name: "Mis noticias",

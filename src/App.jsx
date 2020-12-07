@@ -96,10 +96,6 @@ const App = () => {
                     component={routes.reports.component}
                   />
                   <PrivateRoute
-                    path={routes.tweetsList.path}
-                    component={routes.tweetsList.component}
-                  />
-                  <PrivateRoute
                     path={routes.similarityAlgorithms.path}
                     component={routes.similarityAlgorithms.component}
                   />
