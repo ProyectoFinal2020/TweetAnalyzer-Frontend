@@ -14,6 +14,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import Skeleton from "@material-ui/lab/Skeleton";
 import BubbleChart from "@weknow/react-bubble-chart-d3";
 import { FilterFields } from "components/shared/chips/FilterFields";
+import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMessageResult";
 import { SimilarityAlgorithmsKeys } from "components/similarityAlgorithms/SimilarityAlgorithmsNames";
 import * as d3 from "d3";
 import React, { useEffect, useState } from "react";
@@ -33,6 +34,7 @@ export const FrequencyBubbleChart = ({ className, selectedData, ...props }) => {
   const [maxAmountWords, setMaxAmountWords] = useState(200);
   const [filteredWordsCount, setFilteredWordsCount] = useState(undefined);
   const [wordsCount, setWordsCount] = useState(undefined);
+  const [showResults, setShowResults] = useState(true);
 
   useEffect(() => {
     setFilteredWordsCount(undefined);
@@ -47,6 +49,7 @@ export const FrequencyBubbleChart = ({ className, selectedData, ...props }) => {
         selectedData.threshold
     ).then((response) => {
       setWordsCount(response.data);
+      setShowResults(response.data.length);
       setFilteredWordsCount(response.data);
     });
   }, [selectedData]);
@@ -72,7 +75,7 @@ export const FrequencyBubbleChart = ({ className, selectedData, ...props }) => {
     );
   };
 
-  return selectedData ? (
+  return selectedData && showResults ? (
     <>
       <Card className={className} variant="outlined">
         <CardHeader
@@ -122,81 +125,92 @@ export const FrequencyBubbleChart = ({ className, selectedData, ...props }) => {
         />
         <CardContent className="graph-card-container">
           {filteredWordsCount ? (
-            <>
-              <FilterFields
-                values={[
-                  "Max. cantidad de palabras en el gráfico: " + maxAmountWords,
-                  "Total de palabras: " + wordsCount.length,
-                ]}
-              />
-              <Hidden mdDown>
-                <Grid
-                  container
-                  direction="row-reverse"
-                  justify="center"
-                  spacing={4}
-                >
-                  <Grid item lg={3}>
-                    <Card variant="outlined">
-                      <CardHeader title="Top 10" style={{ paddingBottom: 0 }} />
-                      <CardContent>
-                        {filteredWordsCount
-                          .slice(0, 10)
-                          .map((wordCount, index) => (
-                            <TopRow
-                              key={index}
-                              label={wordCount.label}
-                              value={wordCount.value}
-                              color={colors(index)}
-                              className="top-legend-width"
-                            />
-                          ))}
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item xs="auto">
-                    <BubbleChart
-                      graph={{
-                        zoom: 1,
-                        offsetX: 0,
-                        offsetY: 0,
-                      }}
-                      width={680}
-                      height={680}
-                      showLegend={false}
-                      valueFont={{
-                        size: 12,
-                        color: "white",
-                        weight: "600",
-                      }}
-                      labelFont={{
-                        size: 13,
-                        color: "white",
-                        weight: "700",
-                      }}
-                      data={filteredWordsCount.slice(0, maxAmountWords)}
-                    />
-                  </Grid>
-                </Grid>
-              </Hidden>
-              <Hidden lgUp>
-                <ReactWordcloud
-                  maxWords={maxAmountWords}
-                  words={filteredWordsCount
-                    .slice(0, maxAmountWords)
-                    .map((word) => ({
-                      text: word.label,
-                      value: word.value,
-                    }))}
-                  options={{
-                    rotations: 0,
-                    fontSizes: [15, 60],
-                    fontFamily: "Roboto",
-                    deterministic: true,
-                  }}
+            filteredWordsCount.length > 0 ? (
+              <>
+                <FilterFields
+                  values={[
+                    "Max. cantidad de palabras en el gráfico: " +
+                      maxAmountWords,
+                    "Total de palabras: " + wordsCount.length,
+                  ]}
                 />
-              </Hidden>
-            </>
+                <Hidden mdDown>
+                  <Grid
+                    container
+                    direction="row-reverse"
+                    justify="center"
+                    spacing={4}
+                  >
+                    <Grid item lg={3}>
+                      <Card variant="outlined">
+                        <CardHeader
+                          title="Top 10"
+                          style={{ paddingBottom: 0 }}
+                        />
+                        <CardContent>
+                          {filteredWordsCount
+                            .slice(0, 10)
+                            .map((wordCount, index) => (
+                              <TopRow
+                                key={index}
+                                label={wordCount.label}
+                                value={wordCount.value}
+                                color={colors(index)}
+                                className="top-legend-width"
+                              />
+                            ))}
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                    <Grid item xs="auto">
+                      <BubbleChart
+                        graph={{
+                          zoom: 1,
+                          offsetX: 0,
+                          offsetY: 0,
+                        }}
+                        width={680}
+                        height={680}
+                        showLegend={false}
+                        valueFont={{
+                          size: 12,
+                          color: "white",
+                          weight: "600",
+                        }}
+                        labelFont={{
+                          size: 13,
+                          color: "white",
+                          weight: "700",
+                        }}
+                        data={filteredWordsCount.slice(0, maxAmountWords)}
+                      />
+                    </Grid>
+                  </Grid>
+                </Hidden>
+                <Hidden lgUp>
+                  <ReactWordcloud
+                    maxWords={maxAmountWords}
+                    words={filteredWordsCount
+                      .slice(0, maxAmountWords)
+                      .map((word) => ({
+                        text: word.label,
+                        value: word.value,
+                      }))}
+                    options={{
+                      rotations: 0,
+                      fontSizes: [15, 60],
+                      fontFamily: "Roboto",
+                      deterministic: true,
+                    }}
+                  />
+                </Hidden>
+              </>
+            ) : (
+              <EmptyMessageResult
+                title="Lo sentimos, no se encontraron tweets con esas características."
+                subtitle="¡Intentá nuevamente con otro filtro!"
+              />
+            )
           ) : (
             <Skeleton height={600} variant="rect" />
           )}

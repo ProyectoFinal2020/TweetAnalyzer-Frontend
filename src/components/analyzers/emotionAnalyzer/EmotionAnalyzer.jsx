@@ -10,6 +10,7 @@ import {
 import Skeleton from "@material-ui/lab/Skeleton";
 import { TweetsSelection } from "components/analyzers/common/TweetsSelection";
 import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
+import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMessageResult";
 import { NoContentComponent } from "components/shared/noContent/NoContent";
 import { ResponsiveTablePaginator } from "components/shared/paginator/ResponsiveTablePaginator";
 import { Tweet } from "components/shared/tweet/Tweet";
@@ -29,6 +30,7 @@ export const EmotionAnalyzer = () => {
   const [tweetsPerPage, setTweetsPerPage] = useState(6);
   const [count, setCount] = useState(0);
   const [selectedData, setSelectedData] = useState(undefined);
+  const [showResults, setShowResults] = useState(true);
 
   const setResults = (results) => {
     setPage(parseInt(results.page));
@@ -67,6 +69,7 @@ export const EmotionAnalyzer = () => {
     };
     setSelectedData(newSelectedData);
     getTweets(1, tweetsPerPage, newSelectedData);
+    setShowResults(true);
   };
 
   const getSubheader = () => {
@@ -110,98 +113,110 @@ export const EmotionAnalyzer = () => {
         setHasTweets={setHasTweets}
       />
       {selectedData ? (
-        <>
-          <Card className="card-row">
-            <CardHeader
-              title="Resumen de emociones"
-              subheader={getSubheader()}
-              className="pdg-btm-0"
-            />
-            <CardContent className="pdg-top-0">
-              <SummaryChart selectedData={selectedData} />
-            </CardContent>
-          </Card>
-          <Card className="card-row">
-            <CardHeader
-              title="Emociones"
-              subheader={getSubheader()}
-              action={
-                <>
-                  <DownloadButton
-                    asIcon={true}
-                    url={
-                      "/emotionAnalyzer/download?topicTitle=" +
-                      selectedData.topicTitle
-                    }
-                    disableDownload={
-                      !tweetAndEmotions || tweetAndEmotions.length === 0
-                    }
-                    filename={selectedData.topicTitle + "-emotion-analysis"}
-                  />
-                </>
-              }
-              classes={{
-                action: "emotion-analyzer-header-action",
-              }}
-              className="pdg-btm-0"
-            />
-            <CardContent>
-              {tweetAndEmotions && tweetAndEmotions.length > 0 ? (
-                <>
-                  <Grid
-                    container
-                    direction="row"
-                    alignItems="stretch"
-                    spacing={2}
-                  >
-                    {tweetAndEmotions.map((tweetAndEmotions) => (
-                      <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        lg={4}
-                        key={tweetAndEmotions.tweet.id}
-                      >
-                        <Tweet
-                          tweet={tweetAndEmotions.tweet}
-                          emotions={tweetAndEmotions.emotions}
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
-                  <ResponsiveTablePaginator
-                    count={count}
-                    total={total}
-                    page={page}
-                    itemsPerPage={tweetsPerPage}
-                    listItemsPerPage={[6, 12, 24, 48]}
-                    getItems={getTweets}
-                    setPage={setPage}
-                    setItemsPerPage={setTweetsPerPage}
-                  />
-                </>
-              ) : (
-                <>
-                  <Grid
-                    container
-                    direction="row"
-                    alignItems="stretch"
-                    spacing={2}
-                  >
-                    {[1, 2, 3, 4, 5, 6].map((key) => (
-                      <Grid item xs={12} sm={6} lg={4} key={key}>
-                        <Skeleton height={530} variant="rect" />
-                      </Grid>
-                    ))}
-                    <Grid item xs={12}>
-                      <Skeleton height={52} variant="rect" />
+        showResults ? (
+          <>
+            <Card className="card-row">
+              <CardHeader
+                title="Resumen de emociones"
+                subheader={getSubheader()}
+                className="pdg-btm-0"
+              />
+              <CardContent className="pdg-top-0">
+                <SummaryChart
+                  selectedData={selectedData}
+                  setShowResults={setShowResults}
+                />
+              </CardContent>
+            </Card>
+            <Card className="card-row">
+              <CardHeader
+                title="Emociones"
+                subheader={getSubheader()}
+                action={
+                  <>
+                    <DownloadButton
+                      asIcon={true}
+                      url={
+                        "/emotionAnalyzer/download?topicTitle=" +
+                        selectedData.topicTitle
+                      }
+                      disableDownload={
+                        !tweetAndEmotions || tweetAndEmotions.length === 0
+                      }
+                      filename={selectedData.topicTitle + "-emotion-analysis"}
+                    />
+                  </>
+                }
+                classes={{
+                  action: "emotion-analyzer-header-action",
+                }}
+                className="pdg-btm-0"
+              />
+              <CardContent>
+                {tweetAndEmotions && tweetAndEmotions.length > 0 ? (
+                  <>
+                    <Grid
+                      container
+                      direction="row"
+                      alignItems="stretch"
+                      spacing={2}
+                    >
+                      {tweetAndEmotions.map((tweetAndEmotions) => (
+                        <Grid
+                          item
+                          xs={12}
+                          sm={6}
+                          lg={4}
+                          key={tweetAndEmotions.tweet.id}
+                        >
+                          <Tweet
+                            tweet={tweetAndEmotions.tweet}
+                            emotions={tweetAndEmotions.emotions}
+                          />
+                        </Grid>
+                      ))}
                     </Grid>
-                  </Grid>
-                </>
-              )}
-            </CardContent>
+                    <ResponsiveTablePaginator
+                      count={count}
+                      total={total}
+                      page={page}
+                      itemsPerPage={tweetsPerPage}
+                      listItemsPerPage={[6, 12, 24, 48]}
+                      getItems={getTweets}
+                      setPage={setPage}
+                      setItemsPerPage={setTweetsPerPage}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Grid
+                      container
+                      direction="row"
+                      alignItems="stretch"
+                      spacing={2}
+                    >
+                      {[1, 2, 3, 4, 5, 6].map((key) => (
+                        <Grid item xs={12} sm={6} lg={4} key={key}>
+                          <Skeleton height={530} variant="rect" />
+                        </Grid>
+                      ))}
+                      <Grid item xs={12}>
+                        <Skeleton height={52} variant="rect" />
+                      </Grid>
+                    </Grid>
+                  </>
+                )}
+              </CardContent>
+            </Card>
+          </>
+        ) : (
+          <Card>
+            <EmptyMessageResult
+              title="Lo sentimos, no se encontraron tweets con esas características."
+              subtitle="¡Intentá nuevamente con otro umbral!"
+            />
           </Card>
-        </>
+        )
       ) : hasTweets && !selectedData ? (
         <Paper>
           <Box className="no-content-box">

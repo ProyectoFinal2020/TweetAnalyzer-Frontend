@@ -5,8 +5,17 @@ import { get } from "utils/api/api";
 import { getEmotions } from "./getTweetAndEmotions";
 import "./SummaryChart.scss";
 
-export const SummaryChart = ({ selectedData, ...props }) => {
+export const SummaryChart = ({ selectedData, setShowResults, ...props }) => {
   const [topicEmotions, setTopicEmotions] = useState(undefined);
+
+  const checkForEmotions = (emotions) => {
+    for (var emotion in emotions) {
+      if (emotions[emotion] !== 0) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   useEffect(() => {
     setTopicEmotions(undefined);
@@ -21,8 +30,9 @@ export const SummaryChart = ({ selectedData, ...props }) => {
         selectedData.threshold
     ).then((response) => {
       setTopicEmotions(getEmotions(response.data));
+      setShowResults(checkForEmotions(response.data));
     });
-  }, [selectedData]);
+  }, [selectedData, setShowResults]);
 
   return topicEmotions ? (
     <EmotionChart emotion={topicEmotions} height={250} fontSize={5} />

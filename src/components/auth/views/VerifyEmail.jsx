@@ -43,7 +43,7 @@ export const VerifyEmail = () => {
           [
             {
               handleClick: () => handleMailSend(),
-              buttonText: "Volver a mandar email de verificación",
+              buttonText: "Volver a envíar email de verificación",
             },
             {
               handleClick: () => history.push(routes.home.path),

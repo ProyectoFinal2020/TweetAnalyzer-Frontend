@@ -37,6 +37,7 @@ export const SentimentAnalyzer = () => {
   const [tweetsPerPage, setTweetsPerPage] = useState(6);
   const [hasTweets, setHasTweets] = useState(undefined);
   const [selectedData, setSelectedData] = useState(undefined);
+  const [showResults, setShowResults] = useState(true);
   const STEP_SIZE = 0.25;
 
   const getTweets = (
@@ -69,6 +70,7 @@ export const SentimentAnalyzer = () => {
         threshold
     ).then((response) => {
       setResults(response.data);
+      setShowResults(response.data.total !== "0");
     });
   };
 
@@ -158,157 +160,166 @@ export const SentimentAnalyzer = () => {
         setHasTweets={setHasTweets}
       />
       {selectedData ? (
-        <>
-          <Card className="card-row">
-            <CardHeader
-              title="Sentimientos"
-              subheader={
-                <CardSubheader
-                  labels={
-                    selectedData.algorithm
-                      ? [
-                          {
-                            title: "Tweets",
-                            value: selectedData.topicTitle,
-                          },
-                          {
-                            title: "Algoritmo",
-                            value:
-                              SimilarityAlgorithmsKeys[selectedData.algorithm]
-                                .name,
-                          },
-                          {
-                            title: "Umbral",
-                            value: selectedData.threshold,
-                          },
-                        ]
-                      : [
-                          {
-                            title: "Tweets",
-                            value: selectedData.topicTitle,
-                          },
-                        ]
-                  }
-                />
-              }
-              action={
-                <DownloadButton
-                  asIcon={true}
-                  url={
-                    "/sentimentAnalyzer/download?topicTitle=" +
-                    selectedData.topicTitle +
-                    "&step_size=" +
-                    STEP_SIZE
-                  }
-                  disableDownload={!graphInfo}
-                  filename={selectedData.topicTitle + "-sentiment-analysis"}
-                />
-              }
-            />
-            <CardContent style={{ padding: "0 40px 20px" }}>
-              {graphInfo ? (
-                <Bar
-                  height={100}
-                  width={350}
-                  data={graphInfo}
-                  legend={{ display: false }}
-                  options={getOptions()}
-                />
-              ) : (
-                <Skeleton variant="rect" width="100%" height={310} />
-              )}
-            </CardContent>
-          </Card>
-          <Card style={{ marginTop: 15 }}>
-            <CardHeader
-              title="Filtrado de tweets"
-              subheader={
-                <CardSubheader
-                  labels={[
-                    {
-                      title: "Polaridad mínima",
-                      value: searchedPolarity[0],
-                    },
-                    {
-                      title: "Polaridad máxima",
-                      value: searchedPolarity[1],
-                    },
-                  ]}
-                />
-              }
-              action={
-                <Tooltip title="Filtrar">
-                  <IconButton onClick={() => setOpen(true)}>
-                    <FilterListIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-            <CardContent>
-              {tweets && tweets.length > 0 ? (
-                <>
-                  <Grid container spacing={2} alignItems="stretch">
-                    {tweets.map((tweet) => (
-                      <Grid item xs={12} sm={6} lg={4} key={tweet.id}>
-                        <Tweet tweet={tweet} showPolarity={true} />
+        showResults ? (
+          <>
+            <Card className="card-row">
+              <CardHeader
+                title="Sentimientos"
+                subheader={
+                  <CardSubheader
+                    labels={
+                      selectedData.algorithm
+                        ? [
+                            {
+                              title: "Tweets",
+                              value: selectedData.topicTitle,
+                            },
+                            {
+                              title: "Algoritmo",
+                              value:
+                                SimilarityAlgorithmsKeys[selectedData.algorithm]
+                                  .name,
+                            },
+                            {
+                              title: "Umbral",
+                              value: selectedData.threshold,
+                            },
+                          ]
+                        : [
+                            {
+                              title: "Tweets",
+                              value: selectedData.topicTitle,
+                            },
+                          ]
+                    }
+                  />
+                }
+                action={
+                  <DownloadButton
+                    asIcon={true}
+                    url={
+                      "/sentimentAnalyzer/download?topicTitle=" +
+                      selectedData.topicTitle +
+                      "&step_size=" +
+                      STEP_SIZE
+                    }
+                    disableDownload={!graphInfo}
+                    filename={selectedData.topicTitle + "-sentiment-analysis"}
+                  />
+                }
+              />
+              <CardContent style={{ padding: "0 40px 20px" }}>
+                {graphInfo ? (
+                  <Bar
+                    height={100}
+                    width={350}
+                    data={graphInfo}
+                    legend={{ display: false }}
+                    options={getOptions()}
+                  />
+                ) : (
+                  <Skeleton variant="rect" width="100%" height={310} />
+                )}
+              </CardContent>
+            </Card>
+            <Card style={{ marginTop: 15 }}>
+              <CardHeader
+                title="Filtrado de tweets"
+                subheader={
+                  <CardSubheader
+                    labels={[
+                      {
+                        title: "Polaridad mínima",
+                        value: searchedPolarity[0],
+                      },
+                      {
+                        title: "Polaridad máxima",
+                        value: searchedPolarity[1],
+                      },
+                    ]}
+                  />
+                }
+                action={
+                  <Tooltip title="Filtrar">
+                    <IconButton onClick={() => setOpen(true)}>
+                      <FilterListIcon />
+                    </IconButton>
+                  </Tooltip>
+                }
+              />
+              <CardContent>
+                {tweets ? (
+                  <>
+                    <Grid container spacing={2} alignItems="stretch">
+                      {tweets.map((tweet) => (
+                        <Grid item xs={12} sm={6} lg={4} key={tweet.id}>
+                          <Tweet tweet={tweet} showPolarity={true} />
+                        </Grid>
+                      ))}
+                    </Grid>
+                    <ResponsiveTablePaginator
+                      count={count}
+                      total={total}
+                      page={page}
+                      itemsPerPage={tweetsPerPage}
+                      listItemsPerPage={[6, 12, 24, 48]}
+                      getItems={(page, per_page) =>
+                        getTweets(
+                          page,
+                          per_page,
+                          selectedData.topicTitle,
+                          searchedPolarity[0],
+                          searchedPolarity[1],
+                          selectedData.reportId,
+                          selectedData.algorithm,
+                          selectedData.threshold
+                        )
+                      }
+                      setPage={setPage}
+                      setItemsPerPage={setTweetsPerPage}
+                    />
+                  </>
+                ) : !tweets ? (
+                  <Grid
+                    container
+                    direction="row"
+                    alignItems="stretch"
+                    spacing={2}
+                  >
+                    {[1, 2, 3, 4, 5, 6].map((key) => (
+                      <Grid item xs={12} sm={6} lg={4} key={key}>
+                        <Skeleton height={300} variant="rect" />
                       </Grid>
                     ))}
-                  </Grid>
-                  <ResponsiveTablePaginator
-                    count={count}
-                    total={total}
-                    page={page}
-                    itemsPerPage={tweetsPerPage}
-                    listItemsPerPage={[6, 12, 24, 48]}
-                    getItems={(page, per_page) =>
-                      getTweets(
-                        page,
-                        per_page,
-                        selectedData.topicTitle,
-                        searchedPolarity[0],
-                        searchedPolarity[1],
-                        selectedData.reportId,
-                        selectedData.algorithm,
-                        selectedData.threshold
-                      )
-                    }
-                    setPage={setPage}
-                    setItemsPerPage={setTweetsPerPage}
-                  />
-                </>
-              ) : !tweets ? (
-                <Grid
-                  container
-                  direction="row"
-                  alignItems="stretch"
-                  spacing={2}
-                >
-                  {[1, 2, 3, 4, 5, 6].map((key) => (
-                    <Grid item xs={12} sm={6} lg={4} key={key}>
-                      <Skeleton height={300} variant="rect" />
+                    <Grid item xs={12}>
+                      <Skeleton height={52} variant="rect" />
                     </Grid>
-                  ))}
-                  <Grid item xs={12}>
-                    <Skeleton height={52} variant="rect" />
                   </Grid>
-                </Grid>
-              ) : (
-                <EmptyMessageResult
-                  title="Lo sentimos, no se encontraron tweets con esas características."
-                  subtitle="¡Intentá nuevamente con otro filtro!"
-                />
-              )}
-            </CardContent>
+                ) : (
+                  <EmptyMessageResult
+                    title="Lo sentimos, no se encontraron tweets con esas características."
+                    subtitle="¡Intentá nuevamente con otro filtro!"
+                  />
+                )}
+              </CardContent>
+            </Card>
+            <FilterByThresholdDialog
+              open={open}
+              setOpen={setOpen}
+              STEP_SIZE={STEP_SIZE}
+              minPolarity={searchedPolarity[0]}
+              maxPolarity={searchedPolarity[1]}
+              handleSubmit={handleSubmit}
+            />
+          </>
+        ) : (
+          <Card>
+            <EmptyMessageResult
+              title="Lo sentimos, no se encontraron tweets con esas características."
+              subtitle="¡Intentá nuevamente con otro umbral!"
+            />
           </Card>
-          <FilterByThresholdDialog
-            open={open}
-            setOpen={setOpen}
-            STEP_SIZE={STEP_SIZE}
-            minPolarity={searchedPolarity[0]}
-            maxPolarity={searchedPolarity[1]}
-            handleSubmit={handleSubmit}
-          />
-        </>
+        )
       ) : hasTweets && !selectedData ? (
         <Paper>
           <Box className="no-content-box">
