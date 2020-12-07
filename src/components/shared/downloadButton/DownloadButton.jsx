@@ -10,6 +10,7 @@ export const DownloadButton = ({
   asIcon = false,
   url,
   filename,
+  className,
   ...rest
 }) => {
   const handleDownload = () => {
@@ -18,12 +19,12 @@ export const DownloadButton = ({
 
   return !asIcon ? (
     <Button
-      className="btn-download"
       variant="contained"
       color="secondary"
       aria-label="Descargar"
       onClick={handleDownload}
       disabled={disableDownload}
+      className={className + " btn-download"}
     >
       <CloudDownloadIcon /> Descargar
     </Button>
@@ -34,6 +35,7 @@ export const DownloadButton = ({
           aria-label="settings"
           onClick={handleDownload}
           disabled={disableDownload}
+          className={className}
         >
           <CloudDownloadIcon />
         </IconButton>

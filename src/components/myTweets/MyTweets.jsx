@@ -247,14 +247,18 @@ export const MyTweets = () => {
                           <>
                             {selectedTweetTopic.topic_title}
                             {/* To-Do: Decidir donde poner el descargar */}
-                            {/* <DownloadButton
+                            <DownloadButton
                               asIcon={true}
                               url={
-                                "/user/tweets?topic_title=" + selectedTweetTopic.topic_title
+                                "/user/tweets?topic_title=" +
+                                selectedTweetTopic.topic_title
                               }
                               disableDownload={!tweets}
-                              filename={selectedTweetTopic.topic_title + "-tweets"}
-                            /> */}
+                              filename={
+                                selectedTweetTopic.topic_title + "-tweets"
+                              }
+                              className="download-tweets-btn"
+                            />
                           </>
                         }
                         subheader={
