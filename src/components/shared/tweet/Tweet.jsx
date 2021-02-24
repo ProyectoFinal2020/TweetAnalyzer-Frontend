@@ -13,7 +13,7 @@ import {
 import avatarImage from "assets/custom/img/tweetLogo.svg";
 import React from "react";
 import { EmotionChart } from "./EmotionChart";
-import "./Tweet.scss";
+import "./tweet.scss";
 
 export const Tweet = ({
   tweet,
