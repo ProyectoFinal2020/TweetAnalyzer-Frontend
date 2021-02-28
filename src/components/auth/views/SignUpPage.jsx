@@ -13,18 +13,19 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import CheckCircle from "@material-ui/icons/CheckCircle";
 import Email from "@material-ui/icons/Email";
 import Person from "@material-ui/icons/Person";
-import { AuthContext } from "contexts/AuthContext";
-import { CustomContext } from "contexts/CustomContext";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { CustomContext } from "../../../contexts/CustomContext";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { post } from "utils/api/api";
-import { app, storage } from "utils/firebase/firebase";
-import { routes } from "utils/routes/routes";
+import { post } from "../../../utils/api/api";
+import { app, storage } from "../../../utils/firebase/firebase";
+import { routes } from "../../../utils/routes/routes";
 import Card from "../Card/Card.js";
 import CardBody from "../Card/CardBody.js";
 import CardFooter from "../Card/CardFooter.js";
 import CardHeader from "../Card/CardHeader.js";
 import CustomInput from "../CustomInput/CustomInput.js";
+import "./Login.scss";
 
 let errorDictionary = {
   "auth/email-already-in-use": "Ya existe un usuario asociado a este mail.",

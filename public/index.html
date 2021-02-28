@@ -7,10 +7,10 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="theme-color" content="#000000" />
-    <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-    -->
+    <meta
+    name="description"
+    content="Tweet Analyzer"
+  />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <link
@@ -20,20 +20,32 @@
     />
     <!--     Fonts and icons     -->
     <link
-      rel="stylesheet"
-      type="text/css"
+      rel="preload"
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+    /></noscript>
     <link
+      rel="preload"
       href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
-      rel="stylesheet"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+    /></noscript>
     <script
+      async
       src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"
       crossorigin="anonymous"
     ></script>
-
-    <noscript id="jss-insertion-point" />
 
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.

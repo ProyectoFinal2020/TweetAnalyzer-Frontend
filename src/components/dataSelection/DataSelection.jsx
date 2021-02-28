@@ -13,17 +13,18 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { Add } from "@material-ui/icons";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import SaveIcon from "@material-ui/icons/Save";
-import { ReportsCarousel } from "components/reports/ReportsCarousel";
-import { Dropdown } from "components/shared/dropdown/Dropdown";
-import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { AuthContext } from "contexts/AuthContext";
+import { ReportsCarousel } from "../reports/ReportsCarousel";
+import { Dropdown } from "../shared/dropdown/Dropdown";
+import { NoContentComponent } from "../shared/noContent/NoContent";
+import { AuthContext } from "../../contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { get } from "utils/api/api";
-import { saveSelectedData } from "utils/localStorageManagement/selectedData";
-import { routes } from "utils/routes/routes";
-import "./DataSelection.scss";
+import { get } from "../../utils/api/api";
+import { saveSelectedData } from "../../utils/localStorageManagement/selectedData";
+import { routes } from "../../utils/routes/routes";
 import { TweetsByTopicTable } from "./TweetsByTopicTable";
+import "./DataSelection.scss";
+import "./TweetsByTopicTable.scss";
 
 export const DataSelection = () => {
   const [reports, setReports] = useState(undefined);

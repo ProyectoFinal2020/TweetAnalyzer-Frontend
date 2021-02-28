@@ -1,4 +1,4 @@
-import config from "../scss/config.scss";
+import config from "../scss/config.module.scss";
 
 const theme = {
   typography: {
@@ -8,7 +8,7 @@ const theme = {
   },
   palette: {
     primary: {
-      main: config.primaryColor,
+      main: config["primaryColor"],
     },
     secondary: {
       main: config.roseColor,

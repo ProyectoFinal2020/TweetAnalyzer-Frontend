@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { NoContentComponent } from "components/shared/noContent/NoContent";
+import { NoContentComponent } from "../../shared/noContent/NoContent";
 import { Box } from "@material-ui/core";
-import { app } from "utils/firebase/firebase";
+import { app } from "../../../utils/firebase/firebase";
 import { useHistory } from "react-router-dom";
-import { routes } from "utils/routes/routes";
-import { CustomContext } from "contexts/CustomContext";
+import { routes } from "../../../utils/routes/routes";
+import { CustomContext } from "../../../contexts/CustomContext";
 
 export const VerifyEmail = () => {
   const history = useHistory();

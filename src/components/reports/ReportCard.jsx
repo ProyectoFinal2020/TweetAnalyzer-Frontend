@@ -11,16 +11,17 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { AuthContext } from "contexts/AuthContext";
-import { deleteBatch } from "utils/api/api";
+import { AuthContext } from "../../contexts/AuthContext";
+import { deleteBatch } from "../../utils/api/api";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { routes } from "utils/routes/routes";
+import { routes } from "../../utils/routes/routes";
 import { showMsgConfirmation, updateSelectedData } from "./deleteReports";
-import { CustomContext } from "contexts/CustomContext";
+import { CustomContext } from "../../contexts/CustomContext";
 import Highlighter from "react-highlight-words";
-import { languagesDictionary } from "utils/dictionaries/language";
+import { languagesDictionary } from "../../utils/dictionaries/language";
 import { ReportDialog } from "./ReportDialog";
+import "./MyReportsCard.scss";
 
 export const ReportCard = ({
   report,

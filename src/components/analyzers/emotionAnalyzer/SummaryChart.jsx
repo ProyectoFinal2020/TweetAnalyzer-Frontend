@@ -1,7 +1,7 @@
 import Skeleton from "@material-ui/lab/Skeleton";
-import { EmotionChart } from "components/shared/tweet/EmotionChart";
+import { EmotionChart } from "../../shared/tweet/EmotionChart";
 import React, { useEffect, useState } from "react";
-import { get } from "utils/api/api";
+import { get } from "../../../utils/api/api";
 import { getEmotions } from "./getTweetAndEmotions";
 import "./SummaryChart.scss";
 

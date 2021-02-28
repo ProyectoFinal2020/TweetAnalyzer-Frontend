@@ -14,12 +14,12 @@ import {
 import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { CustomContext } from "contexts/CustomContext";
+import { NoContentComponent } from "../shared/noContent/NoContent";
+import { CustomContext } from "../../contexts/CustomContext";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { get, post, put } from "utils/api/api";
-import { routes } from "utils/routes/routes";
+import { get, post, put } from "../../utils/api/api";
+import { routes } from "../../utils/routes/routes";
 import { LanguageButtons } from "./LanguageButtons";
 import "./ReportForm.scss";
 

@@ -1,4 +1,4 @@
-import charts from "assets/custom/scss/config.scss";
+import charts from "../../../assets/custom/scss/config.module.scss";
 
 export const getEmotions = (emotion) => {
   let emotions = [];

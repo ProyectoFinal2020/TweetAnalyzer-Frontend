@@ -6,11 +6,11 @@ import {
   Paper,
   Tooltip,
 } from "@material-ui/core";
-import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { AuthContext } from "contexts/AuthContext";
+import { NoContentComponent } from "../../shared/noContent/NoContent";
+import { AuthContext } from "../../../contexts/AuthContext";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { routes } from "utils/routes/routes";
+import { routes } from "../../../utils/routes/routes";
 import { SelectSimAlgorithmForm } from "./SelectSimAlgorithmForm";
 import { SelectTweetTopics } from "./SelectTweetTopics";
 import "./TweetsSelection.scss";

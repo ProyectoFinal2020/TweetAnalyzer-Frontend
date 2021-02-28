@@ -1,4 +1,4 @@
-import config from "assets/custom/scss/config.scss";
+import config from "../../../assets/custom/scss/config.module.scss";
 
 export const graphColors = config["polarity"];
 

@@ -2,7 +2,7 @@ import { Grid, TextField } from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import Pagination from "@material-ui/lab/Pagination";
-import config from "assets/custom/scss/config.scss";
+import config from "../../../assets/custom/scss/config.module.scss";
 import React from "react";
 import "./Paginator.scss";
 

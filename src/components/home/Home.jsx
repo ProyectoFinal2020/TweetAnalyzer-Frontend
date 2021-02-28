@@ -1,9 +1,10 @@
 import { Button, Grid, Typography } from "@material-ui/core";
-import { AuthContext } from "contexts/AuthContext";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { routes } from "utils/routes/routes";
 import { HomeCards } from "./HomeCards";
+import { routes } from "../../utils/routes/routes";
+import { AuthContext } from "../../contexts/AuthContext";
+import "./Home.scss";
 
 export const Home = () => {
   const history = useHistory();

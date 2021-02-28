@@ -1,4 +1,5 @@
-@import "../helpers/_variables";
+@import "../../../assets/custom/scss/helpers/variables";
+@import "../../../assets/custom/scss/helpers/mixins";
 
 .login_container {
   min-height: calc(100vh - 214px);
@@ -9,7 +10,7 @@
   padding: 50px 0 0;
   border: 0;
   align-items: center;
-  background-image: url("/homeBackground.jpg");
+  background-image: url("../../../assets/custom/img/homeBackground.jpg");
   background-size: cover;
   background-position: top center;
 

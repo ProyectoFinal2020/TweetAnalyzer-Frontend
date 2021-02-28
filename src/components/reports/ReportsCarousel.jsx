@@ -1,12 +1,13 @@
 import { Box, Chip, Typography } from "@material-ui/core";
-import config from "assets/custom/scss/config.scss";
-import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMessageResult";
-import { CustomContext } from "contexts/CustomContext";
+import config from "../../assets/custom/scss/config.module.scss";
+import { EmptyMessageResult } from "../shared/emptyMessageResult/EmptyMessageResult";
+import { CustomContext } from "../../contexts/CustomContext";
 import React, { useContext, useEffect, useState } from "react";
 import Slider from "react-slick";
-import { languagesDictionary } from "utils/dictionaries/language";
+import { languagesDictionary } from "../../utils/dictionaries/language";
 import { ReportCard } from "./ReportCard";
 import { SearchReports } from "./SearchReports";
+import "./MyReportsCard.scss";
 
 export const ReportsCarousel = ({
   setSelectedReport,

@@ -3,18 +3,19 @@ import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Email from "@material-ui/icons/Email";
-import { AuthContext } from "contexts/AuthContext";
-import { CustomContext } from "contexts/CustomContext";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { CustomContext } from "../../../contexts/CustomContext";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { get } from "utils/api/api";
-import { app } from "utils/firebase/firebase";
-import { routes } from "utils/routes/routes";
+import { get } from "../../../utils/api/api";
+import { app } from "../../../utils/firebase/firebase";
+import { routes } from "../../../utils/routes/routes";
 import Card from "../Card/Card.js";
 import CardBody from "../Card/CardBody.js";
 import CardFooter from "../Card/CardFooter.js";
 import CardHeader from "../Card/CardHeader.js";
 import CustomInput from "../CustomInput/CustomInput.js";
+import "./Login.scss";
 
 export const LoginPage = () => {
   const history = useHistory();

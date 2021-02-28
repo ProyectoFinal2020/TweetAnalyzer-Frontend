@@ -5,11 +5,10 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import React from "react";
 import { getPageSections } from "./PageSections";
-import { routes } from "utils/routes/routes";
 import { useHistory } from "react-router-dom";
 
 export const HomeCards = () => {
-  const pageSections = getPageSections(routes);
+  const pageSections = getPageSections();
   const history = useHistory();
 
   return pageSections ? (

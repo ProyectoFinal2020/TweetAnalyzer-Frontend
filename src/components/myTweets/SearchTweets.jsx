@@ -1,9 +1,9 @@
 import { Divider, Grid, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMessageResult";
-import { LanguageDropdown } from "components/shared/languageDropdown/LanguageDropdown";
+import { EmptyMessageResult } from "../shared/emptyMessageResult/EmptyMessageResult";
+import { LanguageDropdown } from "../shared/languageDropdown/LanguageDropdown";
 import React, { useEffect, useState } from "react";
-import { languagesDictionary } from "utils/dictionaries/language";
+import { languagesDictionary } from "../../utils/dictionaries/language";
 import "./SearchTweets.scss";
 
 export const SearchTweets = ({

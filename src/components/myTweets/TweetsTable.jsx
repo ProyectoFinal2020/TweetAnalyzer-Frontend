@@ -1,8 +1,8 @@
 import { Grid } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMessageResult";
-import { ResponsiveTablePaginator } from "components/shared/paginator/ResponsiveTablePaginator";
-import { Tweet } from "components/shared/tweet/Tweet";
+import { EmptyMessageResult } from "../shared/emptyMessageResult/EmptyMessageResult";
+import { ResponsiveTablePaginator } from "../shared/paginator/ResponsiveTablePaginator";
+import { Tweet } from "../shared/tweet/Tweet";
 import React from "react";
 
 export const TweetsTable = ({

@@ -1,10 +1,10 @@
 import { useEffect, useContext } from "react";
-import { routes } from "utils/routes/routes";
+import { routes } from "../../../utils/routes/routes";
 import { useHistory } from "react-router-dom";
-import { get } from "utils/api/api";
-import { logout } from "utils/localStorageManagement/authentication";
-import { app } from "utils/firebase/firebase";
-import { AuthContext } from "contexts/AuthContext";
+import { get } from "../../../utils/api/api";
+import { logout } from "../../../utils/localStorageManagement/authentication";
+import { app } from "../../../utils/firebase/firebase";
+import { AuthContext } from "../../../contexts/AuthContext";
 
 export const EmailWasVerified = () => {
   const history = useHistory();

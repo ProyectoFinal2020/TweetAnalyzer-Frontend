@@ -1,4 +1,4 @@
-import { removeSelectedData } from "utils/localStorageManagement/selectedData";
+import { removeSelectedData } from "../../utils/localStorageManagement/selectedData";
 import swal from "sweetalert";
 
 export const updateSelectedData = (

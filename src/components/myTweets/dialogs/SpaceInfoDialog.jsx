@@ -6,7 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Skeleton } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
-import { get } from "utils/api/api";
+import { get } from "../../../utils/api/api";
 import "./SpaceInfoDialog.scss";
 
 export const SpaceInfoDialog = ({ open, setOpen, ...props }) => {

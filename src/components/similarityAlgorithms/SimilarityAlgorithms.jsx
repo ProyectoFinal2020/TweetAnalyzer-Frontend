@@ -12,18 +12,18 @@ import {
   Typography,
 } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { CardSubheader } from "components/analyzers/common/CardSubheader";
-import { FilterFields } from "components/shared/chips/FilterFields";
-import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
-import { Dropdown } from "components/shared/dropdown/Dropdown";
-import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { ResponsiveTablePaginator } from "components/shared/paginator/ResponsiveTablePaginator";
-import { AuthContext } from "contexts/AuthContext";
+import { CardSubheader } from "../analyzers/common/CardSubheader";
+import { FilterFields } from "../shared/chips/FilterFields";
+import { DownloadButton } from "../shared/downloadButton/DownloadButton";
+import { Dropdown } from "../shared/dropdown/Dropdown";
+import { NoContentComponent } from "../shared/noContent/NoContent";
+import { ResponsiveTablePaginator } from "../shared/paginator/ResponsiveTablePaginator";
+import { AuthContext } from "../../contexts/AuthContext";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { get, post } from "utils/api/api";
-import { saveSelectedData } from "utils/localStorageManagement/selectedData";
-import { routes } from "utils/routes/routes";
+import { get, post } from "../../utils/api/api";
+import { saveSelectedData } from "../../utils/localStorageManagement/selectedData";
+import { routes } from "../../utils/routes/routes";
 import { SelectSimilarityAlgorithmsForm } from "./SelectSimilarityAlgorithmsForm";
 import "./SimilarityAlgorithms.scss";
 import { SimilarityAlgorithmsKeys } from "./SimilarityAlgorithmsNames";

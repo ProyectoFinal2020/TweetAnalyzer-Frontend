@@ -17,7 +17,7 @@
 // ##############################
 // // // Variables - Styles that are used on more than one component
 // #############################
-import config from "../../custom/scss/config.scss";
+import config from "../../custom/scss/config.module.scss";
 
 const drawerWidth = 260;
 

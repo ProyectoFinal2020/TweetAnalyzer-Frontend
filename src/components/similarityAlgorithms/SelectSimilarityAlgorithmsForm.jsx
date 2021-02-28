@@ -8,8 +8,8 @@ import {
 import Checkbox from "@material-ui/core/Checkbox";
 import Chip from "@material-ui/core/Chip";
 import ListItemText from "@material-ui/core/ListItemText";
-import { Dropdown } from "components/shared/dropdown/Dropdown";
-import { AuthContext } from "contexts/AuthContext";
+import { Dropdown } from "../shared/dropdown/Dropdown";
+import { AuthContext } from "../../contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { ValidatorForm } from "react-material-ui-form-validator";
 import "./SelectSimilarityAlgorithmsForm.scss";

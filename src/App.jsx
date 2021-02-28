@@ -3,13 +3,13 @@ import {
   StylesProvider,
   ThemeProvider,
 } from "@material-ui/core/styles";
-import { PrivateRoute } from "components/auth/routes/PrivateRoute";
-import { PublicRoute } from "components/auth/routes/PublicRoute";
-import { CenteredHeaderLinks } from "components/shared/header/CenteredHeaderLinks.jsx";
-import { Header } from "components/shared/header/Header.jsx";
-import { HeaderLinks } from "components/shared/header/HeaderLinks.jsx";
-import { DefaultLayout } from "components/shared/layout/DefaultLayout.jsx";
-import { ScrollToTop } from "components/shared/layout/ScrollToTop.jsx";
+import { PrivateRoute } from "./components/auth/routes/PrivateRoute";
+import { PublicRoute } from "./components/auth/routes/PublicRoute";
+import { CenteredHeaderLinks } from "./components/shared/header/CenteredHeaderLinks.jsx";
+import { Header } from "./components/shared/header/Header.jsx";
+import { HeaderLinks } from "./components/shared/header/HeaderLinks.jsx";
+import { DefaultLayout } from "./components/shared/layout/DefaultLayout.jsx";
+import { ScrollToTop } from "./components/shared/layout/ScrollToTop.jsx";
 import React from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { theme } from "./assets/custom/jss/theme.js";

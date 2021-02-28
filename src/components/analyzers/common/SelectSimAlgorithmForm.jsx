@@ -6,9 +6,9 @@ import {
   Grid,
   MenuItem,
 } from "@material-ui/core";
-import { Dropdown } from "components/shared/dropdown/Dropdown";
-import { SimilarityAlgorithmsKeys } from "components/similarityAlgorithms/SimilarityAlgorithmsNames";
-import { AuthContext } from "contexts/AuthContext";
+import { Dropdown } from "../../shared/dropdown/Dropdown";
+import { SimilarityAlgorithmsKeys } from "../..//similarityAlgorithms/SimilarityAlgorithmsNames";
+import { AuthContext } from "../../../contexts/AuthContext";
 import React, { useContext, useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import "./TweetsSelectionForms.scss";

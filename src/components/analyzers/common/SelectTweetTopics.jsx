@@ -5,10 +5,10 @@ import {
   FormHelperText,
   MenuItem,
 } from "@material-ui/core";
-import { Dropdown } from "components/shared/dropdown/Dropdown";
+import { Dropdown } from "../../shared/dropdown/Dropdown";
 import React, { useEffect, useState } from "react";
 import { ValidatorForm } from "react-material-ui-form-validator";
-import { get } from "utils/api/api";
+import { get } from "../../../utils/api/api";
 import "./TweetsSelectionForms.scss";
 
 export const SelectTweetTopics = ({ handleSubmit, setHasTweets, ...rest }) => {

@@ -12,9 +12,9 @@ import {
   Storage,
   Home,
 } from "@material-ui/icons";
-import styles from "assets/custom/jss/material-kit/headerLinksStyle.js";
-import navbarsStyle from "assets/custom/jss/material-kit/navbarsStyle";
-import { AuthContext } from "contexts/AuthContext";
+import styles from "../../../assets/custom/jss/material-kit/headerLinksStyle.js";
+import navbarsStyle from "../../../assets/custom/jss/material-kit/navbarsStyle";
+import { AuthContext } from "../../../contexts/AuthContext";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { routes } from "../../../utils/routes/routes";

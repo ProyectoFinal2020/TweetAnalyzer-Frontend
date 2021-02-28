@@ -1,8 +1,8 @@
-import { PublicLayout } from "components/shared/layout/PublicLayout";
-import { AuthContext } from "contexts/AuthContext";
+import { PublicLayout } from "../../shared/layout/PublicLayout";
+import { AuthContext } from "../../../contexts/AuthContext";
 import React, { useContext } from "react";
 import { Redirect, Route } from "react-router-dom";
-import { routes } from "utils/routes/routes";
+import { routes } from "../../../utils/routes/routes";
 
 export const PublicRoute = ({ component: Component, restricted, ...rest }) => {
   const { isAuthenticated } = useContext(AuthContext);

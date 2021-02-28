@@ -1,5 +1,5 @@
-@import "assets/custom/scss/helpers/_variables";
-@import "assets/custom/scss/helpers/_mixins";
+@import "../../../assets/custom/scss/helpers/_variables";
+@import "../../../assets/custom/scss/helpers/_mixins";
 
 .sidebar-title {
   text-align: center;
@@ -7,7 +7,7 @@
 }
 
 .sidebar-header {
-  background-image: url("/homeBackground.jpg");
+  background-image: url("../../../assets/custom/img/homeBackground.jpg");
   background-size: cover;
   background-position-y: bottom;
   background-color: $dark;

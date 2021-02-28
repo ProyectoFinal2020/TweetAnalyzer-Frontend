@@ -7,14 +7,14 @@ import {
 } from "@material-ui/core";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { FilterFields } from "components/shared/chips/FilterFields";
-import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMessageResult";
-import { SimilarityAlgorithmsKeys } from "components/similarityAlgorithms/SimilarityAlgorithmsNames";
+import { FilterFields } from "../../shared/chips/FilterFields";
+import { EmptyMessageResult } from "../../shared/emptyMessageResult/EmptyMessageResult";
+import { SimilarityAlgorithmsKeys } from "../../similarityAlgorithms/SimilarityAlgorithmsNames";
 import React, { useEffect, useState } from "react";
 import ReactWordcloud from "react-wordcloud";
 import "tippy.js/animations/scale.css";
 import "tippy.js/dist/tippy.css";
-import { get } from "utils/api/api";
+import { get } from "../../../utils/api/api";
 import { CardSubheader } from "../common/CardSubheader";
 import { FrequencyDialog } from "./dialogs/FrequencyDialog";
 

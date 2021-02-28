@@ -3,16 +3,9 @@
 @import "./helpers/_typography";
 @import "./helpers/_keyframes";
 
-@import "./components/_base";
-@import "./components/_buttons";
-@import "./components/_customInput";
+@import "./helpers/_base";
+@import "./helpers/_buttons";
+@import "./helpers/_customInput";
+@import "./helpers/_carousel";
 
-@import "./components/_tweetsByTopicTable";
-@import "./components/_infoBox";
-@import "./components/_reportCard";
-@import "./components/_carousel";
-
-@import "./pages/_login";
-@import "./pages/_home";
-
-@import "config";
+@import "./config.module.scss";

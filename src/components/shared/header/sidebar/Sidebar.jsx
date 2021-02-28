@@ -7,16 +7,16 @@ import {
   Storage,
   Settings,
 } from "@material-ui/icons";
-import { AuthContext } from "contexts/AuthContext";
+import { AuthContext } from "../../../../contexts/AuthContext";
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { app } from "utils/firebase/firebase";
-import { logout } from "utils/localStorageManagement/authentication";
-import { routes } from "utils/routes/routes";
-import { get } from "utils/api/api";
+import { app } from "../../../../utils/firebase/firebase";
+import { logout } from "../../../../utils/localStorageManagement/authentication";
+import { routes } from "../../../../utils/routes/routes";
+import { get } from "../../../../utils/api/api";
 import { SidebarItem } from "./SidebarItem";
-import anonymousUser from "assets/custom/img/anonymousUser.png";
-import { removeUserTour } from "utils/localStorageManagement/userTour";
+import anonymousUser from "../../../../assets/custom/img/anonymousUser.png";
+import { removeUserTour } from "../../../../utils/localStorageManagement/userTour";
 import { UserTour } from "../userTour/UserTour";
 
 export const Sidebar = ({ ...props }) => {

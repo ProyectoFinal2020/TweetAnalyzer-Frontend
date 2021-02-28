@@ -1,8 +1,8 @@
 import React, { useEffect, useReducer } from "react";
 import JoyRide, { ACTIONS, EVENTS, STATUS } from "react-joyride";
 import { useContext } from "react";
-import { AuthContext } from "contexts/AuthContext";
-import { saveUserTour } from "utils/localStorageManagement/userTour";
+import { AuthContext } from "../../../../contexts/AuthContext";
+import { saveUserTour } from "../../../../utils/localStorageManagement/userTour";
 import { TOUR_STEPS } from "./tourSteps";
 
 const INITIAL_STATE = {

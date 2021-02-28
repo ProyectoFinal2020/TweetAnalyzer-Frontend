@@ -10,10 +10,10 @@ import {
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import avatarImage from "assets/custom/img/tweetLogo.svg";
+import avatarImage from "../../../assets/custom/img/tweetLogo.svg";
 import React from "react";
 import { EmotionChart } from "./EmotionChart";
-import "./tweet.scss";
+import "./Tweet.scss";
 
 export const Tweet = ({
   tweet,

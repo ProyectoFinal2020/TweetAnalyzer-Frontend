@@ -6,7 +6,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import React, { useEffect, useRef, useState } from "react";
 import { Typography, Chip, Grid } from "@material-ui/core";
-import { languagesDictionary } from "utils/dictionaries/language";
+import { languagesDictionary } from "../../utils/dictionaries/language";
 
 export const ReportDialog = ({ report, onClose, ...props }) => {
   const [open, setOpen] = useState(true);

@@ -6,9 +6,10 @@ import {
   Storage,
 } from "@material-ui/icons";
 import React from "react";
-import config from "assets/custom/scss/config.scss";
+import config from "../../assets/custom/scss/config.module.scss";
+import { routes } from "../../utils/routes/routes";
 
-export const getPageSections = (routes) => {
+export const getPageSections = () => {
   return [
     {
       name: "Carga de datos",

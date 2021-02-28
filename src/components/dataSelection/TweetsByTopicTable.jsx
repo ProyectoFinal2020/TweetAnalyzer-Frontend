@@ -12,13 +12,14 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Skeleton from "@material-ui/lab/Skeleton";
-import avatarImage from "assets/custom/img/tweetLogo.svg";
-import { Paginator } from "components/shared/paginator/Paginator";
+import avatarImage from "../../assets/custom/img/tweetLogo.svg";
+import { Paginator } from "../shared/paginator/Paginator";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import React, { useEffect, useState } from "react";
 import { Tweet } from "react-fake-tweet";
 import swal from "sweetalert";
-import { deleteBatch, get } from "utils/api/api";
+import { deleteBatch, get } from "../../utils/api/api";
+import "./TweetsByTopicTable.scss";
 
 export const TweetsByTopicTable = ({
   topicTitle,

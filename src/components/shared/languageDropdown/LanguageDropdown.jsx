@@ -5,9 +5,9 @@ import {
   MenuItem,
   Typography,
 } from "@material-ui/core";
-import { Dropdown } from "components/shared/dropdown/Dropdown";
+import { Dropdown } from "../../shared/dropdown/Dropdown";
 import React from "react";
-import { languagesDictionary } from "utils/dictionaries/language";
+import { languagesDictionary } from "../../../utils/dictionaries/language";
 import "./LanguageDropdown.scss";
 
 export const LanguageDropdown = ({

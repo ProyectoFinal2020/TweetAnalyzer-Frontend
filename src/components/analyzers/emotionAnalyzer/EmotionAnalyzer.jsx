@@ -8,15 +8,15 @@ import {
   Typography,
 } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { TweetsSelection } from "components/analyzers/common/TweetsSelection";
-import { DownloadButton } from "components/shared/downloadButton/DownloadButton";
-import { EmptyMessageResult } from "components/shared/emptyMessageResult/EmptyMessageResult";
-import { NoContentComponent } from "components/shared/noContent/NoContent";
-import { ResponsiveTablePaginator } from "components/shared/paginator/ResponsiveTablePaginator";
-import { Tweet } from "components/shared/tweet/Tweet";
-import { SimilarityAlgorithmsKeys } from "components/similarityAlgorithms/SimilarityAlgorithmsNames";
+import { TweetsSelection } from "../../analyzers/common/TweetsSelection";
+import { DownloadButton } from "../../shared/downloadButton/DownloadButton";
+import { EmptyMessageResult } from "../../shared/emptyMessageResult/EmptyMessageResult";
+import { NoContentComponent } from "../../shared/noContent/NoContent";
+import { ResponsiveTablePaginator } from "../../shared/paginator/ResponsiveTablePaginator";
+import { Tweet } from "../../shared/tweet/Tweet";
+import { SimilarityAlgorithmsKeys } from "../../similarityAlgorithms/SimilarityAlgorithmsNames";
 import React, { useState } from "react";
-import { get } from "utils/api/api.js";
+import { get } from "../../../utils/api/api";
 import { CardSubheader } from "../common/CardSubheader";
 import "./EmotionAnalyzer.scss";
 import { getTweetAndEmotions } from "./getTweetAndEmotions";

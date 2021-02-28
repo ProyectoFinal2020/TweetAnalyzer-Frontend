@@ -5,13 +5,13 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import anonymousUser from "assets/custom/img/anonymousUser.png";
-import styles from "assets/custom/jss/material-kit/headerLinksStyle.js";
-import navbarsStyle from "assets/custom/jss/material-kit/navbarsStyle";
-import { AuthContext } from "contexts/AuthContext";
+import anonymousUser from "../../../assets/custom/img/anonymousUser.png";
+import styles from "../../../assets/custom/jss/material-kit/headerLinksStyle.js";
+import navbarsStyle from "../../../assets/custom/jss/material-kit/navbarsStyle";
+import { AuthContext } from "../../../contexts/AuthContext";
 import React, { useContext } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { get } from "utils/api/api";
+import { get } from "../../../utils/api/api";
 import { app } from "../../../utils/firebase/firebase";
 import { logout } from "../../../utils/localStorageManagement/authentication";
 import { routes } from "../../../utils/routes/routes";
@@ -34,8 +34,8 @@ export const HeaderLinks = (props) => {
 
   const customLogout = () => {
     setSelectedData(undefined);
-    logout();
     setIsAuthenticated(false);
+    logout();
     app.auth().signOut();
     history.push(routes.login.path);
   };

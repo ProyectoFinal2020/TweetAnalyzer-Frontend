@@ -1,5 +1,5 @@
 import { Box, Paper, Typography } from "@material-ui/core";
-import { NoContentComponent } from "components/shared/noContent/NoContent";
+import { NoContentComponent } from "../../shared/noContent/NoContent";
 import React, { useState } from "react";
 import { TweetsSelection } from "../common/TweetsSelection";
 import { FrequencyBubbleChart } from "./FrequencyBubbleChart";

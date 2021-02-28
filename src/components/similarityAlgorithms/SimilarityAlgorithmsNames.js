@@ -1,4 +1,4 @@
-import colors from "assets/custom/scss/config.scss";
+import colors from "../../assets/custom/scss/config.module.scss";
 
 export const SimilarityAlgorithmsNames = {
   "Bag of Words": {

@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import { Tweet } from "components/shared/tweet/Tweet";
+import { Tweet } from "../shared/tweet/Tweet";
 import React from "react";
 import { SimilarityAlgorithmsKeys } from "./SimilarityAlgorithmsNames";
 

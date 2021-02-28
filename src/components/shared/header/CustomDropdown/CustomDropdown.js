@@ -18,7 +18,7 @@ import Popper from "@material-ui/core/Popper";
 // core components
 import Button from "@material-ui/core/Button";
 
-import styles from "assets/custom/jss/material-kit/customDropdownStyle.js";
+import styles from "../../../../assets/custom/jss/material-kit/customDropdownStyle.js";
 import { Tooltip } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);

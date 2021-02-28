@@ -1,8 +1,8 @@
 import { Button, IconButton, Tooltip } from "@material-ui/core";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import React from "react";
-import { get } from "utils/api/api";
-import { downloadFile } from "utils/fileDownloader/downloadFile.js";
+import { get } from "../../../utils/api/api";
+import { downloadFile } from "../../../utils/fileDownloader/downloadFile.js";
 import "./DownloadButton.scss";
 
 export const DownloadButton = ({

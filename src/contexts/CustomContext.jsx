@@ -9,7 +9,7 @@ import {
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import MuiAlert from "@material-ui/lab/Alert";
 import React, { useEffect, useState } from "react";
-import { initializeInterceptors } from "utils/api/axios-interceptors";
+import { initializeInterceptors } from "../utils/api/axios-interceptors";
 
 export const CustomContext = React.createContext();
 

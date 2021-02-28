@@ -1,6 +1,6 @@
 import { Grid, InputAdornment, TextField } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
-import { LanguageDropdown } from "components/shared/languageDropdown/LanguageDropdown";
+import { LanguageDropdown } from "../shared/languageDropdown/LanguageDropdown";
 import React from "react";
 
 export const SearchReports = ({
