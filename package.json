@@ -22,7 +22,7 @@
     "moment": "^2.29.1",
     "nouislider": "^14.6.3",
     "prop-types": "^15.7.2",
-    "react": "^17.0.1",
+    "react": "^16.13.1",
     "react-autosize-textarea": "^7.1.0",
     "react-chartjs-2": "^2.11.1",
     "react-d3-cloud": "^0.7.0",
