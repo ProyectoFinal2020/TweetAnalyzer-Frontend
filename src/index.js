@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./assets/mdbreact/scss/mdb.scss";
 import "./assets/custom/scss/export.scss";
 import reportWebVitals from "./reportWebVitals";
+import * as serviceWorker from "./serviceWorkerRegistration";
 import App from "./App";
 
 ReactDOM.render(<App />, document.getElementById("root"));
@@ -17,3 +18,5 @@ ReactDOM.render(<App />, document.getElementById("root"));
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+serviceWorker.register();
