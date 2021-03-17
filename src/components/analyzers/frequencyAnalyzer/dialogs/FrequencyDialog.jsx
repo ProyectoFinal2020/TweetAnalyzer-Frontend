@@ -9,7 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import React, { useState } from "react";
 import "./FrequencyDialog.scss";
 
-export const FrequencyDialog = ({
+const FrequencyDialog = ({
   dialogTitle,
   open,
   setOpen,
@@ -83,3 +83,5 @@ export const FrequencyDialog = ({
     </Dialog>
   );
 };
+
+export default FrequencyDialog;

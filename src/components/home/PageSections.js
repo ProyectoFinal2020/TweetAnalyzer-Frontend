@@ -13,7 +13,7 @@ export const getPageSections = () => {
   return [
     {
       name: "Carga de datos",
-      color: config["orange"],
+      color: config["homeBordeaux"],
       icon: <CloudUpload />,
       subsections: [
         {
@@ -32,7 +32,7 @@ export const getPageSections = () => {
     },
     {
       name: "Selección de datos",
-      color: config["green"],
+      color: config["homeGreen"],
       icon: <Storage />,
       subsections: [
         {
@@ -44,7 +44,7 @@ export const getPageSections = () => {
     },
     {
       name: "Perfil",
-      color: config["purple"],
+      color: config["homePurple"],
       icon: <AccountCircle />,
       subsections: [
         {
@@ -63,7 +63,7 @@ export const getPageSections = () => {
     },
     {
       name: "Algoritmos de similitud",
-      color: config["red"],
+      color: config["homeRed"],
       icon: <ListAlt />,
       subsections: [
         {
@@ -76,7 +76,7 @@ export const getPageSections = () => {
     },
     {
       name: "Análisis",
-      color: config["blue"],
+      color: config["homeBlue"],
       icon: <SentimentVerySatisfied />,
       subsections: [
         {
@@ -89,7 +89,7 @@ export const getPageSections = () => {
     },
     {
       name: "Análisis",
-      color: config["blue"],
+      color: config["homeBlue"],
       icon: <SentimentVerySatisfied />,
       subsections: [
         {
@@ -102,7 +102,7 @@ export const getPageSections = () => {
     },
     {
       name: "Análisis",
-      color: config["blue"],
+      color: config["homeBlue"],
       icon: <SentimentVerySatisfied />,
       subsections: [
         {

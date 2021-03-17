@@ -12,6 +12,7 @@ const tooltipsStyle = {
     maxWidth: "200px",
     textAlign: "center",
     fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+    fontDisplay: "swap",
     fontSize: "0.875em",
     fontStyle: "normal",
     fontWeight: "400",
@@ -22,8 +23,8 @@ const tooltipsStyle = {
     wordSpacing: "normal",
     wordWrap: "normal",
     whiteSpace: "normal",
-    lineBreak: "auto"
-  }
+    lineBreak: "auto",
+  },
 };
 
 export default tooltipsStyle;

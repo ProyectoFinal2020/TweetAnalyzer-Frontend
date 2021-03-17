@@ -1,18 +1,42 @@
-import { FrequencyAnalyzer } from "../../components/analyzers/frequencyAnalyzer/FrequencyAnalyzer";
-import { SentimentAnalyzer } from "../../components/analyzers/sentimentAnalyzer/SentimentAnalyzer";
-import { EmailWasVerified } from "../../components/auth/views/EmailWasVerified";
-import { LoginPage } from "../../components/auth/views/LoginPage";
-import { PasswordReset } from "../../components/auth/views/PasswordReset";
-import { SignUpPage } from "../../components/auth/views/SignUpPage";
-import { VerifyEmail } from "../../components/auth/views/VerifyEmail";
-import { ReportForm } from "../../components/dataUploader/ReportForm";
-import { MyTweets } from "../../components/myTweets/MyTweets";
-import { ReportsCard } from "../../components/reports/MyReportsCard";
-import { EmotionAnalyzer } from "../../components/analyzers/emotionAnalyzer/EmotionAnalyzer";
-import { DataSelection } from "../../components/dataSelection/DataSelection";
-import { TweetFetcher } from "../../components/dataUploader/TweetFetcher";
-import { Home } from "../../components/home/Home";
-import { SimilarityAlgorithms } from "../../components/similarityAlgorithms/SimilarityAlgorithms";
+import { lazy } from "react";
+
+const Home = lazy(() => import("../../components/home/Home"));
+const FrequencyAnalyzer = lazy(() =>
+  import("../../components/analyzers/frequencyAnalyzer/FrequencyAnalyzer")
+);
+const SentimentAnalyzer = lazy(() =>
+  import("../../components/analyzers/sentimentAnalyzer/SentimentAnalyzer")
+);
+const EmailWasVerified = lazy(() =>
+  import("../../components/auth/views/EmailWasVerified")
+);
+const LoginPage = lazy(() => import("../../components/auth/views/LoginPage"));
+const PasswordReset = lazy(() =>
+  import("../../components/auth/views/PasswordReset")
+);
+const SignUpPage = lazy(() => import("../../components/auth/views/SignUpPage"));
+const VerifyEmail = lazy(() =>
+  import("../../components/auth/views/VerifyEmail")
+);
+const ReportForm = lazy(() =>
+  import("../../components/dataUploader/ReportForm")
+);
+const MyTweets = lazy(() => import("../../components/myTweets/MyTweets"));
+const ReportsCard = lazy(() =>
+  import("../../components/reports/MyReportsCard")
+);
+const EmotionAnalyzer = lazy(() =>
+  import("../../components/analyzers/emotionAnalyzer/EmotionAnalyzer")
+);
+const DataSelection = lazy(() =>
+  import("../../components/dataSelection/DataSelection")
+);
+const TweetFetcher = lazy(() =>
+  import("../../components/dataUploader/TweetFetcher")
+);
+const SimilarityAlgorithms = lazy(() =>
+  import("../../components/similarityAlgorithms/SimilarityAlgorithms")
+);
 
 export const routes = {
   home: {

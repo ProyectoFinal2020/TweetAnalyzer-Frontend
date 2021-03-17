@@ -6,7 +6,7 @@ import { logout } from "../../../utils/localStorageManagement/authentication";
 import { app } from "../../../utils/firebase/firebase";
 import { AuthContext } from "../../../contexts/AuthContext";
 
-export const EmailWasVerified = () => {
+const EmailWasVerified = () => {
   const history = useHistory();
   const { setIsAuthenticated, setSelectedData } = useContext(AuthContext);
 
@@ -22,3 +22,5 @@ export const EmailWasVerified = () => {
 
   return null;
 };
+
+export default EmailWasVerified;

@@ -31,7 +31,7 @@ let errorDictionary = {
   "auth/email-already-in-use": "Ya existe un usuario asociado a este mail.",
 };
 
-export const SignUpPage = () => {
+const SignUpPage = () => {
   const history = useHistory();
   const { setIsAuthenticated, setCurrentUser } = useContext(AuthContext);
   const { setSnackbarItem, setShowSnackbar } = useContext(CustomContext);
@@ -377,3 +377,5 @@ export const SignUpPage = () => {
     </div>
   );
 };
+
+export default SignUpPage;

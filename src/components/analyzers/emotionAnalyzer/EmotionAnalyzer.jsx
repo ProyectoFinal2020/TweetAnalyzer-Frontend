@@ -22,7 +22,7 @@ import "./EmotionAnalyzer.scss";
 import { getTweetAndEmotions } from "./getTweetAndEmotions";
 import { SummaryChart } from "./SummaryChart";
 
-export const EmotionAnalyzer = () => {
+const EmotionAnalyzer = () => {
   const [hasTweets, setHasTweets] = useState(undefined);
   const [tweetAndEmotions, setTweetAndEmotions] = useState(undefined);
   const [total, setTotal] = useState(0);
@@ -231,3 +231,5 @@ export const EmotionAnalyzer = () => {
     </>
   );
 };
+
+export default EmotionAnalyzer;

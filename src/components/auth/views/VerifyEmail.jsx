@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { routes } from "../../../utils/routes/routes";
 import { CustomContext } from "../../../contexts/CustomContext";
 
-export const VerifyEmail = () => {
+const VerifyEmail = () => {
   const history = useHistory();
   const { setSnackbarItem, setShowSnackbar } = useContext(CustomContext);
 
@@ -55,3 +55,5 @@ export const VerifyEmail = () => {
     </>
   );
 };
+
+export default VerifyEmail;

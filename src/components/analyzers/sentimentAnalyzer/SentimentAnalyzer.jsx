@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  CircularProgress,
   Grid,
   IconButton,
   Paper,
@@ -17,16 +18,19 @@ import { EmptyMessageResult } from "../../shared/emptyMessageResult/EmptyMessage
 import { NoContentComponent } from "../../shared/noContent/NoContent";
 import { ResponsiveTablePaginator } from "../../shared/paginator/ResponsiveTablePaginator";
 import { SimilarityAlgorithmsKeys } from "../../similarityAlgorithms/SimilarityAlgorithmsNames";
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { Bar } from "react-chartjs-2";
 import { get } from "../../../utils/api/api";
 import { Tweet } from "../../shared/tweet/Tweet";
 import { CardSubheader } from "../common/CardSubheader";
-import { FilterByThresholdDialog } from "./dialogs/FilterByThresholdDialog";
 import { getOptions, graphColors } from "./graphAuxStructures";
 import "./SentimentAnalyzer.scss";
 
-export const SentimentAnalyzer = () => {
+const FilterByThresholdDialog = lazy(() =>
+  import("./dialogs/FilterByThresholdDialog")
+);
+
+const SentimentAnalyzer = () => {
   const [open, setOpen] = React.useState(false);
   const [searchedPolarity, setSearchedPolarity] = React.useState([-1, 1]);
   const [graphInfo, setGraphInfo] = useState(undefined);
@@ -303,14 +307,16 @@ export const SentimentAnalyzer = () => {
                 )}
               </CardContent>
             </Card>
-            <FilterByThresholdDialog
-              open={open}
-              setOpen={setOpen}
-              STEP_SIZE={STEP_SIZE}
-              minPolarity={searchedPolarity[0]}
-              maxPolarity={searchedPolarity[1]}
-              handleSubmit={handleSubmit}
-            />
+            <Suspense fallback={<CircularProgress />}>
+              <FilterByThresholdDialog
+                open={open}
+                setOpen={setOpen}
+                STEP_SIZE={STEP_SIZE}
+                minPolarity={searchedPolarity[0]}
+                maxPolarity={searchedPolarity[1]}
+                handleSubmit={handleSubmit}
+              />
+            </Suspense>
           </>
         ) : (
           <Card>
@@ -334,3 +340,5 @@ export const SentimentAnalyzer = () => {
     </>
   );
 };
+
+export default SentimentAnalyzer;

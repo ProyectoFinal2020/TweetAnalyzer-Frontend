@@ -74,6 +74,8 @@ export const HeaderLinks = (props) => {
               buttonText={
                 <>
                   <img
+                    height={25}
+                    width={25}
                     src={
                       currentUser
                         ? currentUser.photoUrl !== ""

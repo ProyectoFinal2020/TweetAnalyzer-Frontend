@@ -9,10 +9,10 @@ export const Footer = () => {
     <MDBFooter color="dark" className="custom_footer">
       <Grid container direction="row" justify="flex-start" alignItems="center">
         <Grid item xs={12} md={6} lg={4} className="footer_description">
-          <Typography variant="subtitle1" component="h5">
+          <Typography variant="subtitle1" component="h3">
             Tweet Analyzer
           </Typography>
-          <Typography variant="subtitle2" component="p">
+          <Typography variant="subtitle2" component="h4">
             Trabajo realizado como parte del proyecto final de carrera de los
             autores
           </Typography>

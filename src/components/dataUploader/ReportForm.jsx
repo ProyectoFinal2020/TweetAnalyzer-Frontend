@@ -23,7 +23,7 @@ import { routes } from "../../utils/routes/routes";
 import { LanguageButtons } from "./LanguageButtons";
 import "./ReportForm.scss";
 
-export const ReportForm = (props) => {
+const ReportForm = (props) => {
   const [allReports, setAllReports] = useState(undefined);
   const [userTitles, setUserTitles] = useState(undefined);
   const [isEditing, setIsEditing] = useState(false);
@@ -398,3 +398,5 @@ export const ReportForm = (props) => {
     </>
   );
 };
+
+export default ReportForm;

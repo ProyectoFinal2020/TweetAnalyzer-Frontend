@@ -218,6 +218,8 @@ export const TweetsByTopicTable = ({
                     <tr key={tweet.id}>
                       <td className="tweets_table_user_img">
                         <img
+                          height={25}
+                          width={25}
                           src={tweet.img_url}
                           alt="perfil de usuario"
                           onError={(e) => {

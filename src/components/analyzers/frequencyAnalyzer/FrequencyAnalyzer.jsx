@@ -6,7 +6,7 @@ import { FrequencyBubbleChart } from "./FrequencyBubbleChart";
 import { HashtagCloud } from "./HashtagCloud";
 import "./FrequencyAnalyzer.scss";
 
-export const FrequencyAnalyzer = () => {
+const FrequencyAnalyzer = () => {
   const [hasTweets, setHasTweets] = useState(undefined);
   const [selectedData, setSelectedData] = useState(undefined);
 
@@ -52,3 +52,5 @@ export const FrequencyAnalyzer = () => {
     </>
   );
 };
+
+export default FrequencyAnalyzer;

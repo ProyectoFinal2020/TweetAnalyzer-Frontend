@@ -2,6 +2,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  CircularProgress,
   IconButton,
   Tooltip,
 } from "@material-ui/core";
@@ -10,13 +11,14 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { FilterFields } from "../../shared/chips/FilterFields";
 import { EmptyMessageResult } from "../../shared/emptyMessageResult/EmptyMessageResult";
 import { SimilarityAlgorithmsKeys } from "../../similarityAlgorithms/SimilarityAlgorithmsNames";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import ReactWordcloud from "react-wordcloud";
 import "tippy.js/animations/scale.css";
 import "tippy.js/dist/tippy.css";
 import { get } from "../../../utils/api/api";
 import { CardSubheader } from "../common/CardSubheader";
-import { FrequencyDialog } from "./dialogs/FrequencyDialog";
+
+const FrequencyDialog = lazy(() => import("./dialogs/FrequencyDialog"));
 
 export const HashtagCloud = ({ className, selectedData, ...props }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -120,6 +122,7 @@ export const HashtagCloud = ({ className, selectedData, ...props }) => {
                     rotations: 0,
                     fontSizes: [15, 60],
                     fontFamily: "Roboto",
+                    fontDisplay: "swap",
                     deterministic: true,
                   }}
                 />
@@ -135,14 +138,16 @@ export const HashtagCloud = ({ className, selectedData, ...props }) => {
           )}
         </CardContent>
       </Card>
-      <FrequencyDialog
-        dialogTitle="Nube de hashtags"
-        open={dialogOpen}
-        setOpen={setDialogOpen}
-        maxAmountWords={maxAmountWords}
-        minimumFrequency={minimumFrequency}
-        save={save}
-      />
+      <Suspense fallback={<CircularProgress />}>
+        <FrequencyDialog
+          dialogTitle="Nube de hashtags"
+          open={dialogOpen}
+          setOpen={setDialogOpen}
+          maxAmountWords={maxAmountWords}
+          minimumFrequency={minimumFrequency}
+          save={save}
+        />
+      </Suspense>
     </>
   ) : (
     <Card>

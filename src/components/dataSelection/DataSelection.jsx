@@ -26,7 +26,7 @@ import { TweetsByTopicTable } from "./TweetsByTopicTable";
 import "./DataSelection.scss";
 import "./TweetsByTopicTable.scss";
 
-export const DataSelection = () => {
+const DataSelection = () => {
   const [reports, setReports] = useState(undefined);
   const [selectedReport, setSelectedReport] = useState("");
   const [tweetsTopic, setTweetsTopic] = useState(undefined);
@@ -309,3 +309,5 @@ export const DataSelection = () => {
     </Card>
   ) : null;
 };
+
+export default DataSelection;

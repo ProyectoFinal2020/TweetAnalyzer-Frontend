@@ -21,7 +21,7 @@ import { LanguageButtons } from "./LanguageButtons";
 import { TagChips } from "./TagChips";
 import "./TweetFetcher.scss";
 
-export const TweetFetcher = () => {
+const TweetFetcher = () => {
   const substractDays = (date, days) => {
     return new Date(date - days * 24 * 60 * 60 * 1000);
   };
@@ -361,3 +361,5 @@ export const TweetFetcher = () => {
     </>
   );
 };
+
+export default TweetFetcher;

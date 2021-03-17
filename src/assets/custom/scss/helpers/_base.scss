@@ -28,6 +28,7 @@ body {
   padding: 0 8px 0 0 !important;
   @include add_scrollbar(8px, 1);
   font-family: $first-font;
+  font-display: swap;
   color: $primary;
   background-color: lighten($light-grey, 3%);
   display: flex;

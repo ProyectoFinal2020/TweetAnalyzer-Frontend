@@ -1,12 +1,12 @@
 import { Button, Grid, Typography } from "@material-ui/core";
-import React, { useContext } from "react";
+import React, { useContext, lazy } from "react";
 import { useHistory } from "react-router-dom";
 import { HomeCards } from "./HomeCards";
 import { routes } from "../../utils/routes/routes";
 import { AuthContext } from "../../contexts/AuthContext";
 import "./Home.scss";
 
-export const Home = () => {
+const Home = () => {
   const history = useHistory();
   const { isAuthenticated } = useContext(AuthContext);
 
@@ -28,8 +28,8 @@ export const Home = () => {
           ¡Bienvenido!
         </Typography>
         <Typography
-          component="h5"
-          variant="h5"
+          component="h3"
+          variant="h3"
           align="center"
           color="textSecondary"
         >
@@ -78,3 +78,5 @@ export const Home = () => {
     </Grid>
   );
 };
+
+export default Home;

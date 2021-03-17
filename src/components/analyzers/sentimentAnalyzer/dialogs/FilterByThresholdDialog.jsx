@@ -8,7 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import React from "react";
 import "./FilterByThresholdDialog.scss";
 
-export const FilterByThresholdDialog = ({
+const FilterByThresholdDialog = ({
   open,
   setOpen,
   minPolarity,
@@ -65,3 +65,5 @@ export const FilterByThresholdDialog = ({
     </Dialog>
   );
 };
+
+export default FilterByThresholdDialog;

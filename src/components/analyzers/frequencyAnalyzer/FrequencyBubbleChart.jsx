@@ -4,6 +4,7 @@ import {
   CardContent,
   CardHeader,
   Chip,
+  CircularProgress,
   Grid,
   Hidden,
   IconButton,
@@ -17,14 +18,15 @@ import { FilterFields } from "../../shared/chips/FilterFields";
 import { EmptyMessageResult } from "../../shared/emptyMessageResult/EmptyMessageResult";
 import { SimilarityAlgorithmsKeys } from "../../similarityAlgorithms/SimilarityAlgorithmsNames";
 import * as d3 from "d3";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState, lazy } from "react";
 import ReactWordcloud from "react-wordcloud";
 import "tippy.js/animations/scale.css";
 import "tippy.js/dist/tippy.css";
 import { get } from "../../../utils/api/api";
 import { CardSubheader } from "../common/CardSubheader";
-import { FrequencyDialog } from "./dialogs/FrequencyDialog";
 import "./FrequencyBubbleChart.scss";
+
+const FrequencyDialog = lazy(() => import("./dialogs/FrequencyDialog"));
 
 const colors = d3.scaleOrdinal(d3["schemeCategory20c"]);
 
@@ -200,6 +202,7 @@ export const FrequencyBubbleChart = ({ className, selectedData, ...props }) => {
                       rotations: 0,
                       fontSizes: [15, 60],
                       fontFamily: "Roboto",
+                      fontDisplay: "swap",
                       deterministic: true,
                     }}
                   />
@@ -216,14 +219,16 @@ export const FrequencyBubbleChart = ({ className, selectedData, ...props }) => {
           )}
         </CardContent>
       </Card>
-      <FrequencyDialog
-        dialogTitle="Frecuencia de palabras"
-        open={dialogOpen}
-        setOpen={setDialogOpen}
-        maxAmountWords={maxAmountWords}
-        minimumFrequency={minimumFrequency}
-        save={save}
-      />
+      <Suspense fallback={<CircularProgress />}>
+        <FrequencyDialog
+          dialogTitle="Frecuencia de palabras"
+          open={dialogOpen}
+          setOpen={setDialogOpen}
+          maxAmountWords={maxAmountWords}
+          minimumFrequency={minimumFrequency}
+          save={save}
+        />
+      </Suspense>
     </>
   ) : null;
 };

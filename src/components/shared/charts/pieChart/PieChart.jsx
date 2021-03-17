@@ -22,6 +22,7 @@ export const PieChart = ({ data, fontSize, setHovered, height, ...props }) => {
           fontSize: fontSize,
           fill: "white",
           fontFamily: "Roboto",
+          fontDisplay: "swap",
           fontWeight: 500,
         }}
         labelPosition={75}

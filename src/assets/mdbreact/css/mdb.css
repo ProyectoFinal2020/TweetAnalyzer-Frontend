@@ -9,7 +9,6 @@ ___________________________________ */
 ___________________________________ */
 /* Screen size
 ___________________________________ */
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 .mdb-color.lighten-5 {
   background-color: #d0d6e2 !important;
 }
@@ -1933,6 +1932,7 @@ button.bg-light:focus {
 
 body {
   font-family: "Roboto", sans-serif;
+  font-display: swap;
   font-weight: 300;
 }
 
@@ -9742,6 +9742,7 @@ table.dataTable thead .sorting_desc_disabled:after {
 table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
   right: 1em;
   font-family: "Font Awesome\ 5 Free", sans-serif;
+  font-display: swap;
   font-size: 1rem;
   font-weight: 900;
   content: "\f0de";
@@ -9750,6 +9751,7 @@ table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before
 table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
   right: 16px;
   font-family: "Font Awesome\ 5 Free", sans-serif;
+  font-display: swap;
   font-size: 1rem;
   font-weight: 900;
   content: "\f0dd";

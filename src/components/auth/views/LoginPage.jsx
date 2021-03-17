@@ -17,7 +17,7 @@ import CardHeader from "../Card/CardHeader.js";
 import CustomInput from "../CustomInput/CustomInput.js";
 import "./Login.scss";
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const history = useHistory();
   const { setIsAuthenticated, setCurrentUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
@@ -209,3 +209,5 @@ export const LoginPage = () => {
     </div>
   );
 };
+
+export default LoginPage;

@@ -20,7 +20,7 @@ let errorDictionary = {
   "auth/invalid-email": "El formato del mail es incorrecto",
 };
 
-export const PasswordReset = () => {
+const PasswordReset = () => {
   const [email, setEmail] = useState("");
   const { setSnackbarItem, setShowSnackbar } = useContext(CustomContext);
   const history = useHistory();
@@ -96,3 +96,5 @@ export const PasswordReset = () => {
     </div>
   );
 };
+
+export default PasswordReset;

@@ -48,6 +48,7 @@ export const Header = (props) => {
           color="inherit"
           style={{ padding: "0px 10px", margin: "0px 10px" }}
           onClick={handleDrawerToggle}
+          aria-label="Sidebar"
         >
           <Menu />
         </IconButton>
@@ -89,7 +90,7 @@ export const Header = (props) => {
           </Hidden>
           <Grid item className={getLogoClassName()}>
             <Button href={href}>
-              <img alt="logo" src={tweetLogo} height={25} />
+              <img alt="logo" src={tweetLogo} height={25} width={25} />
               <Typography
                 hidden={useLocation().pathname !== "/home"}
                 className="logo-label"

@@ -29,7 +29,7 @@ import "./SimilarityAlgorithms.scss";
 import { SimilarityAlgorithmsKeys } from "./SimilarityAlgorithmsNames";
 import { TweetsWithScores } from "./TweetsWithScores";
 
-export const SimilarityAlgorithms = () => {
+const SimilarityAlgorithms = () => {
   const { selectedData, setSelectedData } = useContext(AuthContext);
   const [tweetsWithScores, setTweetsWithScores] = useState(undefined);
   const history = useHistory();
@@ -313,3 +313,5 @@ export const SimilarityAlgorithms = () => {
     </>
   );
 };
+
+export default SimilarityAlgorithms;

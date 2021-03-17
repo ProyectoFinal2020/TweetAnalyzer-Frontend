@@ -31,7 +31,7 @@ import { SearchTweets } from "./SearchTweets";
 import { TweetsTable } from "./TweetsTable";
 import { DownloadButton } from "../shared/downloadButton/DownloadButton";
 
-export const MyTweets = () => {
+const MyTweets = () => {
   const history = useHistory();
   const [count, setCount] = useState(0);
   const [totalTweets, setTotalTweets] = useState(0);
@@ -382,3 +382,5 @@ export const MyTweets = () => {
     </>
   );
 };
+
+export default MyTweets;

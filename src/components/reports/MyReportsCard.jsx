@@ -27,7 +27,7 @@ import "./MyReportsCard.scss";
 import { ReportCard } from "./ReportCard";
 import { SearchReports } from "./SearchReports";
 
-export const ReportsCard = () => {
+const ReportsCard = () => {
   const [allReports, setAllReports] = useState(undefined);
   const [reports, setReports] = useState(undefined);
   const [searchWords, setSearchWords] = useState(undefined);
@@ -281,3 +281,5 @@ export const ReportsCard = () => {
     </>
   );
 };
+
+export default ReportsCard;

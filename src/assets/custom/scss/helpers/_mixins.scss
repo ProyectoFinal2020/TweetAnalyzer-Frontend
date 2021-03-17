@@ -57,6 +57,7 @@
 
 @mixin typography_label {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-display: swap;
   color: #979797;
   font-weight: 400;
   font-size: 14px;
